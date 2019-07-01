@@ -1,0 +1,42 @@
+a, button{
+  text-decoration: none;
+  color: white;
+}
+
+button{
+  font-size: 20px;
+  margin-top: -5px;
+  margin-left: -20px;
+}
+
+.matMenuButtons{
+  font-size: 15px;
+  margin-left: 0px;
+  margin-top: 0px;
+  color: black;
+}
+
+.matMenuButtons:hover{
+  color: gray;
+  background-color: lightgray;
+}
+
+a:hover, a:active, button:hover, button:active{
+  color: lightgray;
+}
+
+.navigation-items{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+mat-toolbar{
+  border-radius: 0px;
+}
+
+@media(max-width: 959px){
+  mat-toolbar{
+    border-radius: 0px;
+  }
+}
