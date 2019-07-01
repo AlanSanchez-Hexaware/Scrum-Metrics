@@ -1,0 +1,13 @@
+#outer-div{
+  border-color: black;
+  border-radius: 25px;
+  width: 70%;
+  background-color: rgb(55, 106, 165);
+  margin: 3% 0 3% 0;
+  color: white;
+}
+
+#first-div{
+  background-image: url(../../assets/img/buildings.jpg);
+  background-repeat: no-repeat;
+}

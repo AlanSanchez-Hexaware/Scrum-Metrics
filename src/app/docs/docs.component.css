@@ -1,4 +1,6 @@
 button{
-  background-color: lightgray;
   font-size: 15px;
+  background-color: rgb(55, 106, 165);
+  color: white;
+  border-radius: 15px;
 }
