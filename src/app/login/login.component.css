@@ -1,13 +1,61 @@
 #outer-div{
   border-color: black;
   border-radius: 25px;
-  width: 70%;
-  background-color: rgb(55, 106, 165);
+  width: 40%;
+  background-color: rgba(55, 106, 165, 0.671);
   margin: 3% 0 3% 0;
   color: white;
+  min-width: 320px;
+  max-width: 1080px;
 }
+
+@media screen and (max-width: 600px){
+  #outer-div{
+    width: 50%;
+  }
+ }
 
 #first-div{
   background-image: url(../../assets/img/buildings.jpg);
   background-repeat: no-repeat;
+}
+
+h1{
+  font-size: 45px;
+}
+
+h3{
+  font-size: 22px;
+}
+
+mat-error{
+  font-size: 12px;
+}
+
+img{
+  height: 35px;
+  width: 35px;
+  border: 15px;
+  border-color: black;
+}
+
+button{
+  background-color: rgb(42, 87, 138);
+  border-radius: 10px;
+}
+
+div #inner-div{
+  align: center;
+  text-align: center;
+  margin: 3% 20% 5% 20%;
+}
+
+.forgot-a{
+  font-size: 12px;
+}
+
+.reg-link{
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
 }

@@ -27,6 +27,10 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DocsComponent } from './docs/docs.component';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NotFoundComponent } from './error-pages/not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +42,8 @@ import { DocsComponent } from './docs/docs.component';
     AboutComponent,
     LoginComponent,
     RegisterComponent,
-    DocsComponent
+    DocsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,9 @@ import { DocsComponent } from './docs/docs.component';
     MatIconModule,
     RoutingModule,
     FlexLayoutModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    MatCheckboxModule
   ],
   exports: [
     MatTabsModule,
@@ -62,7 +69,8 @@ import { DocsComponent } from './docs/docs.component';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -35,6 +35,11 @@ mat-toolbar{
   border-radius: 0px;
 }
 
+.active{
+  font-weight: bold;
+  color: lightgray;
+}
+
 @media(max-width: 959px){
   mat-toolbar{
     border-radius: 0px;

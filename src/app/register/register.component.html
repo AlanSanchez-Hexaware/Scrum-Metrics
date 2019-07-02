@@ -1,1 +1,47 @@
-<p>register works!</p>
+<div fxLayout="row" fxLayoutAlign="center center" id="first-div">
+    <div id="outer-div">
+      <div fxLayout="row" fxLayoutAlign="center center">
+          <h1>Create a new account</h1>
+      </div>
+      <form (submit)="onAddUser(userForm)" #userForm="ngForm">
+      <div id="inner-div">
+            <h3>Name</h3>
+            <mat-form-field>
+                <input matInput type="text" name="inName" placeholder="Name" required>
+                <mat-error>You need to enter a name.</mat-error>
+            </mat-form-field>
+            <h3>E-mail</h3>
+            <mat-form-field>
+                <input matInput type="text" name="inEmail" placeholder="E-mail" required>
+                <mat-error>You need to enter a valid E-mail.</mat-error>
+            </mat-form-field>
+            <h3>Username</h3>
+            <mat-form-field>
+                <input matInput type="text" name="inUser" placeholder="Username" required minlength="4" maxlength="15">
+                <mat-error>You need to enter a valid username. Lenght: 4-15 characters.</mat-error>
+            </mat-form-field>
+            <h3>Password</h3>
+            <mat-form-field>
+                <input matInput type="password" name="inPass" placeholder="Password" required minlength="4" maxlength="20">
+                <mat-error>You need to enter a valid password. Lenght: 4-20 characters.</mat-error>
+            </mat-form-field>
+            <h3>Confirm Password</h3>
+            <mat-form-field>
+                <input matInput type="password" name="confPass" placeholder="Repeat password" required>
+                <mat-error>Passwords don't match.</mat-error>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-checkbox color="primary"><h4>I agree to the <a href="/terms">Terms of use & service</a>.</h4></mat-checkbox>
+            </div>
+
+            <button mat-button type="submit">Create an account</button><p></p>
+            <a href="www.google.com" id="google-reg">
+              Register with   <img src="../../assets/img/google.png" alt="google_sign-in">
+            </a>
+            <h4>You already have an account?</h4>
+            <a routerLink="/login" class="reg-link">Log In.</a>
+      </div>
+    </form>
+    </div>
+  </div>

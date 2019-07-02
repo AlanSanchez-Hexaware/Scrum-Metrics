@@ -6,6 +6,7 @@ import { AboutComponent } from '../about/about.component';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { DocsComponent } from '../docs/docs.component';
+import { NotFoundComponent } from '../error-pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -13,7 +14,9 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'documentation', component: DocsComponent }
+  { path: 'documentation', component: DocsComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 
 @NgModule({

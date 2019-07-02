@@ -3,19 +3,31 @@
     <div fxLayout="row" fxLayoutAlign="center center">
         <h1>Login</h1>
     </div>
-    <h3>Username:</h3>
-    <input matInput type="text" placeholder="username"> <br>
-    <mat-error>You need to enter a valid username</mat-error> <br>
-    <a>Forgot your username?</a>
-    <h3>Password</h3>
-    <input matInput type="password" placeholder="password"> <br>
-    <mat-error>You need to enter a valid password</mat-error> <br>
-    <a>Forgot your password?</a>
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <button mat-button>Login</button>
-      <button mat-menu-item>Login with Google</button>
+    <div id="inner-div">
+          <h3>Username:</h3>
+          <mat-form-field>
+              <input matInput type="text" name="inUser" placeholder="Username" required>
+              <mat-error>You need to enter a valid username</mat-error>
+          </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign="center center">
+              <a class="forgot-a">Forgot your username?</a>
+          </div>
+          <h3>Password</h3>
+          <mat-form-field>
+              <input matInput type="password" name="inPass" placeholder="Password" required>
+              <mat-error>You need to enter a valid password</mat-error>
+          </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign="center center">
+              <a class="forgot-a">Forgot your password?</a>
+          </div><br>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-button>Login</button><p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <a href="www.google.com">
+              <img src="../../assets/img/google.png" alt="google_sign-in">
+            </a>
+          </div>
+          <h4>Don't have an account?</h4>
+          <a routerLink="/register" class="reg-link">Register.</a>
     </div>
-    <h4>Don't have an account?</h4>
-    <a routerLink="/register">Register.</a>
   </div>
 </div>

@@ -1,0 +1,68 @@
+#outer-div{
+  border-color: black;
+  border-radius: 25px;
+  width: 50%;
+  background-color: rgba(55, 106, 165, 0.781);
+  margin: 3% 0 3% 0;
+  color: white;
+  min-width: 320px;
+  max-width: 1080px;
+}
+
+@media screen and (max-width: 600px){
+  #outer-div{
+    width: 60%;
+  }
+ }
+
+#first-div{
+  background-image: url(../../assets/img/building1.jpg);
+  background-repeat: no-repeat;
+}
+
+h1{
+  text-align: center;
+  font-size: 45px;
+}
+
+h3{
+  font-size: 22px;
+}
+
+mat-error{
+  font-size: 12px;
+}
+
+img{
+  height: 35px;
+  width: 35px;
+  border: 15px;
+  border-color: black;
+}
+
+button{
+  background-color: rgba(34, 75, 122, 0.932);
+  border-radius: 10px;
+}
+
+div #inner-div{
+  align: center;
+  text-align: center;
+  margin: 3% 20% 5% 20%;
+}
+
+.reg-link{
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+}
+
+a{
+  text-decoration: none;
+  color: lightgrays;
+}
+
+#google-reg{
+  text-decoration: none;
+  color: white;
+}
