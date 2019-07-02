@@ -7,28 +7,28 @@
       <div id="inner-div">
             <h3>Name</h3>
             <mat-form-field>
-                <input matInput type="text" name="inName" placeholder="Name" required>
-                <mat-error>You need to enter a name.</mat-error>
+                <input matInput type="text" name="inName" ngModel #fullname="ngModel" placeholder="Name" required>
+                <mat-error *ngIf="fullname.invalid">You need to enter a name.</mat-error>
             </mat-form-field>
             <h3>E-mail</h3>
             <mat-form-field>
-                <input matInput type="text" name="inEmail" placeholder="E-mail" required>
-                <mat-error>You need to enter a valid E-mail.</mat-error>
+                <input matInput type="text" name="inEmail" ngModel #email="ngModel" placeholder="E-mail" required>
+                <mat-error *ngIf="email.invalid">You need to enter a valid E-mail.</mat-error>
             </mat-form-field>
             <h3>Username</h3>
             <mat-form-field>
-                <input matInput type="text" name="inUser" placeholder="Username" required minlength="4" maxlength="15">
-                <mat-error>You need to enter a valid username. Lenght: 4-15 characters.</mat-error>
+                <input matInput type="text" name="inUser" ngModel #username="ngModel" placeholder="Username" required minlength="4" maxlength="15">
+                <mat-error *ngIf="username.invalid">You need to enter a valid username. Lenght: 4-15 characters.</mat-error>
             </mat-form-field>
             <h3>Password</h3>
             <mat-form-field>
-                <input matInput type="password" name="inPass" placeholder="Password" required minlength="4" maxlength="20">
-                <mat-error>You need to enter a valid password. Lenght: 4-20 characters.</mat-error>
+                <input matInput type="password" name="inPass" ngModel #password="ngModel" placeholder="Password" required minlength="4" maxlength="20">
+                <mat-error *ngIf="password.invalid">You need to enter a valid password. Lenght: 4-20 characters.</mat-error>
             </mat-form-field>
             <h3>Confirm Password</h3>
             <mat-form-field>
-                <input matInput type="password" name="confPass" placeholder="Repeat password" required>
-                <mat-error>Passwords don't match.</mat-error>
+                <input matInput type="password" name="confPass" ngModel #password2="ngModel" placeholder="Repeat password">
+                <mat-error *ngIf="password2.invalid">Passwords don't match.</mat-error>
             </mat-form-field>
 
             <div fxLayout="row" fxLayoutAlign="center center">
