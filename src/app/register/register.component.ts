@@ -10,11 +10,6 @@ import { UserService } from './users.service';
 
 export class RegisterComponent implements OnInit {
 
-  enteredName = '';
-  enteredEmail = '';
-  enteredUser = '';
-  enteredPass = '';
-
   constructor(public userService: UserService) { }
 
   ngOnInit() {
@@ -24,9 +19,9 @@ export class RegisterComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    alert('User Created');
     this.userService.setUser(form.value.inName, form.value.inEmail, form.value.inUser, form.value.inPass);
-    form.resetForm();
+    //this.userService.getStatus();
+    setTimeout('location.href = \'/login\';' , 1000);
   }
 
 }

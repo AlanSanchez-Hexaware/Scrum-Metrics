@@ -30,6 +30,7 @@ import { DocsComponent } from './docs/docs.component';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
+import { HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { NotFoundComponent } from './error-pages/not-found/not-found.component';
     FlexLayoutModule,
     MatListModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
   ],
   exports: [
     MatTabsModule,

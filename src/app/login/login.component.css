@@ -42,6 +42,7 @@ img{
 button{
   background-color: rgb(42, 87, 138);
   border-radius: 10px;
+  color: white;
 }
 
 div #inner-div{
