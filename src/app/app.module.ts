@@ -13,8 +13,7 @@ import {
   MatSidenavModule,
   MatTabsModule,
   MatIconModule,
-  MatListModule,
-  MatDialog
+  MatListModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -32,6 +31,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { HttpClientModule} from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -63,7 +63,8 @@ import { HttpClientModule} from '@angular/common/http';
     MatListModule,
     FormsModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule
   ],
   exports: [
     MatTabsModule,

@@ -1,8 +1,8 @@
 import { User } from './user.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { async } from 'q';
+import { Observable, throwError } from 'rxjs';
+import { createReducer, on } from '@ngrx/store';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -39,9 +39,21 @@ export class UserService {
   loginUser2(username: string, password: string) {
     const userLog = { username, password };
     this.userObs$ = this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/login', userLog);
-    // this.errObs$ = this.userObs$.pipe().map(this.transformData));
+    // this.errObs$ = this.userObs$.pipe(map( response => {}),catchError(error => {throwError(error););
     // console.log(this.errObs$);
     // this.getResp();
+  }
+
+  loginUser3(username: string, password: string) {
+    const userLog = { username, password };
+    this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/login', userLog).toPromise().then((responseData) => {
+      alert(responseData.message);
+      if (responseData.error) {
+        return;
+      } else {
+        setTimeout('location.href = \'/home\';' , 1000);
+      }
+    });
   }
 
   private transformData(responseData) {
