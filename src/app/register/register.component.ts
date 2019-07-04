@@ -20,8 +20,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.userService.setUser(form.value.inName, form.value.inEmail, form.value.inUser, form.value.inPass);
-    //this.userService.getStatus();
-    setTimeout('location.href = \'/login\';' , 1000);
+    form.resetForm();
   }
 
 }

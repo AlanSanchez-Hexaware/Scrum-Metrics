@@ -47,7 +47,7 @@ app.post("/api/postuser", (req, res, next) => {
   if( !req.body.name || !req.body.email || !req.body.username || !req.body.password ){
     response = {
       error: true,
-      code: 502,
+      code: 400,
       message: 'Missing data'
     };
   }else{
@@ -57,7 +57,7 @@ app.post("/api/postuser", (req, res, next) => {
       if(result.length>0){
         response = {
           error: true,
-          code: 500,
+          code: 409,
           message: 'E-mail already in use'
         };
       }else{
@@ -65,7 +65,7 @@ app.post("/api/postuser", (req, res, next) => {
           if(result.length>0){
             response = {
               error: true,
-              code: 500,
+              code: 409,
               message: 'Username already in use'
             };
           }else{
@@ -77,7 +77,7 @@ app.post("/api/postuser", (req, res, next) => {
             };
             response = {
               error: false,
-              code: 200,
+              code: 201,
               message: 'User created'
             };
             let insQuery = "INSERT INTO test_users (username,password,e_mail,name,image) VALUES ('" + user.username + "','" + user.password + "','" + user.email + "','" + user.name + "', null)";
@@ -98,7 +98,67 @@ app.post("/api/postuser", (req, res, next) => {
   res.send(response);
 });
 
-app.get("/api/postuser", (req, res, next) => {
+app.get("/api", (req, res, next) => {
+  res.send(response);
+});
+
+app.post("/api/login", (req, res, next) => {
+  if( !req.body.username || !req.body.password ){
+    response = {
+      error: true,
+      code: 400,
+      message: 'Missing data'
+    };
+  }else{
+    let userQuery = "SELECT username FROM test_users WHERE username = ?";
+    db.query(userQuery,[
+      req.body.username
+    ],(err, result) => {
+      if (err) {
+        response = {
+          error: true,
+          code: 500,
+          message: err
+        };
+      } else {
+        if (result.length===0) {
+          response = {
+            error: true,
+            code: 404,
+            message: 'User not found'
+          };
+        } else {
+          let logQuery = "SELECT username, password FROM test_users WHERE username = ? AND password = ?";
+          db.query(logQuery,[
+            req.body.username,
+            req.body.password
+          ],(err, result) => {
+            if (err) {
+              response = {
+                error: true,
+                code: 500,
+                message: err
+              };
+            } else {
+              if(result.length > 0){
+                response = {
+                  error: false,
+                  code: 200,
+                  message: 'Successful login'
+                };
+              } else {
+                  response = {
+                    error: true,
+                    code: 400,
+                    message: 'Incorrect password'
+                  };
+                }
+              }
+            });
+        }
+      }
+    });
+  }
   res.send(response);
 });
 
