@@ -5,24 +5,24 @@
         </button>
     </div>
     <div>
-        <a routerLink="/home">
+        <a routerLink="/start/home">
           <img src="../../../favicon.ico" alt="logo">
         </a>
     </div>
     <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
         <ul fxLayout fxLayoutGap="40px" class="navigation-items">
             <li>
-                <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+                <a routerLink="/start/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
             </li>
             <li>
-                <a routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">About</a>
+                <a routerLink="/start/about" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">About</a>
             </li>
             <li>
                 <button mat-button [matMenuTriggerFor]="menu" class="dropbtn">Getting Started</button>
                   <mat-menu #menu="matMenu">
-                    <button mat-menu-item routerLink="/login" class="matMenuButtons">Login</button>
-                    <button mat-menu-item routerLink="/register" class="matMenuButtons">Register</button>
-                    <button mat-menu-item routerLink="/documentation" class="matMenuButtons">Docs</button>
+                    <button mat-menu-item routerLink="/start/login" class="matMenuButtons">Login</button>
+                    <button mat-menu-item routerLink="/start/register" class="matMenuButtons">Register</button>
+                    <button mat-menu-item routerLink="/start/documentation" class="matMenuButtons">Docs</button>
                   </mat-menu>
             </li>
         </ul>

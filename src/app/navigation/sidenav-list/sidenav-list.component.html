@@ -1,8 +1,8 @@
 <mat-nav-list>
-  <a mat-list-item routerLink="/home" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="/start/home" (click)="onSidenavClose()">
     <mat-icon>home</mat-icon><span class="nav-caption">Home</span>
   </a>
-  <a mat-list-item routerLink="/about" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="/start/about" (click)="onSidenavClose()">
     <mat-icon>info</mat-icon><span class="nav-caption">About</span>
   </a>
   <mat-list-item [matMenuTriggerFor]="menu">
@@ -10,8 +10,8 @@
     <a matline>Getting Started</a>
   </mat-list-item>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/login" (click)="onSidenavClose()">Login</button>
-    <button mat-menu-item routerLink="/register" (click)="onSidenavClose()">Register</button>
-    <button mat-menu-item routerLink="/documentation" (click)="onSidenavClose()">Docs</button>
+    <button mat-menu-item routerLink="/start/login" (click)="onSidenavClose()">Login</button>
+    <button mat-menu-item routerLink="/start/register" (click)="onSidenavClose()">Register</button>
+    <button mat-menu-item routerLink="/start/documentation" (click)="onSidenavClose()">Docs</button>
   </mat-menu>
 </mat-nav-list>

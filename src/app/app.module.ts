@@ -32,6 +32,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { HttpClientModule} from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { AppHeaderComponent } from './navigation/app-header/app-header.component';
+import { MainhomeComponent } from './mainhome.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { StoreModule } from '@ngrx/store';
     LoginComponent,
     RegisterComponent,
     DocsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AppHeaderComponent,
+    MainhomeComponent
   ],
   imports: [
     BrowserModule,
