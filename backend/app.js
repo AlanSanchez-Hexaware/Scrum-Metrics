@@ -109,6 +109,7 @@ app.post("/api/login", (req, res, next) => {
       code: 400,
       message: 'Missing data'
     };
+    res.send(response);
   }else{
     let userQuery = "SELECT username FROM test_users WHERE username = ?";
     db.query(userQuery,[
@@ -120,6 +121,7 @@ app.post("/api/login", (req, res, next) => {
           code: 500,
           message: err
         };
+        res.send(response);
       } else {
         if (result.length===0) {
           response = {
@@ -127,6 +129,7 @@ app.post("/api/login", (req, res, next) => {
             code: 404,
             message: 'User not found'
           };
+          res.send(response);
         } else {
           let logQuery = "SELECT username, password FROM test_users WHERE username = ? AND password = ?";
           db.query(logQuery,[
@@ -139,6 +142,7 @@ app.post("/api/login", (req, res, next) => {
                 code: 500,
                 message: err
               };
+              res.send(response);
             } else {
               if(result.length > 0){
                 response = {
@@ -146,12 +150,14 @@ app.post("/api/login", (req, res, next) => {
                   code: 200,
                   message: 'Successful login'
                 };
+                res.send(response);
               } else {
                   response = {
                     error: true,
                     code: 400,
                     message: 'Incorrect password'
                   };
+                  res.send(response);
                 }
               }
             });
@@ -159,7 +165,6 @@ app.post("/api/login", (req, res, next) => {
       }
     });
   }
-  res.send(response);
 });
 
 module.exports = app;
