@@ -1,1 +1,17 @@
-<p>app-header works!</p>
+<mat-toolbar color="primary">
+    <div>
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <div fxHide.xs>
+      <h1 id="project-name">No open project</h1>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="end">
+      <img src="../../../assets/img/stockprofile.png" alt="user-photo" class="user-photo">
+      <h1 class="user-name">John Wick</h1>
+      <button mat-icon-button>
+          <mat-icon id="settings-icon">settings</mat-icon>
+      </button>
+    </div>
+</mat-toolbar>

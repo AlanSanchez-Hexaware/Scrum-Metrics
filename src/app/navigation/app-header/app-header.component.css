@@ -1,0 +1,16 @@
+#project-name{
+  padding-left: 10px;
+}
+
+.user-name{
+  margin: 5px 50px 0px 10px;
+}
+
+.user-photo{
+  margin-top: 1px;
+  height: 35px;
+  width: 35px;
+  border: solid 2px;
+  border-color: white;
+  border-radius: 100%;
+}

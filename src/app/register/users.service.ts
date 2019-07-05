@@ -31,47 +31,7 @@ export class UserService {
     if (responseData.error) {
         return;
       } else {
-        setTimeout('location.href = \'/home\';' , 1000);
-      }
-    });
-  }
-
-  loginUser2(username: string, password: string) {
-    const userLog = { username, password };
-    this.userObs$ = this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/login', userLog);
-    // this.errObs$ = this.userObs$.pipe(map( response => {}),catchError(error => {throwError(error););
-    // console.log(this.errObs$);
-    // this.getResp();
-  }
-
-  loginUser3(username: string, password: string) {
-    const userLog = { username, password };
-    this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/login', userLog).toPromise().then((responseData) => {
-      alert(responseData.message);
-      if (responseData.error) {
-        return;
-      } else {
-        setTimeout('location.href = \'/home\';' , 1000);
-      }
-    });
-  }
-
-  private transformData(responseData) {
-    const ress = responseData.response;
-    return Object.keys(ress).map(key => ({
-      error: ress.error,
-      message: ress.message
-    }));
-  }
-
-  getResp() {
-    this.http.get<{error: boolean, message: string}>('http://localhost:3000/api').subscribe((responseData) => {
-      console.log(responseData);
-      alert(responseData.message);
-      if (responseData.error) {
-        return;
-      } else {
-        setTimeout('location.href = \'/home\';' , 1000);
+        setTimeout('location.href = \'/app\';' , 1000);
       }
     });
   }

@@ -34,6 +34,9 @@ import { HttpClientModule} from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { AppHeaderComponent } from './navigation/app-header/app-header.component';
 import { MainhomeComponent } from './mainhome.component';
+import { ApphomeComponent } from './apphome.component';
+import { AppSidenavListComponent } from './navigation/app-sidenav-list/app-sidenav-list.component';
+import { ApplandingComponent } from './applanding/applanding.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { MainhomeComponent } from './mainhome.component';
     DocsComponent,
     NotFoundComponent,
     AppHeaderComponent,
-    MainhomeComponent
+    MainhomeComponent,
+    ApphomeComponent,
+    AppSidenavListComponent,
+    ApplandingComponent
   ],
   imports: [
     BrowserModule,

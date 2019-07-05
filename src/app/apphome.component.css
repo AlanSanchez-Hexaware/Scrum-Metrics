@@ -1,0 +1,26 @@
+mat-sidenav-container, mat-sidenav-content, mat-sidenav{
+  height: 100%;
+}
+
+mat-sidenav-content{
+  min-width: 250px;
+}
+
+mat-sidenav{
+  max-width: 150px;
+  min-width: 150px;
+  min-height: 500px;
+}
+
+app-app-header{
+  height: 100px;
+}
+
+mat-sidenav{
+  width: 40%;
+}
+
+main{
+  padding: 0px;
+  max-width: 2000px;
+}

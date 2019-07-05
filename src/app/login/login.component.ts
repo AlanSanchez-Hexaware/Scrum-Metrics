@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    this.userService.loginUser3(form.value.inUser, form.value.inPass);
+    this.userService.loginUser(form.value.inUser, form.value.inPass);
     form.resetForm();
   }
 

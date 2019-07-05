@@ -8,6 +8,8 @@ import { RegisterComponent } from '../register/register.component';
 import { DocsComponent } from '../docs/docs.component';
 import { NotFoundComponent } from '../error-pages/not-found/not-found.component';
 import { MainhomeComponent } from '../mainhome.component';
+import { ApphomeComponent } from '../apphome.component';
+import { ApplandingComponent } from '../applanding/applanding.component';
 
 const routes: Routes = [
   { path: 'start', component: MainhomeComponent, children: [
@@ -17,10 +19,14 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'documentation', component: DocsComponent },
-    { path: '404', component: NotFoundComponent }
+    { path: '404', component: NotFoundComponent },
+    { path: '**', redirectTo: '/start/404', pathMatch: 'full' }
   ] },
   { path: '', redirectTo: '/start/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/start/404', pathMatch: 'full' }
+  { path: 'app', component: ApphomeComponent, children: [
+    { path: 'project', component: ApplandingComponent },
+    { path: '', redirectTo: '/app/project', pathMatch: 'full' }
+  ] }
 ];
 
 @NgModule({
