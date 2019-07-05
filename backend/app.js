@@ -50,6 +50,7 @@ app.post("/api/postuser", (req, res, next) => {
       code: 400,
       message: 'Missing data'
     };
+    res.send(response);
   }else{
     let emailQuery = "SELECT * FROM test_users WHERE e_mail = '" + req.body.email + "'";
     let usernameQuery = "SELECT * FROM test_users WHERE username = '" + req.body.username + "'";
@@ -60,6 +61,7 @@ app.post("/api/postuser", (req, res, next) => {
           code: 409,
           message: 'E-mail already in use'
         };
+        res.send(response);
       }else{
         db.query(usernameQuery, (err, result) => {
           if(result.length>0){
@@ -68,6 +70,7 @@ app.post("/api/postuser", (req, res, next) => {
               code: 409,
               message: 'Username already in use'
             };
+            res.send(response);
           }else{
             user = {
               name: req.body.name,
@@ -80,6 +83,7 @@ app.post("/api/postuser", (req, res, next) => {
               code: 201,
               message: 'User created'
             };
+            res.send(response);
             let insQuery = "INSERT INTO test_users (username,password,e_mail,name,image) VALUES ('" + user.username + "','" + user.password + "','" + user.email + "','" + user.name + "', null)";
             db.query(insQuery, (err, result) => {
               if (err) {
@@ -88,6 +92,7 @@ app.post("/api/postuser", (req, res, next) => {
                   code: 500,
                   message: err
                 };
+                res.send(response);
               }
             });
           }
@@ -95,7 +100,6 @@ app.post("/api/postuser", (req, res, next) => {
       }
     });
   }
-  res.send(response);
 });
 
 app.get("/api", (req, res, next) => {
