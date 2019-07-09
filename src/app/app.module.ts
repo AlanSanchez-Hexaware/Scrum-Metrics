@@ -6,6 +6,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 import {
@@ -34,7 +35,7 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DocsComponent } from './docs/docs.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { HttpClientModule} from '@angular/common/http';
@@ -90,7 +91,9 @@ import { NewProjectComponent } from './newproject.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
   ],
   exports: [
     MatTabsModule,
@@ -103,9 +106,10 @@ import { NewProjectComponent } from './newproject.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatAutocompleteModule
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, FormControl],
   bootstrap: [AppComponent],
   entryComponents: [NewProjectComponent]
 })

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
   private users: any[];
-  private usernames: any[];
+  private usernames: any[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -38,11 +38,12 @@ export class UserService {
     this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
       this.users = JSON.parse(JSON.stringify(responseData));
       this.users.forEach((Object: any[]) => {
+        // this.usernames.push([Object['user_id'] , Object['username']]);
         // tslint:disable-next-line: no-string-literal
-        this.usernames.push(...Object['username']);
+        this.usernames.push([Object['username']]);
       });
-      console.log(this.usernames);
     });
+    return this.usernames;
   }
 
 }

@@ -29,7 +29,12 @@
       <h3>Add Members</h3>
       <mat-form-field>
         <div fxLayout="row" fxLayoutAlign="center center">
-        <input matInput type="text" placeholder="Search by username.">
+        <input matInput type="text" placeholder="Search by username." aria-label="User" [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let username of filteredOptions | async" [value]="username">
+            {{username}}
+          </mat-option>
+        </mat-autocomplete>
         <button mat-raised-button color="primary">Add</button>
         </div>
       </mat-form-field>
