@@ -22,10 +22,7 @@ export class AppSidenavListComponent implements OnInit {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(NewProjectComponent, {
-      width: '600px',
-      height: '900',
-      minWidth: '400px',
-      minHeight: '900px'
+      minWidth: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

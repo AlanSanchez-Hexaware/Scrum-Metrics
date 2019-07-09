@@ -171,4 +171,11 @@ app.post("/api/login", (req, res, next) => {
   }
 });
 
+app.get("/api/usersquery", (req,res,next) => {
+  let usersQuery = "SELECT user_id, username FROM test_users"
+  db.query(usersQuery, (err,result) => {
+    res.send(result);
+  });
+});
+
 module.exports = app;

@@ -1,14 +1,12 @@
 import { User } from './user.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { createReducer, on } from '@ngrx/store';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
 
-  public userObs$: Observable<any> = null;
-  public errObs$: Observable<any[]> = null;
+  private users: any[];
+  private usernames: any[];
 
   constructor(private http: HttpClient) {}
 
@@ -33,6 +31,17 @@ export class UserService {
       } else {
         setTimeout('location.href = \'/app\';' , 1000);
       }
+    });
+  }
+
+  getUsers() {
+    this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
+      this.users = JSON.parse(JSON.stringify(responseData));
+      this.users.forEach((Object: any[]) => {
+        // tslint:disable-next-line: no-string-literal
+        this.usernames.push(...Object['username']);
+      });
+      console.log(this.usernames);
     });
   }
 

@@ -19,6 +19,8 @@ export class ApplandingComponent implements OnInit {
       minWidth: '500px'
     });
 
+
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
 
