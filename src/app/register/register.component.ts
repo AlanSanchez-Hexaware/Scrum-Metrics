@@ -10,9 +10,15 @@ import { UserService } from './users.service';
 
 export class RegisterComponent implements OnInit {
 
+  disabledAgreement = true;
+
   constructor(public userService: UserService) { }
 
   ngOnInit() {
+  }
+
+  changeCheck(event){
+    this.disabledAgreement = !event.checked;
   }
 
   onAddUser(form: NgForm) {

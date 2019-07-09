@@ -32,10 +32,10 @@
             </mat-form-field>
 
             <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-checkbox color="primary"><h4>I agree to the <a href="/terms">Terms of use & service</a>.</h4></mat-checkbox>
+                <mat-checkbox (change)="changeCheck($event)" color="primary"><h4>I agree to the <a href="/terms">Terms of use & service</a>.</h4></mat-checkbox>
             </div>
 
-            <button mat-raised-button type="submit">Create an account</button><p></p>
+            <button mat-raised-button [disabled]="disabledAgreement" type="submit">Create an account</button><p></p>
             <a href="www.google.com" id="google-reg">
               Register with   <img src="../../assets/img/google.png" alt="google_sign-in">
             </a>

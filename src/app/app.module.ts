@@ -2,6 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
 
 
 import {
@@ -13,7 +17,10 @@ import {
   MatSidenavModule,
   MatTabsModule,
   MatIconModule,
-  MatListModule
+  MatListModule,
+  MatDialogModule,
+  MatNativeDateModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -37,6 +44,7 @@ import { MainhomeComponent } from './mainhome.component';
 import { ApphomeComponent } from './apphome.component';
 import { AppSidenavListComponent } from './navigation/app-sidenav-list/app-sidenav-list.component';
 import { ApplandingComponent } from './applanding/applanding.component';
+import { NewProjectComponent } from './newproject.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +62,8 @@ import { ApplandingComponent } from './applanding/applanding.component';
     MainhomeComponent,
     ApphomeComponent,
     AppSidenavListComponent,
-    ApplandingComponent
+    ApplandingComponent,
+    NewProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +83,14 @@ import { ApplandingComponent } from './applanding/applanding.component';
     FormsModule,
     MatCheckboxModule,
     HttpClientModule,
-    StoreModule
+    StoreModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   exports: [
     MatTabsModule,
@@ -83,9 +99,14 @@ import { ApplandingComponent } from './applanding/applanding.component';
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [MatDatepickerModule],
+  bootstrap: [AppComponent],
+  entryComponents: [NewProjectComponent]
 })
 export class AppModule { }

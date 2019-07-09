@@ -15,7 +15,7 @@
           </div>
           <h3>Password</h3>
           <mat-form-field>
-              <input matInput type="password" name="inPass" ngModel #pass="ngModel" placeholder="Password" required>
+              <input matInput name="inPass" ngModel #pass="ngModel" placeholder="Password" required type="password">
               <mat-error *ngIf="pass.invalid">You need to enter a valid password</mat-error>
           </mat-form-field>
           <div fxLayout="row" fxLayoutAlign="center center">

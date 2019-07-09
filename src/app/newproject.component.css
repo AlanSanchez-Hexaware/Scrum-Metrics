@@ -1,0 +1,36 @@
+#fulldialog{
+ min-width: 400px;
+}
+
+#project-pic{
+  height: 150px;
+  width: 150px;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+#createbutt{
+  margin-top: 20px;
+}
+
+#endbutt{
+  margin: 19px 0px 0px 10px;
+  font-weight: bold;
+}
+
+#picker2{
+  margin-top: -2px;
+}
+
+#changephoto{
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#date2{
+  margin: 21px 0px 0px 10px;
+}
+
+.divchangepho{
+  margin: 15px 0px 0px -20px;
+}
