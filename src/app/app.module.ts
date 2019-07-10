@@ -46,6 +46,7 @@ import { ApphomeComponent } from './apphome.component';
 import { AppSidenavListComponent } from './navigation/app-sidenav-list/app-sidenav-list.component';
 import { ApplandingComponent } from './applanding/applanding.component';
 import { NewProjectComponent } from './newproject.component';
+import { ProfileComponent } from './profile.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { NewProjectComponent } from './newproject.component';
     ApphomeComponent,
     AppSidenavListComponent,
     ApplandingComponent,
-    NewProjectComponent
+    NewProjectComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -111,6 +113,6 @@ import { NewProjectComponent } from './newproject.component';
   ],
   providers: [MatDatepickerModule, FormControl],
   bootstrap: [AppComponent],
-  entryComponents: [NewProjectComponent]
+  entryComponents: [NewProjectComponent, ProfileComponent]
 })
 export class AppModule { }

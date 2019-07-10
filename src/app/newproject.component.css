@@ -25,6 +25,7 @@
 #changephoto{
   text-decoration: none;
   font-weight: bold;
+  color: rgb(51, 51, 143);
 }
 
 #date2{
@@ -33,4 +34,8 @@
 
 .divchangepho{
   margin: 15px 0px 0px -20px;
+}
+
+.img-input{
+  display: none;
 }

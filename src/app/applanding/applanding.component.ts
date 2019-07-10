@@ -18,12 +18,8 @@ export class ApplandingComponent implements OnInit {
     const dialogRef = this.dialog.open(NewProjectComponent, {
       minWidth: '500px'
     });
-
-
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-
     });
   }
 

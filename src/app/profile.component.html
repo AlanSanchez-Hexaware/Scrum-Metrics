@@ -1,0 +1,36 @@
+<div id="fulldialog">
+  <div fxLayout="row" fxLayoutAlign="center center" id="title-div">
+    <h1>My Profile</h1>
+    <h2>{{username}}</h2>
+  </div>
+  <div mat-dialog-content>
+    <div fxLayout="row">
+      <div fxLayout="column">
+        <img [src]="url" alt="user-pic" id="user-pic">
+        <div fxLayoutAlign="center center" class="divchangepho">
+            <input type="file" (change)="onFileChanged($event)" accept="image/*" class="img-input" #fileInput>
+            <mat-icon (click)="fileInput.click()">unarchive</mat-icon>
+            <a (click)="fileInput.click()" id="changephoto">Change photo</a>
+        </div>
+      </div>
+      <div fxLayout="column">
+        <h3>Name</h3>
+        <mat-form-field>
+          <input matInput type="text" value="{{name}}" #name="ngModel" ngModel required>
+          <mat-error *ngIf="name.invalid">You can't leave this blank</mat-error>
+        </mat-form-field>
+        <a>Change name</a>
+        <h3>E-mail</h3>
+        <mat-form-field>
+          <input matInput type="text" value="{{email}}" #email="ngModel" ngModel required>
+          <mat-error *ngIf="email.invalid">You can't leave this blank</mat-error>
+        </mat-form-field>
+        <a>Change e-mail</a>
+        <a><h4>Change password</h4></a>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button type="submit" color="primary">Save</button>
+  </div>
+</div>

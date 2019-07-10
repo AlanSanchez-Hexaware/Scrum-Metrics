@@ -9,10 +9,11 @@
   <div mat-dialog-content>
     <div fxLayout="row">
       <div fxLayout="column">
-        <img src="../assets/img/stockprofile.png" alt="project-pic" id="project-pic">
+        <img [src]="url" alt="project-pic" id="project-pic">
         <div fxLayoutAlign="center center" class="divchangepho">
-            <mat-icon>unarchive</mat-icon>
-            <a href="" id="changephoto">Change photo</a>
+            <input type="file" (change)="onFileChanged($event)" accept="image/*" class="img-input" #fileInput>
+            <mat-icon (click)="fileInput.click()">unarchive</mat-icon>
+            <a (click)="fileInput.click()" id="changephoto">Change photo</a>
         </div>
       </div>
     <div fxLayout="column">
@@ -29,13 +30,13 @@
       <h3>Add Members</h3>
       <mat-form-field>
         <div fxLayout="row" fxLayoutAlign="center center">
-        <input matInput type="text" placeholder="Search by username." aria-label="User" [formControl]="myControl" [matAutocomplete]="auto">
+        <input matInput type="text" placeholder="Search by username." [formControl]="myControl" [matAutocomplete]="auto" aria-label="Number">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let username of filteredOptions | async" [value]="username">
             {{username}}
           </mat-option>
         </mat-autocomplete>
-        <button mat-raised-button color="primary">Add</button>
+        <button mat-raised-button color="primary" (click)="onAddUser(myControl.value)">Add</button>
         </div>
       </mat-form-field>
       <mat-accordion multi="true">
@@ -43,12 +44,14 @@
           <mat-expansion-panel-header>
             Members
           </mat-expansion-panel-header>
-          <p></p>
-          <mat-action-row>
+          <mat-action-row *ngFor="let user of storedusers">
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <mat-panel-title>{{user}}</mat-panel-title>
+            </div>
             <mat-form-field>
               <mat-label>Role</mat-label>
               <select matNativeControl required>
-                <option value="ScrumMaster">ScrumMaster</option>
+                <option value="ScrumMaster">Scrum Master</option>
                 <option value="Product Owner">Product Owner</option>
                 <option value="Team Member">Team Member</option>
               </select>
@@ -56,7 +59,7 @@
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>
-      <p class="info-text mat-body-1">No members added yet.</p>
+      <p class="info-text mat-body-1" *ngIf="1 > storedusers.length">No members added yet.</p>
       <div fxLayout="row">
           <div fxLayout="column">
             <h4>Start Date</h4>
