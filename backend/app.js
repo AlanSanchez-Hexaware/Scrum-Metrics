@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql');
+const fs = require('fs');
+const uuid = require('uuid');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -172,10 +174,24 @@ app.post("/api/login", (req, res, next) => {
 });
 
 app.get("/api/usersquery", (req,res,next) => {
-  let usersQuery = "SELECT user_id, username FROM test_users"
+  let usersQuery = "SELECT user_id, username FROM test_users";
   db.query(usersQuery, (err,result) => {
     res.send(result);
   });
+});
+
+app.post("/api/postproject", (req,res,next) => {
+  console.log(req.body.image);
+  fs.writeFileSync('img.jpg', req.body.image, function(err){
+    response = {
+      error: true,
+      code: 0,
+      message: err
+    }
+    res.send(response);
+  });
+  let projectQuery = "INSERT INTO project (name,description,start_date,end_date,image) VALUES(?,?,?,?,?)";
+
 });
 
 module.exports = app;

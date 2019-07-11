@@ -16,8 +16,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ProfileComponent>) { }
 
-  name = 'test';
-  email = 'test';
+  name: string;
+  email: string;
 
   ngOnInit() {
     this.name = 'test';
@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event1) => {
-        this.url = event1.target.result;
+        this.url = event1.currentTarget;
+        this.url = this.url.result;
       };
     }
     this.selectedFile = event.target.files[0];

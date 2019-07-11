@@ -4,6 +4,8 @@ import { NgForm, FormControl } from '@angular/forms';
 import { UserService } from './register/users.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ProjectsService } from './projects.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-newproject',
@@ -21,7 +23,10 @@ export class NewProjectComponent implements OnInit {
   selectedFile: File;
   url: any = '../assets/img/scrum.png';
 
-  constructor(public dialogRef: MatDialogRef<NewProjectComponent>, public userService: UserService) { }
+  constructor(
+    public dialogRef: MatDialogRef<NewProjectComponent>,
+    public userService: UserService,
+    public projectService: ProjectsService) { }
 
   ngOnInit() {
     this.usernames = this.userService.getUsers();
@@ -50,10 +55,18 @@ export class NewProjectComponent implements OnInit {
   }
 
   onAddProject(form: NgForm) {
-    form.resetForm();
     if (form.invalid) {
       return;
     }
+    const imgName: string = '../assets/projectimgs/' + form.value.username + this.url;
+    // const file: File = new File(this.selectedFile, imgName, {type: 'image/jpeg'});
+    this.projectService.setProject(
+      form.value.inName,
+      form.value.inDesc,
+      form.value.inDate1,
+      form.value.inDate2,
+      this.selectedFile,
+      this.storedusers);
     form.resetForm();
   }
 
@@ -63,7 +76,8 @@ export class NewProjectComponent implements OnInit {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event1) => {
-        this.url = event1.target.result;
+        this.url = event1.currentTarget;
+        this.url = this.url.result;
       };
     }
     this.selectedFile = event.target.files[0];
