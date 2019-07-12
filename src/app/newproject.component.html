@@ -64,7 +64,7 @@
           <div fxLayout="column">
             <h4>Start Date</h4>
             <mat-form-field>
-              <input matInput [matDatepicker]="picker" name="inDate1" #date1="ngModel" ngModel placeholder="Choose a date" required>
+              <input matInput [matDatepicker]="picker" name="inDate1" #date1="ngModel" [(ngModel)]="startdate1" ngModel placeholder="Choose a date" required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="date1.invalid">You need to enter an initial date.</mat-error>

@@ -10,14 +10,12 @@ export class ProjectsService {
   constructor(private http: HttpClient) { }
 
   // tslint:disable-next-line: variable-name
-  setProject(name: string, description: string, start_date: Date, end_date: Date, image: File, storedusers: string[]) {
-    const project: Project = { name, description, start_date, end_date, image, storedusers };
+  setProject(name: string, description: string, start_date: any, end_date: any, image: any, storedusers: string[]) {
+    const project: Project = { name, description, start_date, end_date, image };
     this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/postproject', project).subscribe((responseData) => {
       alert(responseData.message);
       if (responseData.error) {
         return;
-      } else {
-        alert('Success');
       }
     });
   }

@@ -5,7 +5,8 @@ import { UserService } from './register/users.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProjectsService } from './projects.service';
-import { saveAs } from 'file-saver';
+import { DeprecatedI18NPipesModule } from '@angular/common';
+// import { SaveImage } from './saveimage';
 
 @Component({
   selector: 'app-newproject',
@@ -22,6 +23,7 @@ export class NewProjectComponent implements OnInit {
   disabledDate = true;
   selectedFile: File;
   url: any = '../assets/img/scrum.png';
+  startdate1: any;
 
   constructor(
     public dialogRef: MatDialogRef<NewProjectComponent>,
@@ -58,14 +60,15 @@ export class NewProjectComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    const imgName: string = '../assets/projectimgs/' + form.value.username + this.url;
+    const imgName: string = form.value.inName + '.jpg';
     // const file: File = new File(this.selectedFile, imgName, {type: 'image/jpeg'});
+    // this.savenewimg.saveImg(this.selectedFile, imgName);
     this.projectService.setProject(
       form.value.inName,
       form.value.inDesc,
-      form.value.inDate1,
+      this.startdate1,
       form.value.inDate2,
-      this.selectedFile,
+      imgName,
       this.storedusers);
     form.resetForm();
   }

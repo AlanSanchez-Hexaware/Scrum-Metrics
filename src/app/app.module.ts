@@ -95,7 +95,7 @@ import { ProfileComponent } from './profile.component';
     MatFormFieldModule,
     MatSelectModule,
     MatAutocompleteModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatTabsModule,
