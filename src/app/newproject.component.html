@@ -64,7 +64,7 @@
           <div fxLayout="column">
             <h4>Start Date</h4>
             <mat-form-field>
-              <input matInput [matDatepicker]="picker" name="inDate1" #date1="ngModel" [(ngModel)]="startdate1" ngModel placeholder="Choose a date" required>
+              <input matInput [matDatepicker]="picker" name="inDate1" #date1="ngModel" ngModel placeholder="Choose a date" readonly="true" required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="date1.invalid">You need to enter an initial date.</mat-error>
@@ -74,7 +74,7 @@
               <mat-checkbox (change)="changeCheck($event)" id="endbutt" color="primary">End Date</mat-checkbox>
             <div id="date2">
             <mat-form-field id="picker2">
-              <input matInput [matDatepicker]="picker2" name="inDate2" #date2="ngModel" ngModel placeholder="Choose a date" [disabled]="disabledDate">
+              <input matInput [matDatepicker]="picker2" name="inDate2" #date2="ngModel" ngModel placeholder="Choose a date" readonly="" [disabled]="disabledDate">
               <mat-datepicker-toggle matSuffix [for]="picker2" [disabled]="disabledDate"></mat-datepicker-toggle>
               <mat-datepicker #picker2 [disabled]="disabledDate"></mat-datepicker>
               <mat-error *ngIf="date2.invalid">You need to enter a name.</mat-error>

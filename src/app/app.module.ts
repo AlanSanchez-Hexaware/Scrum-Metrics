@@ -21,6 +21,7 @@ import {
   MatListModule,
   MatDialogModule,
   MatNativeDateModule,
+  DateAdapter,
   MatFormFieldModule
 } from '@angular/material';
 
@@ -47,6 +48,7 @@ import { AppSidenavListComponent } from './navigation/app-sidenav-list/app-siden
 import { ApplandingComponent } from './applanding/applanding.component';
 import { NewProjectComponent } from './newproject.component';
 import { ProfileComponent } from './profile.component';
+import { DateFormat } from './date-format';
 
 @NgModule({
   declarations: [
@@ -111,8 +113,16 @@ import { ProfileComponent } from './profile.component';
     MatFormFieldModule,
     MatAutocompleteModule
   ],
-  providers: [MatDatepickerModule, FormControl],
+  providers: [
+    MatDatepickerModule,
+     FormControl,
+     { provide: DateAdapter, useClass: DateFormat }
+    ],
   bootstrap: [AppComponent],
   entryComponents: [NewProjectComponent, ProfileComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private dateAdapter: DateAdapter<Date>) {
+    dateAdapter.setLocale('en-in'); // DD/MM/YYYY
+  }
+}

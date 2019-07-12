@@ -23,7 +23,6 @@ export class NewProjectComponent implements OnInit {
   disabledDate = true;
   selectedFile: File;
   url: any = '../assets/img/scrum.png';
-  startdate1: any;
 
   constructor(
     public dialogRef: MatDialogRef<NewProjectComponent>,
@@ -66,7 +65,7 @@ export class NewProjectComponent implements OnInit {
     this.projectService.setProject(
       form.value.inName,
       form.value.inDesc,
-      this.startdate1,
+      form.value.inDate1,
       form.value.inDate2,
       imgName,
       this.storedusers);
