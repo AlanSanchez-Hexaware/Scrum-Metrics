@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NgForm, FormControl } from '@angular/forms';
 import { UserService } from './register/users.service';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProjectsService } from './projects.service';
 
@@ -15,15 +15,17 @@ import { ProjectsService } from './projects.service';
 export class NewProjectComponent implements OnInit {
 
   myControl = new FormControl();
+  myControl2 = new FormControl();
   filteredOptions: Observable<string[]>;
   usernames: string[] = [];
+  roles: string[] = [];
   storedusers: string[] = [];
   disabledDate = true;
   selectedFile: File;
   url: any = '../assets/img/scrum.png';
   firstDate: string = null;
   usersMap = new Map();
-  members: string[][][] = [];
+  rolesMap = new Map();
 
   constructor(
     public dialogRef: MatDialogRef<NewProjectComponent>,
@@ -50,9 +52,11 @@ export class NewProjectComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onAddUser(value: string): void {
+  onAddUser(value: string, role: string): void {
     if (this.usernames.includes(value)) {
+      this.rolesMap.set(value, role);
       this.storedusers.push(value);
+      this.roles.push(role);
       this.myControl.reset();
     } else {
       alert('Can\'t find that user.');
@@ -64,33 +68,44 @@ export class NewProjectComponent implements OnInit {
     this.disabledDate = !event.checked;
   }
 
+  stringLiteralArray<T extends string>(...args: T[]): T[] {
+    return args;
+  }
+
   onAddProject(form: NgForm) {
-    for (let entry of this.usersMap.entries()) {
-      console.log( entry[0], entry[1]);
-    }
-    console.log(this.projectService.getProject(form.value.inName));
+
     if (form.invalid) {
       return;
     }
+    const projectname: string = form.value.inName;
     const imgName: string = form.value.inName + '.jpg';
     // const file: File = new File(this.selectedFile, imgName, {type: 'image/jpeg'});
     // this.savenewimg.saveImg(this.selectedFile, imgName);
     const firstDate1: Date = form.value.inDate1;
+    const firstDate2: Date = form.value.inDate2 || null;
     const fixedDate: string = firstDate1.getFullYear() + '-' + firstDate1.getMonth() + '-' + firstDate1.getDate();
-    if (this.projectService.setProject(
-      form.value.inName,
+    // const fixedDate2: string = firstDate2.getFullYear() + '-' + firstDate2.getMonth() + '-' + firstDate2.getDate();
+    this.projectService.setProject(
+      projectname,
       form.value.inDesc,
       fixedDate,
-      form.value.inDate2,
-      imgName)) {
-        return;
-    } else {
-      this.storedusers.forEach((user) => {
+      firstDate2,
+      imgName);
 
-      });
-      this.projectService.setMembers(this.storedusers);
-      this.dialogRef.close();
-    }
+    this.storedusers.forEach((user) => {
+      class selectUser   {
+        public selectus = 'select' + user;
+      }
+      const selectu1 = {};
+      // console.log(Reflect.defineProperty(selectu1, 'selectus', selectUser));
+      const select = 'select';
+      Reflect.set(selectu1, 'selectus', 'select' + user);
+      // console.log(form.value.select[2] + 'testt');
+      console.log(form.value);
+      console.log(projectname + '/' + this.usersMap.get(user) + '/' + form.value.select);
+      this.projectService.setMember(projectname, this.usersMap.get(user));
+    });
+    this.dialogRef.close();
   }
 
   onFileChanged(event) {

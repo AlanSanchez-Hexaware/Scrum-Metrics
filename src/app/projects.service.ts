@@ -30,9 +30,7 @@ export class ProjectsService {
     });
   }
 
-  setMembers(storedusers: string[]) {
-    storedusers.forEach(user => {
+  setMember(projectname: string, user: number) {
 
-    });
   }
 }

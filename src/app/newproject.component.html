@@ -36,7 +36,15 @@
             {{username}}
           </mat-option>
         </mat-autocomplete>
-        <button mat-raised-button color="primary" (click)="onAddUser(myControl.value)">Add</button>
+        <mat-form-field id="select-div">
+          <mat-label>Role</mat-label>
+          <select name=inRole [formControl]="myControl2" matNativeControl required>
+            <option value="ScrumMaster">Scrum Master</option>
+            <option value="Product Owner">Product Owner</option>
+            <option value="Team Member">Team Member</option>
+          </select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="onAddUser(myControl.value, myControl2.value)">Add</button>
         </div>
       </mat-form-field>
       <mat-accordion multi="true">
@@ -50,7 +58,7 @@
             </div>
             <mat-form-field>
               <mat-label>Role</mat-label>
-              <select matNativeControl required>
+              <select name=select{{user}} matNativeControl required>
                 <option value="ScrumMaster">Scrum Master</option>
                 <option value="Product Owner">Product Owner</option>
                 <option value="Team Member">Team Member</option>

@@ -39,3 +39,8 @@
 .img-input{
   display: none;
 }
+
+#select-div{
+  width: 150px;
+  padding-right: 15px;
+}

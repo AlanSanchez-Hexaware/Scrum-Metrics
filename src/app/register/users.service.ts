@@ -42,7 +42,7 @@ export class UserService {
         // tslint:disable: no-string-literal
         const currentuser = Object['username'];
         const currentid = Object['user_id'];
-        this.usersMap.set(currentid, currentuser);
+        this.usersMap.set(currentuser, currentid);
       });
     });
     return this.usersMap;
