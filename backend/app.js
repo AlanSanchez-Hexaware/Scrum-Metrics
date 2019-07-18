@@ -55,9 +55,11 @@ app.post("/api/postuser", (req, res, next) => {
     };
     res.send(response);
   }else{
-    let emailQuery = "SELECT * FROM test_users WHERE e_mail = '" + req.body.email + "'";
-    let usernameQuery = "SELECT * FROM test_users WHERE username = '" + req.body.username + "'";
-    db.query(emailQuery, (err, result) => {
+    let emailQuery = "SELECT * FROM test_users WHERE e_mail = ?";
+    let usernameQuery = "SELECT * FROM test_users WHERE username = ?";
+    db.query(emailQuery,[
+      req.body.email
+    ], (err, result) => {
       if(result.length>0){
         response = {
           error: true,
@@ -66,7 +68,9 @@ app.post("/api/postuser", (req, res, next) => {
         };
         res.send(response);
       }else{
-        db.query(usernameQuery, (err, result) => {
+        db.query(usernameQuery,[
+          req.body.username
+        ], (err, result) => {
           if(result.length>0){
             response = {
               error: true,
@@ -182,16 +186,53 @@ app.get("/api/usersquery", (req,res,next) => {
 });
 
 app.post("/api/postproject", (req,res,next) => {
-  let projectQuery = "INSERT INTO project (name,description,start_date,end_date,image) VALUES(?,?,?,?,?)";
-  db.query(projectQuery,[
-    req.body.name,
-    req.body.description,
-    req.body.start_date,
-    req.body.end_date,
-    req.body.image
+  let nameQuery = "SELECT name FROM project WHERE name = ?";
+  db.query(nameQuery,[
+    req.body.name
+  ],(err,result) => {
+    if(result.length>0){
+      response = {
+        error: true,
+        code: 409,
+        message: 'Name already in use'
+      };
+    res.send(response);
+    } else {
+      let projectQuery = "INSERT INTO project (name,description,start_date,end_date,image) VALUES(?,?,?,?,?)";
+      db.query(projectQuery,[
+        req.body.name,
+        req.body.description,
+        req.body.start_date,
+        req.body.end_date,
+        req.body.image
+      ],(err,result) => {
+        if(err){
+          response = {
+            error: true,
+            code: 500,
+            message: err
+          };
+          res.send(response);
+        } else {
+          response = {
+            error: false,
+            code: 200,
+            message: 'Project created succesfully'
+          };
+          res.send(response);
+        }
+      });
+    }
+  });
+});
+
+app.post("/api/lastproject", (req,res,next) => {
+  let lastquery = "SELECT project_id FROM project WHERE name = ?;"
+  db.query(lastquery,[
+    req.body.name
   ],(err,result) => {
     if(err){
-      response = {
+      response={
         error: true,
         code: 500,
         message: err
@@ -201,11 +242,11 @@ app.post("/api/postproject", (req,res,next) => {
       response = {
         error: false,
         code: 200,
-        message: 'Project created succesfully'
+        message: result
       };
       res.send(response);
     }
-  });
+  })
 });
 
 module.exports = app;

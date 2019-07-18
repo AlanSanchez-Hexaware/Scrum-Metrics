@@ -115,7 +115,7 @@ import { DateFormat } from './date-format';
   ],
   providers: [
     MatDatepickerModule,
-     FormControl,
+    FormControl,
      { provide: DateAdapter, useClass: DateFormat }
     ],
   bootstrap: [AppComponent],

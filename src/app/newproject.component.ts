@@ -5,8 +5,6 @@ import { UserService } from './register/users.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProjectsService } from './projects.service';
-import { DeprecatedI18NPipesModule } from '@angular/common';
-// import { SaveImage } from './saveimage';
 
 @Component({
   selector: 'app-newproject',
@@ -23,14 +21,20 @@ export class NewProjectComponent implements OnInit {
   disabledDate = true;
   selectedFile: File;
   url: any = '../assets/img/scrum.png';
+  firstDate: string = null;
+  usersMap = new Map();
+  members: string[][][] = [];
 
   constructor(
     public dialogRef: MatDialogRef<NewProjectComponent>,
     public userService: UserService,
     public projectService: ProjectsService) { }
 
+
+
   ngOnInit() {
-    this.usernames = this.userService.getUsers();
+    this.usernames = this.userService.getUsersA();
+    this.usersMap = this.userService.getUsersM();
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -47,8 +51,13 @@ export class NewProjectComponent implements OnInit {
   }
 
   onAddUser(value: string): void {
-    this.storedusers.push(value);
-    this.myControl.reset();
+    if (this.usernames.includes(value)) {
+      this.storedusers.push(value);
+      this.myControl.reset();
+    } else {
+      alert('Can\'t find that user.');
+      this.myControl.reset();
+    }
   }
 
   changeCheck(event) {
@@ -56,20 +65,32 @@ export class NewProjectComponent implements OnInit {
   }
 
   onAddProject(form: NgForm) {
+    for (let entry of this.usersMap.entries()) {
+      console.log( entry[0], entry[1]);
+    }
+    console.log(this.projectService.getProject(form.value.inName));
     if (form.invalid) {
       return;
     }
     const imgName: string = form.value.inName + '.jpg';
     // const file: File = new File(this.selectedFile, imgName, {type: 'image/jpeg'});
     // this.savenewimg.saveImg(this.selectedFile, imgName);
-    this.projectService.setProject(
+    const firstDate1: Date = form.value.inDate1;
+    const fixedDate: string = firstDate1.getFullYear() + '-' + firstDate1.getMonth() + '-' + firstDate1.getDate();
+    if (this.projectService.setProject(
       form.value.inName,
       form.value.inDesc,
-      form.value.inDate1,
+      fixedDate,
       form.value.inDate2,
-      imgName,
-      this.storedusers);
-    form.resetForm();
+      imgName)) {
+        return;
+    } else {
+      this.storedusers.forEach((user) => {
+
+      });
+      this.projectService.setMembers(this.storedusers);
+      this.dialogRef.close();
+    }
   }
 
   onFileChanged(event) {

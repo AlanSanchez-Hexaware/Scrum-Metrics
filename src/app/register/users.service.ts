@@ -7,6 +7,7 @@ export class UserService {
 
   private users: any[];
   private usernames: any[] = [];
+  private usersMap = new Map();
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +18,7 @@ export class UserService {
       if (responseData.error) {
         return;
       } else {
-        setTimeout('location.href = \'/login\';' , 1000);
+        setTimeout('location.href = \'/login\';' , 500);
       }
     });
   }
@@ -29,18 +30,30 @@ export class UserService {
     if (responseData.error) {
         return;
       } else {
-        setTimeout('location.href = \'/app\';' , 1000);
+        setTimeout('location.href = \'/app\';' , 500);
       }
     });
   }
 
-  getUsers() {
+  getUsersM() {
     this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
       this.users = JSON.parse(JSON.stringify(responseData));
       this.users.forEach((Object: any[]) => {
-        // this.usernames.push([Object['user_id'] , Object['username']]);
-        // tslint:disable-next-line: no-string-literal
-        this.usernames.push([Object['username']]);
+        // tslint:disable: no-string-literal
+        const currentuser = Object['username'];
+        const currentid = Object['user_id'];
+        this.usersMap.set(currentid, currentuser);
+      });
+    });
+    return this.usersMap;
+  }
+
+  getUsersA() {
+    this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
+      this.users = JSON.parse(JSON.stringify(responseData));
+      this.users.forEach((Object: any[]) => {
+        const currentuser = Object['username'];
+        this.usernames.push(currentuser);
       });
     });
     return this.usernames;
