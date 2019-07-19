@@ -227,12 +227,42 @@ app.post("/api/postproject", (req,res,next) => {
 });
 
 app.post("/api/lastproject", (req,res,next) => {
-  let lastquery = "SELECT project_id FROM project WHERE name = ?;"
+  let lastquery = "SELECT project_id FROM project WHERE name = ?"
   db.query(lastquery,[
     req.body.name
   ],(err,result) => {
     if(err){
-      response={
+      console.log(err);
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.send(response);
+    } else {
+      if (result === '') {
+        response = {
+          error: true,
+          code: 404,
+          message: 'Project not found'
+        };
+        res.send(response);
+      } else {
+        res.send(result);
+      }
+    }
+  });
+});
+
+app.post("/api/postmember", (req, res, next) => {
+  let memberquery = "INSERT INTO member VALUES(?,?,?)"
+  db.query(memberquery,[
+    req.body.projectname,
+    req.body.user,
+    req.body.role
+  ],(err,result) => {
+    if(err){
+      response = {
         error: true,
         code: 500,
         message: err
@@ -242,11 +272,11 @@ app.post("/api/lastproject", (req,res,next) => {
       response = {
         error: false,
         code: 200,
-        message: result
+        message: 'Members added succesfully.'
       };
       res.send(response);
     }
-  })
+  });
 });
 
 module.exports = app;

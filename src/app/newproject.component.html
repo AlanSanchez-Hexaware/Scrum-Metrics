@@ -38,7 +38,7 @@
         </mat-autocomplete>
         <mat-form-field id="select-div">
           <mat-label>Role</mat-label>
-          <select name=inRole [formControl]="myControl2" matNativeControl required>
+          <select [formControl]="myControl2" matNativeControl required>
             <option value="ScrumMaster">Scrum Master</option>
             <option value="Product Owner">Product Owner</option>
             <option value="Team Member">Team Member</option>
@@ -52,18 +52,11 @@
           <mat-expansion-panel-header>
             Members
           </mat-expansion-panel-header>
-          <mat-action-row *ngFor="let user of storedusers">
+          <mat-action-row *ngFor="let user of storedusers; let i = index">
             <div fxLayout="row" fxLayoutAlign="center center">
-              <mat-panel-title>{{user}}</mat-panel-title>
+              <mat-panel-title>{{storedusers[i]}}</mat-panel-title>
+              <p>{{roles[i]}}</p>
             </div>
-            <mat-form-field>
-              <mat-label>Role</mat-label>
-              <select name=select{{user}} matNativeControl required>
-                <option value="ScrumMaster">Scrum Master</option>
-                <option value="Product Owner">Product Owner</option>
-                <option value="Team Member">Team Member</option>
-              </select>
-            </mat-form-field>
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>

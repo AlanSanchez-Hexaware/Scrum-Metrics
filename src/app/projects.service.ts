@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from './project.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
+
+  private projectids: any[];
+  private currproj: number;
 
   constructor(private http: HttpClient) { }
 
@@ -25,12 +28,23 @@ export class ProjectsService {
   }
 
   getProject(name: string) {
-    this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/lastproject', name).subscribe((responseData) => {
-      return responseData.message;
+    const projname = { name };
+    this.http.post('http://localhost:3000/api/lastproject', projname).subscribe((responseData) => {
+      this.projectids = JSON.parse(JSON.stringify(responseData));
+      this.projectids.forEach((Object: any) => {
+        this.currproj = Object.project_id;
+      });
     });
+    return this.currproj;
   }
 
-  setMember(projectname: string, user: number) {
-
+  setMember(projid: number, user: number, role: string) {
+    const member = { projid, user, role };
+    this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/postmember', member).subscribe((responseData) => {
+      alert(responseData.message);
+      if (responseData.error) {
+        return;
+      }
+    });
   }
 }

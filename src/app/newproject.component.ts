@@ -53,14 +53,27 @@ export class NewProjectComponent implements OnInit {
   }
 
   onAddUser(value: string, role: string): void {
-    if (this.usernames.includes(value)) {
-      this.rolesMap.set(value, role);
-      this.storedusers.push(value);
-      this.roles.push(role);
-      this.myControl.reset();
+    if (this.usernames.includes(value) && !this.myControl.invalid ) {
+      if (!this.storedusers.includes(value)) {
+        if (!this.myControl2.invalid) {
+          this.rolesMap.set(value, role);
+          this.storedusers.push(value);
+          this.roles.push(role);
+          this.myControl.reset();
+          this.myControl2.reset();
+        } else {
+          alert('Pleas enter a role');
+          this.myControl2.reset();
+        }
+      } else {
+        alert('This user is already in');
+        this.myControl.reset();
+        this.myControl2.reset();
+      }
     } else {
       alert('Can\'t find that user.');
       this.myControl.reset();
+      this.myControl2.reset();
     }
   }
 
@@ -73,7 +86,8 @@ export class NewProjectComponent implements OnInit {
   }
 
   onAddProject(form: NgForm) {
-
+    const projid: number = this.projectService.getProject(form.value.inName);
+    console.log(projid);
     if (form.invalid) {
       return;
     }
@@ -82,28 +96,27 @@ export class NewProjectComponent implements OnInit {
     // const file: File = new File(this.selectedFile, imgName, {type: 'image/jpeg'});
     // this.savenewimg.saveImg(this.selectedFile, imgName);
     const firstDate1: Date = form.value.inDate1;
-    const firstDate2: Date = form.value.inDate2 || null;
+    const lastDate: Date = form.value.inDate2;
     const fixedDate: string = firstDate1.getFullYear() + '-' + firstDate1.getMonth() + '-' + firstDate1.getDate();
-    // const fixedDate2: string = firstDate2.getFullYear() + '-' + firstDate2.getMonth() + '-' + firstDate2.getDate();
+    let fixedlastDate: string;
+    if ( form.value.inDate2 != null ) {
+      fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate() || null;
+    } else {
+      fixedlastDate = null;
+    }
     this.projectService.setProject(
       projectname,
       form.value.inDesc,
       fixedDate,
-      firstDate2,
+      fixedlastDate,
       imgName);
 
+
     this.storedusers.forEach((user) => {
-      class selectUser   {
-        public selectus = 'select' + user;
-      }
-      const selectu1 = {};
       // console.log(Reflect.defineProperty(selectu1, 'selectus', selectUser));
-      const select = 'select';
-      Reflect.set(selectu1, 'selectus', 'select' + user);
-      // console.log(form.value.select[2] + 'testt');
-      console.log(form.value);
-      console.log(projectname + '/' + this.usersMap.get(user) + '/' + form.value.select);
-      this.projectService.setMember(projectname, this.usersMap.get(user));
+      // Reflect.set(selectu1, 'selectus', 'select' + user);
+      console.log(projectname + '/' + this.usersMap.get(user) + '/' + this.rolesMap.get(user));
+      this.projectService.setMember(projid, this.usersMap.get(user), this.rolesMap.get(user));
     });
     this.dialogRef.close();
   }
