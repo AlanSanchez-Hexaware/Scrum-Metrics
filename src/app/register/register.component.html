@@ -27,7 +27,7 @@
             </mat-form-field>
             <h3>Confirm Password</h3>
             <mat-form-field>
-                <input matInput type="password" name="confPass" ngModel #password2="ngModel" placeholder="Repeat password">
+                <input matInput type="password" name="confPass" ngModel #password2="ngModel" placeholder="Repeat password" required minlength="4" maxlength="20">
                 <mat-error *ngIf="password2.invalid">Passwords don't match.</mat-error>
             </mat-form-field>
 

@@ -18,7 +18,7 @@ export class UserService {
       if (responseData.error) {
         return;
       } else {
-        setTimeout('location.href = \'/login\';' , 500);
+        setTimeout('location.href = \'/start/login\';' , 500);
       }
     });
   }
@@ -30,7 +30,7 @@ export class UserService {
     if (responseData.error) {
         return;
       } else {
-        setTimeout('location.href = \'/app\';' , 500);
+        setTimeout('location.href = \'/app/project\';' , 500);
       }
     });
   }

@@ -13,15 +13,12 @@ export class ProfileComponent implements OnInit {
   myControl = new FormControl();
   selectedFile: File;
   url: any = '../assets/img/stockprofile.png';
+  name = 'test';
+  email: string;
 
   constructor(public dialogRef: MatDialogRef<ProfileComponent>) { }
 
-  name: string;
-  email: string;
-
   ngOnInit() {
-    this.name = 'test';
-    this.email = 'test2';
   }
 
   onNoClick(): void {

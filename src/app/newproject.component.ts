@@ -34,6 +34,16 @@ export class NewProjectComponent implements OnInit {
 
 
 
+  emptyAll() {
+    this.storedusers = [];
+    this.roles = [];
+    this.rolesMap = null;
+    this.usersMap = null;
+    this.selectedFile = null;
+    this.usernames = [];
+    this.usernames.length = 0;
+  }
+
   ngOnInit() {
     this.usernames = this.userService.getUsersA();
     this.usersMap = this.userService.getUsersM();
@@ -49,6 +59,7 @@ export class NewProjectComponent implements OnInit {
   }
 
   onNoClick(): void {
+    this.emptyAll();
     this.dialogRef.close();
   }
 
@@ -86,8 +97,10 @@ export class NewProjectComponent implements OnInit {
   }
 
   onAddProject(form: NgForm) {
-    const projid: number = this.projectService.getProject(form.value.inName);
-    console.log(projid);
+    const proj11 = this.projectService.getProject(form.value.inName);
+    console.log(proj11);
+    let projid: number;
+    // projid = this.projectService.getProject1(form.value.inName);
     if (form.invalid) {
       return;
     }
@@ -111,13 +124,22 @@ export class NewProjectComponent implements OnInit {
       fixedlastDate,
       imgName);
 
+    this.projectService.getProject2(form.value.inName).then(result => {
+      const projectids = JSON.parse(JSON.stringify(result));
+      projectids.forEach((Object: any) => {
+        const currproj = Object.project_id;
+        projid = currproj;
+      });
+    });
+    console.log(projid + 'curr proj');
 
     this.storedusers.forEach((user) => {
       // console.log(Reflect.defineProperty(selectu1, 'selectus', selectUser));
       // Reflect.set(selectu1, 'selectus', 'select' + user);
-      console.log(projectname + '/' + this.usersMap.get(user) + '/' + this.rolesMap.get(user));
+      console.log(projid + '/' + this.usersMap.get(user) + '/' + this.rolesMap.get(user));
       this.projectService.setMember(projid, this.usersMap.get(user), this.rolesMap.get(user));
     });
+    this.emptyAll();
     this.dialogRef.close();
   }
 
@@ -132,6 +154,12 @@ export class NewProjectComponent implements OnInit {
       };
     }
     this.selectedFile = event.target.files[0];
+  }
+
+  deleteUser(user: string, i: number) {
+    this.storedusers.splice(i, 1);
+    this.roles.splice(i, 1);
+    this.rolesMap.delete(user);
   }
 
 }

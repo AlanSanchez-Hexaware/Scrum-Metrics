@@ -24,9 +24,19 @@ export class RegisterComponent implements OnInit {
   onAddUser(form: NgForm) {
     if (form.invalid) {
       return;
+    } else {
+      if (form.value.inPass === form.value.confPass) {
+        this.userService.setUser(form.value.inName, form.value.inEmail, form.value.inUser, form.value.inPass);
+        form.resetForm();
+      } else {
+        alert('Passwords don\'t match.');
+        return;
+      }
     }
-    this.userService.setUser(form.value.inName, form.value.inEmail, form.value.inUser, form.value.inPass);
-    form.resetForm();
+  }
+
+  validatePass() {
+
   }
 
 }

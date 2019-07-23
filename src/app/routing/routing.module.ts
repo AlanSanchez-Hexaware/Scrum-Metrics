@@ -25,8 +25,12 @@ const routes: Routes = [
   { path: '', redirectTo: '/start/home', pathMatch: 'full' },
   { path: 'app', component: ApphomeComponent, children: [
     { path: 'project', component: ApplandingComponent },
-    { path: '', redirectTo: '/app/project', pathMatch: 'full' }
-  ] }
+    { path: '', redirectTo: '/app/project', pathMatch: 'full' },
+    { path: '404', component: NotFoundComponent },
+    { path: '**', redirectTo: '/app/404', pathMatch: 'full' }
+  ] },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/start/404', pathMatch: 'full' }
 ];
 
 @NgModule({

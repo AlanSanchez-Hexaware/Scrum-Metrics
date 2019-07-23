@@ -44,3 +44,8 @@
   width: 150px;
   padding-right: 15px;
 }
+
+#deletebutton{
+  height: 80%;
+  margin: 5px 0px 0px 10px;
+}

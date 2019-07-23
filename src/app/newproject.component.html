@@ -28,6 +28,14 @@
         <mat-error *ngIf="desc.invalid">You need to enter a description.</mat-error>
       </mat-form-field>
       <h3>Add Members</h3>
+      <mat-form-field id="select-div">
+          <mat-label>Role</mat-label>
+          <select [formControl]="myControl2" matNativeControl required>
+            <option value="ScrumMaster">Scrum Master</option>
+            <option value="Product Owner">Product Owner</option>
+            <option value="Team Member">Team Member</option>
+          </select>
+      </mat-form-field>
       <mat-form-field>
         <div fxLayout="row" fxLayoutAlign="center center">
         <input matInput type="text" placeholder="Search by username." [formControl]="myControl" [matAutocomplete]="auto" aria-label="Number">
@@ -36,14 +44,6 @@
             {{username}}
           </mat-option>
         </mat-autocomplete>
-        <mat-form-field id="select-div">
-          <mat-label>Role</mat-label>
-          <select [formControl]="myControl2" matNativeControl required>
-            <option value="ScrumMaster">Scrum Master</option>
-            <option value="Product Owner">Product Owner</option>
-            <option value="Team Member">Team Member</option>
-          </select>
-        </mat-form-field>
         <button mat-raised-button color="primary" (click)="onAddUser(myControl.value, myControl2.value)">Add</button>
         </div>
       </mat-form-field>
@@ -57,6 +57,7 @@
               <mat-panel-title>{{storedusers[i]}}</mat-panel-title>
               <p>{{roles[i]}}</p>
             </div>
+            <button mat-raised-button color="warn" (click)="deleteUser(storedusers[i], i)" id="deletebutton">Delete</button>
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>
@@ -87,7 +88,7 @@
   </div>
 </div>
 <div fxLayout="row" fxLayoutAlign="center center">
-  <button mat-raised-button color="primary" id="createbutt" type="submit" matTooltip="Are you sure everything's ok?">Create</button>
+  <button mat-raised-button color="primary" id="createbutt" type="submit" matTooltip="Remember to add yourself to get a role!">Create</button>
 </div>
 </form>
 </div>

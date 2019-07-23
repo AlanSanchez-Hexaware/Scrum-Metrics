@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from './project.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Project } from './project.model';
 export class ProjectsService {
 
   private projectids: any[];
-  private currproj: number;
+  private currproj: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -33,9 +34,28 @@ export class ProjectsService {
       this.projectids = JSON.parse(JSON.stringify(responseData));
       this.projectids.forEach((Object: any) => {
         this.currproj = Object.project_id;
+        console.log('curr proj ' + this.currproj);
+      });
+    });
+    console.log('return ' + this.currproj);
+    return this.currproj;
+  }
+
+  getProject1(name: string) {
+    const projname = { name };
+    this.http.post('http://localhost:3000/api/lastproject', projname).toPromise().then(result => {
+      this.projectids = JSON.parse(JSON.stringify(result));
+      this.projectids.forEach((Object: any) => {
+        this.currproj = Object.project_id;
+        console.log(this.currproj);
       });
     });
     return this.currproj;
+  }
+
+  getProject2(name: string) {
+    const projname = { name };
+    return this.http.post('http://localhost:3000/api/lastproject', projname).toPromise();
   }
 
   setMember(projid: number, user: number, role: string) {
