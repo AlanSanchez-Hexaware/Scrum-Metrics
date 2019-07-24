@@ -49,6 +49,7 @@ import { ApplandingComponent } from './applanding/applanding.component';
 import { NewProjectComponent } from './newproject.component';
 import { ProfileComponent } from './profile.component';
 import { DateFormat } from './date-format';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { DateFormat } from './date-format';
   providers: [
     MatDatepickerModule,
     FormControl,
-     { provide: DateAdapter, useClass: DateFormat }
+     { provide: DateAdapter, useClass: DateFormat },
+    AuthGuard
     ],
   bootstrap: [AppComponent],
   entryComponents: [NewProjectComponent, ProfileComponent]

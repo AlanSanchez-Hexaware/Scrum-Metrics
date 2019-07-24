@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewProjectComponent } from 'src/app/newproject.component';
 import { ProfileComponent } from 'src/app/profile.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-sidenav-list',
@@ -12,7 +13,8 @@ export class AppSidenavListComponent implements OnInit {
 
   @Output() sidenavClose = new EventEmitter();
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -37,6 +39,11 @@ export class AppSidenavListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  public endSession() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/start/login']);
   }
 
 }

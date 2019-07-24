@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql');
-const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -156,10 +156,12 @@ app.post("/api/login", (req, res, next) => {
               res.send(response);
             } else {
               if(result.length > 0){
+                let payload = { subject: req.body.username };
+                let token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), payload}, 'dayman');
                 response = {
                   error: false,
                   code: 200,
-                  message: 'Successful login'
+                  message: token
                 };
                 res.send(response);
               } else {

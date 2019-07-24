@@ -10,6 +10,7 @@ import { NotFoundComponent } from '../error-pages/not-found/not-found.component'
 import { MainhomeComponent } from '../mainhome.component';
 import { ApphomeComponent } from '../apphome.component';
 import { ApplandingComponent } from '../applanding/applanding.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
   { path: 'start', component: MainhomeComponent, children: [
@@ -23,7 +24,7 @@ const routes: Routes = [
     { path: '**', redirectTo: '/start/404', pathMatch: 'full' }
   ] },
   { path: '', redirectTo: '/start/home', pathMatch: 'full' },
-  { path: 'app', component: ApphomeComponent, children: [
+  { path: 'app', component: ApphomeComponent, canActivate: [AuthGuard], children: [
     { path: 'project', component: ApplandingComponent },
     { path: '', redirectTo: '/app/project', pathMatch: 'full' },
     { path: '404', component: NotFoundComponent },

@@ -8,7 +8,7 @@
   <a mat-list-item (click)="onSidenavClose()">
     <mat-icon>settings</mat-icon><span class="nav-caption" matTooltip="Just settings">Settings</span>
   </a>
-  <a mat-list-item routerLink="/start/login" (click)="onSidenavClose()">
+  <a mat-list-item (click)="endSession()" (click)="onSidenavClose()">
     <mat-icon>power_settings_new</mat-icon><span class="nav-caption" matTooltip="Terminate your current session.">Sign Out</span>
   </a>
   <button mat-raised-button color="primary" class="btnproject" (click)="onSidenavClose()" (click)="openDialog()" matTooltip="Create a new project!">New Project</button>
