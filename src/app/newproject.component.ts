@@ -5,6 +5,8 @@ import { UserService } from './register/users.service';
 import { Observable, from } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProjectsService } from './projects.service';
+import * as Q from 'q';
+import { format } from 'url';
 
 @Component({
   selector: 'app-newproject',
@@ -45,6 +47,7 @@ export class NewProjectComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.emptyAll();
     this.usernames = this.userService.getUsersA();
     this.usersMap = this.userService.getUsersM();
     this.filteredOptions = this.myControl.valueChanges
@@ -59,32 +62,35 @@ export class NewProjectComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.emptyAll();
     this.dialogRef.close();
   }
 
-  onAddUser(value: string, role: string): void {
-    if (this.usernames.includes(value) && !this.myControl.invalid ) {
-      if (!this.storedusers.includes(value)) {
-        if (!this.myControl2.invalid) {
-          this.rolesMap.set(value, role);
-          this.storedusers.push(value);
-          this.roles.push(role);
-          this.myControl.reset();
-          this.myControl2.reset();
+  onAddUser(value: string, role: string) {
+    if (role != null) {
+      if (this.usernames.includes(value) && !this.myControl.invalid && role != null) {
+        if (!this.storedusers.includes(value)) {
+          if (!this.myControl2.invalid) {
+            this.rolesMap.set(value, role);
+            this.storedusers.push(value);
+            this.roles.push(role);
+            this.myControl.reset();
+            this.myControl2.reset();
+          } else {
+            alert('Pleas enter a role');
+            this.myControl2.reset();
+          }
         } else {
-          alert('Pleas enter a role');
+          alert('This user is already in');
+          this.myControl.reset();
           this.myControl2.reset();
         }
       } else {
-        alert('This user is already in');
+        alert('Can\'t find that user.');
         this.myControl.reset();
         this.myControl2.reset();
       }
     } else {
-      alert('Can\'t find that user.');
-      this.myControl.reset();
-      this.myControl2.reset();
+      alert('You need to enter a role.');
     }
   }
 
@@ -97,14 +103,11 @@ export class NewProjectComponent implements OnInit {
   }
 
   onAddProject(form: NgForm) {
-    const proj11 = this.projectService.getProject(form.value.inName);
-    console.log(proj11);
-    let projid: number;
-    // projid = this.projectService.getProject1(form.value.inName);
-    if (form.invalid) {
+    if (form.invalid || this.usersMap.size === 0) {
       return;
     }
     const projectname: string = form.value.inName;
+    const projDesc: string = form.value.inDesc;
     const imgName: string = form.value.inName + '.jpg';
     // const file: File = new File(this.selectedFile, imgName, {type: 'image/jpeg'});
     // this.savenewimg.saveImg(this.selectedFile, imgName);
@@ -119,27 +122,23 @@ export class NewProjectComponent implements OnInit {
     }
     this.projectService.setProject(
       projectname,
-      form.value.inDesc,
+      projDesc,
       fixedDate,
       fixedlastDate,
       imgName);
-
-    this.projectService.getProject2(form.value.inName).then(result => {
+    let thisproj;
+    this.projectService.getProject(form.value.inName).then(result => {
       const projectids = JSON.parse(JSON.stringify(result));
       projectids.forEach((Object: any) => {
         const currproj = Object.project_id;
-        projid = currproj;
+        thisproj = currproj;
       });
+    }).finally(() => {
+      this.storedusers.forEach((user) => {
+        this.projectService.setMember(thisproj, this.usersMap.get(user), this.rolesMap.get(user));
+      });
+      this.emptyAll();
     });
-    console.log(projid + 'curr proj');
-
-    this.storedusers.forEach((user) => {
-      // console.log(Reflect.defineProperty(selectu1, 'selectus', selectUser));
-      // Reflect.set(selectu1, 'selectus', 'select' + user);
-      console.log(projid + '/' + this.usersMap.get(user) + '/' + this.rolesMap.get(user));
-      this.projectService.setMember(projid, this.usersMap.get(user), this.rolesMap.get(user));
-    });
-    this.emptyAll();
     this.dialogRef.close();
   }
 

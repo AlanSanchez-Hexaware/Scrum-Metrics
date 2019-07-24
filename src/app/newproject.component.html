@@ -30,7 +30,7 @@
       <h3>Add Members</h3>
       <mat-form-field id="select-div">
           <mat-label>Role</mat-label>
-          <select [formControl]="myControl2" matNativeControl required>
+          <select [formControl]="myControl2" matNativeControl>
             <option value="ScrumMaster">Scrum Master</option>
             <option value="Product Owner">Product Owner</option>
             <option value="Team Member">Team Member</option>
@@ -44,7 +44,7 @@
             {{username}}
           </mat-option>
         </mat-autocomplete>
-        <button mat-raised-button color="primary" (click)="onAddUser(myControl.value, myControl2.value)">Add</button>
+        <button mat-raised-button color="primary" type="button" (click)="onAddUser(myControl.value, myControl2.value)">Add</button>
         </div>
       </mat-form-field>
       <mat-accordion multi="true">
@@ -79,7 +79,7 @@
               <input matInput [matDatepicker]="picker2" name="inDate2" #date2="ngModel" ngModel placeholder="Choose a date" readonly="" [disabled]="disabledDate">
               <mat-datepicker-toggle matSuffix [for]="picker2" [disabled]="disabledDate"></mat-datepicker-toggle>
               <mat-datepicker #picker2 [disabled]="disabledDate"></mat-datepicker>
-              <mat-error *ngIf="date2.invalid">You need to enter a name.</mat-error>
+              <mat-error *ngIf="date2.invalid">You need to enter a final date.</mat-error>
             </mat-form-field>
             </div>
           </div>

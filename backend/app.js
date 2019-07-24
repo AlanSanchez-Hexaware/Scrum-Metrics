@@ -257,7 +257,7 @@ app.post("/api/lastproject", (req,res,next) => {
 app.post("/api/postmember", (req, res, next) => {
   let memberquery = "INSERT INTO member VALUES(?,?,?)"
   db.query(memberquery,[
-    req.body.projectname,
+    req.body.projid,
     req.body.user,
     req.body.role
   ],(err,result) => {
