@@ -9,10 +9,11 @@
   <div mat-dialog-content>
     <div fxLayout="row">
       <div fxLayout="column">
-        <img src="../assets/img/stockprofile.png" alt="project-pic" id="project-pic">
+        <img [src]="url" alt="project-pic" id="project-pic">
         <div fxLayoutAlign="center center" class="divchangepho">
-            <mat-icon>unarchive</mat-icon>
-            <a href="" id="changephoto">Change photo</a>
+            <input type="file" (change)="onFileChanged($event)" accept="image/*" class="img-input" #fileInput>
+            <mat-icon (click)="fileInput.click()">unarchive</mat-icon>
+            <a (click)="fileInput.click()" id="changephoto">Change photo</a>
         </div>
       </div>
     <div fxLayout="column">
@@ -27,10 +28,23 @@
         <mat-error *ngIf="desc.invalid">You need to enter a description.</mat-error>
       </mat-form-field>
       <h3>Add Members</h3>
+      <mat-form-field id="select-div">
+          <mat-label>Role</mat-label>
+          <select [formControl]="myControl2" matNativeControl>
+            <option value="ScrumMaster">Scrum Master</option>
+            <option value="Product Owner">Product Owner</option>
+            <option value="Team Member">Team Member</option>
+          </select>
+      </mat-form-field>
       <mat-form-field>
         <div fxLayout="row" fxLayoutAlign="center center">
-        <input matInput type="text" placeholder="Search by username.">
-        <button mat-raised-button color="primary">Add</button>
+        <input matInput type="text" placeholder="Search by username." [formControl]="myControl" [matAutocomplete]="auto" aria-label="Number">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let username of filteredOptions | async" [value]="username">
+            {{username}}
+          </mat-option>
+        </mat-autocomplete>
+        <button mat-raised-button color="primary" type="button" (click)="onAddUser(myControl.value, myControl2.value)">Add</button>
         </div>
       </mat-form-field>
       <mat-accordion multi="true">
@@ -38,25 +52,21 @@
           <mat-expansion-panel-header>
             Members
           </mat-expansion-panel-header>
-          <p></p>
-          <mat-action-row>
-            <mat-form-field>
-              <mat-label>Role</mat-label>
-              <select matNativeControl required>
-                <option value="ScrumMaster">ScrumMaster</option>
-                <option value="Product Owner">Product Owner</option>
-                <option value="Team Member">Team Member</option>
-              </select>
-            </mat-form-field>
+          <mat-action-row *ngFor="let user of storedusers; let i = index">
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <mat-panel-title>{{storedusers[i]}}</mat-panel-title>
+              <p>{{roles[i]}}</p>
+            </div>
+            <button mat-raised-button color="warn" (click)="deleteUser(storedusers[i], i)" id="deletebutton">Delete</button>
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>
-      <p class="info-text mat-body-1">No members added yet.</p>
+      <p class="info-text mat-body-1" *ngIf="1 > storedusers.length">No members added yet.</p>
       <div fxLayout="row">
           <div fxLayout="column">
             <h4>Start Date</h4>
             <mat-form-field>
-              <input matInput [matDatepicker]="picker" name="inDate1" #date1="ngModel" ngModel placeholder="Choose a date" required>
+              <input matInput [matDatepicker]="picker" name="inDate1" #date1="ngModel" ngModel placeholder="Choose a date" readonly="true" required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="date1.invalid">You need to enter an initial date.</mat-error>
@@ -66,10 +76,10 @@
               <mat-checkbox (change)="changeCheck($event)" id="endbutt" color="primary">End Date</mat-checkbox>
             <div id="date2">
             <mat-form-field id="picker2">
-              <input matInput [matDatepicker]="picker2" name="inDate2" #date2="ngModel" ngModel placeholder="Choose a date" [disabled]="disabledDate">
+              <input matInput [matDatepicker]="picker2" name="inDate2" #date2="ngModel" ngModel placeholder="Choose a date" readonly="" [disabled]="disabledDate">
               <mat-datepicker-toggle matSuffix [for]="picker2" [disabled]="disabledDate"></mat-datepicker-toggle>
               <mat-datepicker #picker2 [disabled]="disabledDate"></mat-datepicker>
-              <mat-error *ngIf="date2.invalid">You need to enter a name.</mat-error>
+              <mat-error *ngIf="date2.invalid">You need to enter a final date.</mat-error>
             </mat-form-field>
             </div>
           </div>
@@ -78,7 +88,7 @@
   </div>
 </div>
 <div fxLayout="row" fxLayoutAlign="center center">
-  <button mat-raised-button color="primary" id="createbutt" type="submit" matTooltip="Are you sure everything's ok?">Create</button>
+  <button mat-raised-button color="primary" id="createbutt" type="submit" matTooltip="Remember to add yourself to get a role!">Create</button>
 </div>
 </form>
 </div>

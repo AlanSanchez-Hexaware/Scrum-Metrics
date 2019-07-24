@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql');
+const fs = require('fs');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -43,6 +44,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/exported-images', express.static('static'));
+
 app.post("/api/postuser", (req, res, next) => {
   if( !req.body.name || !req.body.email || !req.body.username || !req.body.password ){
     response = {
@@ -52,9 +55,11 @@ app.post("/api/postuser", (req, res, next) => {
     };
     res.send(response);
   }else{
-    let emailQuery = "SELECT * FROM test_users WHERE e_mail = '" + req.body.email + "'";
-    let usernameQuery = "SELECT * FROM test_users WHERE username = '" + req.body.username + "'";
-    db.query(emailQuery, (err, result) => {
+    let emailQuery = "SELECT * FROM test_users WHERE e_mail = ?";
+    let usernameQuery = "SELECT * FROM test_users WHERE username = ?";
+    db.query(emailQuery,[
+      req.body.email
+    ], (err, result) => {
       if(result.length>0){
         response = {
           error: true,
@@ -63,7 +68,9 @@ app.post("/api/postuser", (req, res, next) => {
         };
         res.send(response);
       }else{
-        db.query(usernameQuery, (err, result) => {
+        db.query(usernameQuery,[
+          req.body.username
+        ], (err, result) => {
           if(result.length>0){
             response = {
               error: true,
@@ -169,6 +176,107 @@ app.post("/api/login", (req, res, next) => {
       }
     });
   }
+});
+
+app.get("/api/usersquery", (req,res,next) => {
+  let usersQuery = "SELECT user_id, username FROM test_users";
+  db.query(usersQuery, (err,result) => {
+    res.send(result);
+  });
+});
+
+app.post("/api/postproject", (req,res,next) => {
+  let nameQuery = "SELECT name FROM project WHERE name = ?";
+  db.query(nameQuery,[
+    req.body.name
+  ],(err,result) => {
+    if(result.length>0){
+      response = {
+        error: true,
+        code: 409,
+        message: 'Name already in use'
+      };
+    res.send(response);
+    } else {
+      let projectQuery = "INSERT INTO project (name,description,start_date,end_date,image) VALUES(?,?,?,?,?)";
+      db.query(projectQuery,[
+        req.body.name,
+        req.body.description,
+        req.body.start_date,
+        req.body.end_date,
+        req.body.image
+      ],(err,result) => {
+        if(err){
+          response = {
+            error: true,
+            code: 500,
+            message: err
+          };
+          res.send(response);
+        } else {
+          response = {
+            error: false,
+            code: 200,
+            message: 'Project created succesfully'
+          };
+          res.send(response);
+        }
+      });
+    }
+  });
+});
+
+app.post("/api/lastproject", (req,res,next) => {
+  let lastquery = "SELECT project_id FROM project WHERE name = ?"
+  db.query(lastquery,[
+    req.body.name
+  ],(err,result) => {
+    if(err){
+      console.log(err);
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.send(response);
+    } else {
+      if (result === '') {
+        response = {
+          error: true,
+          code: 404,
+          message: 'Project not found'
+        };
+        res.send(response);
+      } else {
+        res.send(result);
+      }
+    }
+  });
+});
+
+app.post("/api/postmember", (req, res, next) => {
+  let memberquery = "INSERT INTO member VALUES(?,?,?)"
+  db.query(memberquery,[
+    req.body.projid,
+    req.body.user,
+    req.body.role
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Members added succesfully.'
+      };
+      res.send(response);
+    }
+  });
 });
 
 module.exports = app;

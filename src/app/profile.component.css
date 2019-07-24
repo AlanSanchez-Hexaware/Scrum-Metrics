@@ -1,0 +1,18 @@
+#fulldialog{
+  min-width: 400px;
+}
+
+#user-pic{
+  height: 150px;
+  width: 150px;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+.divchangepho{
+  margin: 15px 0px 0px -20px;
+}
+
+.img-input{
+  display: none;
+}

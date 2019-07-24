@@ -1,14 +1,13 @@
 import { User } from './user.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { createReducer, on } from '@ngrx/store';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
 
-  public userObs$: Observable<any> = null;
-  public errObs$: Observable<any[]> = null;
+  private users: any[];
+  private usernames: any[] = [];
+  private usersMap = new Map();
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +18,7 @@ export class UserService {
       if (responseData.error) {
         return;
       } else {
-        setTimeout('location.href = \'/login\';' , 1000);
+        setTimeout('location.href = \'/start/login\';' , 500);
       }
     });
   }
@@ -31,9 +30,33 @@ export class UserService {
     if (responseData.error) {
         return;
       } else {
-        setTimeout('location.href = \'/app\';' , 1000);
+        setTimeout('location.href = \'/app/project\';' , 500);
       }
     });
+  }
+
+  getUsersM() {
+    this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
+      this.users = JSON.parse(JSON.stringify(responseData));
+      this.users.forEach((Object: any[]) => {
+        // tslint:disable: no-string-literal
+        const currentuser = Object['username'];
+        const currentid = Object['user_id'];
+        this.usersMap.set(currentuser, currentid);
+      });
+    });
+    return this.usersMap;
+  }
+
+  getUsersA() {
+    this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
+      this.users = JSON.parse(JSON.stringify(responseData));
+      this.users.forEach((Object: any[]) => {
+        const currentuser = Object['username'];
+        this.usernames.push(currentuser);
+      });
+    });
+    return this.usernames;
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewProjectComponent } from 'src/app/newproject.component';
+import { ProfileComponent } from 'src/app/profile.component';
 
 @Component({
   selector: 'app-app-sidenav-list',
@@ -22,15 +23,19 @@ export class AppSidenavListComponent implements OnInit {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(NewProjectComponent, {
-      width: '600px',
-      height: '900',
-      minWidth: '400px',
-      minHeight: '900px'
+      minWidth: '500px'
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
 
+  public openProfile(): void {
+    const dialogRef = this.dialog.open(ProfileComponent, {
+      minWidth: '500px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
