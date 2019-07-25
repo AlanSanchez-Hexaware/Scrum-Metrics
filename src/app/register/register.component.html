@@ -5,7 +5,7 @@
       </div>
       <form (submit)="onAddUser(userForm)" #userForm="ngForm">
       <div id="inner-div">
-            <h3>Name</h3>
+            <h3>Full Name</h3>
             <mat-form-field>
                 <input matInput type="text" name="inName" ngModel #name="ngModel" placeholder="Name" required>
                 <mat-error *ngIf="name.invalid">You need to enter a name.</mat-error>
@@ -28,7 +28,7 @@
             <h3>Confirm Password</h3>
             <mat-form-field>
                 <input matInput type="password" name="confPass" ngModel #password2="ngModel" placeholder="Repeat password" required minlength="4" maxlength="20">
-                <mat-error *ngIf="password2.invalid">Passwords don't match.</mat-error>
+                <mat-error *ngIf="password2.invalid">Invalid password.</mat-error>
             </mat-form-field>
 
             <div fxLayout="row" fxLayoutAlign="center center">
@@ -40,7 +40,7 @@
               Register with   <img src="../../assets/img/google.png" alt="google_sign-in">
             </a>
             <h4>You already have an account?</h4>
-            <a routerLink="/login" class="reg-link">Log In.</a>
+            <a routerLink="/start/login" class="reg-link">Log In.</a>
       </div>
     </form>
     </div>

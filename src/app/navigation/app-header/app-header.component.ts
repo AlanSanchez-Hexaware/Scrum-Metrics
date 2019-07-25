@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProfileComponent } from 'src/app/profile.component';
 import { MatDialog } from '@angular/material';
+import { UserService } from 'src/app/register/users.service';
 
 @Component({
   selector: 'app-app-header',
@@ -9,11 +10,15 @@ import { MatDialog } from '@angular/material';
 })
 export class AppHeaderComponent implements OnInit {
 
+  username = sessionStorage.getItem('username');
+  name = {};
+
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.name = {fullname: sessionStorage.getItem('name')};
   }
 
   public onToggleSidenav = () => {

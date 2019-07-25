@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
+import { UserService } from './register/users.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,13 +14,38 @@ export class ProfileComponent implements OnInit {
   myControl = new FormControl();
   selectedFile: File;
   url: any = '../assets/img/stockprofile.png';
-  email: string;
+  thisname = {};
+  curname = sessionStorage.getItem('name');
+  thisemail = {};
+  curemail = sessionStorage.getItem('email');
   user = {};
+  username = sessionStorage.getItem('username');
+  disabledUser = true;
+  disabledEmail = true;
 
-  constructor(public dialogRef: MatDialogRef<ProfileComponent>) { }
+  constructor(public dialogRef: MatDialogRef<ProfileComponent>,
+              public userService: UserService) { }
 
   ngOnInit() {
-    this.user = { name: 'Mr.AvocadoMan' };
+    this.user = { name: this.username };
+    this.thisname = { name: this.curname };
+    this.thisemail = { name: this.curemail };
+  }
+
+  changeCheck(event) {
+    if (this.disabledUser === true) {
+      this.disabledUser = false;
+    } else {
+      this.disabledUser = true;
+    }
+  }
+
+  public changeCheck2(event) {
+    if (this.disabledEmail === true) {
+      this.disabledEmail = false;
+    } else {
+      this.disabledEmail = true;
+    }
   }
 
   onNoClick(): void {
@@ -37,6 +63,27 @@ export class ProfileComponent implements OnInit {
       };
     }
     this.selectedFile = event.target.files[0];
+  }
+
+  saveProfile(form: NgForm) {
+    // tslint:disable: triple-equals
+    if (form.invalid || form.value.inMail == '' && form.value.inName == '') {
+      return;
+    } else {
+      if (form.value.inMail != null && form.value.inName != null) {
+        this.userService.updateAll(this.username, form.value.inName, form.value.inMail);
+      } else {
+        if (form.value.inName != null) {
+          this.userService.updateName(this.username, form.value.inName);
+        } else {
+          if (form.value.inMail != null) {
+            this.userService.updateMail(this.username, form.value.inMail);
+          } else {
+            return;
+          }
+        }
+      }
+    }
   }
 
 }

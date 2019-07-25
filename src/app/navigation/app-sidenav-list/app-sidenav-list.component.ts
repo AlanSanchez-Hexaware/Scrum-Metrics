@@ -42,7 +42,7 @@ export class AppSidenavListComponent implements OnInit {
   }
 
   public endSession() {
-    localStorage.removeItem('token');
+    sessionStorage.clear();
     this.router.navigate(['/start/login']);
   }
 

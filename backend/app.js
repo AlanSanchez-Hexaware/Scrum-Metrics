@@ -187,6 +187,110 @@ app.get("/api/usersquery", (req,res,next) => {
   });
 });
 
+app.post("/api/user", (req,res,next) => {
+  let userQuery = "SELECT name, e_mail FROM test_users WHERE username = ?";
+  db.query(userQuery,[
+    req.body.username
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.send(response);
+    }
+    if(result.length>0){
+      response = {
+        error: false,
+        code: 200,
+        message: result
+      };
+      res.send(result);
+    } else {
+      response = {
+        error: true,
+        code: 404,
+        message: 'User not found'
+      };
+      res.send(response);
+    }
+  });
+});
+
+app.put('/api/nameupd', (req,res,next) => {
+  let updnameQ = "UPDATE test_users SET name = ? WHERE username = ?";
+  db.query(updnameQ,[
+    req.body.name,
+    req.body.username
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'User updated'
+      };
+      res.send(response);
+    }
+  });
+});
+
+app.put('/api/mailupd', (req,res,next) => {
+  let updmailQ = "UPDATE test_users SET e_mail = ? WHERE username = ?";
+  db.query(updmailQ,[
+    req.body.email,
+    req.body.username
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'User updated'
+      };
+      res.send(response);
+    }
+  });
+});
+
+app.put('/api/allupd', (req,res,next) => {
+  let updallQ = "UPDATE test_users SET name = ? , e_mail = ? WHERE username = ?";
+  db.query(updallQ,[
+    req.body.name,
+    req.body.email,
+    req.body.username
+  ],(err,result) => {
+    if(err) {
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'User updated'
+      };
+      res.send(response);
+    }
+  });
+});
+
 app.post("/api/postproject", (req,res,next) => {
   let nameQuery = "SELECT name FROM project WHERE name = ?";
   db.query(nameQuery,[

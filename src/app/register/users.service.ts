@@ -32,14 +32,30 @@ export class UserService {
         alert(responseData.message);
         return;
       } else {
-        localStorage.setItem('token', responseData.message);
-        this.router.navigate(['/app/project']);
+        sessionStorage.setItem('token', responseData.message);
+        sessionStorage.setItem('username', username);
+        this.getUserInfo(username);
       }
     });
   }
 
+  getUserInfo(username: string) {
+    const user = { username };
+    return this.http.post<{name: string, e_mail: string}>('http://localhost:3000/api/user', user).subscribe((responseData) => {
+      const user1: any[] = JSON.parse(JSON.stringify(responseData));
+      user1.forEach((Object: any[]) => {
+        // tslint:disable: no-string-literal
+        const curname = Object['name'];
+        const curemail = Object['e_mail'];
+        sessionStorage.setItem('name', curname);
+        sessionStorage.setItem('email', curemail);
+        this.router.navigate(['/app/project']);
+      });
+    });
+  }
+
   loggedIn() {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 
   getUsersM() {
@@ -64,6 +80,43 @@ export class UserService {
       });
     });
     return this.usernames;
+  }
+
+  updateName(username: string, name: string) {
+    const userupd = { username, name };
+    this.http.put<{error: boolean}>('http://localhost:3000/api/nameupd', userupd).subscribe((responseData) => {
+      if (responseData.error) {
+        alert('Error, refresh and try again');
+      } else {
+        alert('Name changed, reload page');
+        sessionStorage.setItem('name', name);
+      }
+    });
+  }
+
+  updateMail(username: string, email: string) {
+    const userupd = { username, email };
+    this.http.put<{error: boolean}>('http://localhost:3000/api/mailupd', userupd).subscribe((responseData) => {
+      if (responseData.error) {
+        alert('Error, refresh and try again');
+      } else {
+        alert('E-mail changed, reload page');
+        sessionStorage.setItem('email', email);
+      }
+    });
+  }
+
+  updateAll(username: string, name: string, email: string) {
+    const userupd = { username, name, email };
+    this.http.put<{error: boolean}>('http://localhost:3000/api/allupd', userupd).subscribe((responseData) => {
+      if (responseData.error) {
+        alert('Error, refresh and try again');
+      } else {
+        alert('Success, reload page');
+        sessionStorage.setItem('name', name);
+        sessionStorage.setItem('email', email);
+      }
+    });
   }
 
 }

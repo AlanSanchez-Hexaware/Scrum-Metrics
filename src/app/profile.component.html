@@ -1,9 +1,10 @@
 <div id="fulldialog">
+  <form (submit)="saveProfile(profileForm)" #profileForm="ngForm">
   <div fxLayout="row" fxLayoutAlign="center center" id="title-div">
     <h1>My Profile</h1>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
-    <h4>{{user.name}}</h4>
+    <h4 id="usernameh4">{{user.name}}</h4>
   </div>
   <div mat-dialog-content>
     <div fxLayout="row">
@@ -18,16 +19,16 @@
       <div fxLayout="column">
         <h3>Name</h3>
         <mat-form-field>
-          <input matInput type="text" value="{{name}}" #name="ngModel" ngModel required>
+          <input matInput type="text" placeholder={{thisname.name}} #name="ngModel" name="inName" ngModel [disabled]="disabledUser" required>
           <mat-error *ngIf="name.invalid">You can't leave this blank</mat-error>
         </mat-form-field>
-        <a>Change name</a>
+        <button mat-raised-button type="button" color="lightgray" (click)="changeCheck($event)" matTooltip="Click to change your name">Unlock/lock name</button>
         <h3>E-mail</h3>
         <mat-form-field>
-          <input matInput type="text" value="{{email}}" #email="ngModel" ngModel required>
+          <input matInput type="text" placeholder={{thisemail.name}} ngModel #email="ngModel" name="inMail" ngModel [disabled]="disabledEmail" required>
           <mat-error *ngIf="email.invalid">You can't leave this blank</mat-error>
         </mat-form-field>
-        <a>Change e-mail</a>
+        <button mat-raised-button type="button" color="lightgray" (click)="changeCheck2($event)" matTooltip="Click to change your e-mail">Unlock/lock e-mail</button>
         <a><h4>Change password</h4></a>
       </div>
     </div>
@@ -35,4 +36,5 @@
   <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-raised-button type="submit" color="primary">Save</button>
   </div>
+  </form>
 </div>
