@@ -53,7 +53,7 @@ app.post("/api/postuser", (req, res, next) => {
       code: 400,
       message: 'Missing data'
     };
-    res.send(response);
+    res.status(400).send(response);
   }else{
     let emailQuery = "SELECT * FROM test_users WHERE e_mail = ?";
     let usernameQuery = "SELECT * FROM test_users WHERE username = ?";
@@ -66,7 +66,7 @@ app.post("/api/postuser", (req, res, next) => {
           code: 409,
           message: 'E-mail already in use'
         };
-        res.send(response);
+        res.status(409).send(response);
       }else{
         db.query(usernameQuery,[
           req.body.username
@@ -77,7 +77,7 @@ app.post("/api/postuser", (req, res, next) => {
               code: 409,
               message: 'Username already in use'
             };
-            res.send(response);
+            res.status(409).send(response);
           }else{
             user = {
               name: req.body.name,
@@ -90,7 +90,7 @@ app.post("/api/postuser", (req, res, next) => {
               code: 201,
               message: 'User created'
             };
-            res.send(response);
+            res.status(201).send(response);
             let insQuery = "INSERT INTO test_users (username,password,e_mail,name,image) VALUES ('" + user.username + "','" + user.password + "','" + user.email + "','" + user.name + "', null)";
             db.query(insQuery, (err, result) => {
               if (err) {
@@ -99,7 +99,7 @@ app.post("/api/postuser", (req, res, next) => {
                   code: 500,
                   message: err
                 };
-                res.send(response);
+                res.status(500).send(response);
               }
             });
           }
@@ -110,7 +110,7 @@ app.post("/api/postuser", (req, res, next) => {
 });
 
 app.get("/api", (req, res, next) => {
-  res.send(response);
+  res.status(200).send(response);
 });
 
 app.post("/api/login", (req, res, next) => {
@@ -120,7 +120,7 @@ app.post("/api/login", (req, res, next) => {
       code: 400,
       message: 'Missing data'
     };
-    res.send(response);
+    res.status(400).send(response);
   }else{
     let userQuery = "SELECT username FROM test_users WHERE username = ?";
     db.query(userQuery,[
@@ -132,7 +132,7 @@ app.post("/api/login", (req, res, next) => {
           code: 500,
           message: err
         };
-        res.send(response);
+        res.status(500).send(response);
       } else {
         if (result.length===0) {
           response = {
@@ -140,7 +140,7 @@ app.post("/api/login", (req, res, next) => {
             code: 404,
             message: 'User not found'
           };
-          res.send(response);
+          res.status(404).send(response);
         } else {
           let logQuery = "SELECT username, password FROM test_users WHERE username = ? AND password = ?";
           db.query(logQuery,[
@@ -153,7 +153,7 @@ app.post("/api/login", (req, res, next) => {
                 code: 500,
                 message: err
               };
-              res.send(response);
+              res.status(500).send(response);
             } else {
               if(result.length > 0){
                 let payload = { subject: req.body.username };
@@ -163,14 +163,14 @@ app.post("/api/login", (req, res, next) => {
                   code: 200,
                   message: token
                 };
-                res.send(response);
+                res.status(200).send(response);
               } else {
                   response = {
                     error: true,
                     code: 400,
                     message: 'Incorrect password'
                   };
-                  res.send(response);
+                  res.status(400).send(response);
                 }
               }
             });
@@ -183,12 +183,20 @@ app.post("/api/login", (req, res, next) => {
 app.get("/api/usersquery", (req,res,next) => {
   let usersQuery = "SELECT user_id, username FROM test_users";
   db.query(usersQuery, (err,result) => {
-    res.send(result);
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+    } else {
+      res.status(500).send(result);
+    }
   });
 });
 
 app.post("/api/user", (req,res,next) => {
-  let userQuery = "SELECT name, e_mail FROM test_users WHERE username = ?";
+  let userQuery = "SELECT name, e_mail, user_id FROM test_users WHERE username = ?";
   db.query(userQuery,[
     req.body.username
   ],(err,result) => {
@@ -198,7 +206,7 @@ app.post("/api/user", (req,res,next) => {
         code: 500,
         message: err
       };
-      res.send(response);
+      res.status(500).send(response);
     }
     if(result.length>0){
       response = {
@@ -206,14 +214,14 @@ app.post("/api/user", (req,res,next) => {
         code: 200,
         message: result
       };
-      res.send(result);
+      res.status(200).send(result);
     } else {
       response = {
         error: true,
         code: 404,
         message: 'User not found'
       };
-      res.send(response);
+      res.status(404).send(response);
     }
   });
 });
@@ -230,14 +238,14 @@ app.put('/api/nameupd', (req,res,next) => {
         code: 500,
         message: err
       };
-      res.send(response);
+      res.status(500).send(response);
     } else {
       response = {
         error: false,
-        code: 200,
+        code: 202,
         message: 'User updated'
       };
-      res.send(response);
+      res.status(202).send(response);
     }
   });
 });
@@ -254,14 +262,14 @@ app.put('/api/mailupd', (req,res,next) => {
         code: 500,
         message: err
       };
-      res.send(response);
+      res.status(500).send(response);
     } else {
       response = {
         error: false,
         code: 200,
         message: 'User updated'
       };
-      res.send(response);
+      res.status(200).send(response);
     }
   });
 });
@@ -279,14 +287,14 @@ app.put('/api/allupd', (req,res,next) => {
         code: 500,
         message: err
       };
-      res.send(response);
+      res.status(500).send(response);
     } else {
       response = {
         error: false,
         code: 200,
         message: 'User updated'
       };
-      res.send(response);
+      res.status(200).send(response);
     }
   });
 });
@@ -302,7 +310,7 @@ app.post("/api/postproject", (req,res,next) => {
         code: 409,
         message: 'Name already in use'
       };
-    res.send(response);
+    res.status(409).send(response);
     } else {
       let projectQuery = "INSERT INTO project (name,description,start_date,end_date,image) VALUES(?,?,?,?,?)";
       db.query(projectQuery,[
@@ -318,14 +326,14 @@ app.post("/api/postproject", (req,res,next) => {
             code: 500,
             message: err
           };
-          res.send(response);
+          res.status(500).send(response);
         } else {
           response = {
             error: false,
             code: 200,
             message: 'Project created succesfully'
           };
-          res.send(response);
+          res.status(200).send(response);
         }
       });
     }
@@ -344,7 +352,7 @@ app.post("/api/lastproject", (req,res,next) => {
         code: 500,
         message: err
       };
-      res.send(response);
+      res.status(500).send(response);
     } else {
       if (result === '') {
         response = {
@@ -352,16 +360,52 @@ app.post("/api/lastproject", (req,res,next) => {
           code: 404,
           message: 'Project not found'
         };
-        res.send(response);
+        res.status(404).send(response);
       } else {
-        res.send(result);
+        res.status(200).send(result);
       }
     }
   });
 });
 
+app.post("/api/userprojs", (req,res,next) => {
+  let projsQuery = "SELECT project_id FROM member WHERE user_id = ?";
+  db.query(projsQuery,[
+    req.body.userid
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.post("/api/projectinfo", (req,res,next) => {
+  let projInfo = "SELECT name, description FROM project WHERE project_id = ?";
+  db.query(projInfo,[
+    req.body.projectid
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
 app.post("/api/postmember", (req, res, next) => {
-  let memberquery = "INSERT INTO member VALUES(?,?,?)"
+  let memberquery = "INSERT INTO member VALUES(?,?,?)";
   db.query(memberquery,[
     req.body.projid,
     req.body.user,
@@ -373,14 +417,14 @@ app.post("/api/postmember", (req, res, next) => {
         code: 500,
         message: err
       };
-      res.send(response);
+      res.status(500).send(response);
     } else {
       response = {
         error: false,
         code: 200,
-        message: 'Members added succesfully.'
+        message: 'Member added succesfully.'
       };
-      res.send(response);
+      res.status(200).send(response);
     }
   });
 });

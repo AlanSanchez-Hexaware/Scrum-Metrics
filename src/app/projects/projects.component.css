@@ -1,0 +1,27 @@
+.projpanel{
+  width: 100%;
+  height: 100%;
+  margin-top: 25px;
+}
+
+.exppanel{
+  min-width: 350px;
+  width: 70%;
+}
+
+.pantitle{
+  min-width: 100px;
+  width: 150px;
+  padding: 0% 10% 0% 3%;
+  font-weight: bold;
+}
+
+.panid{
+  padding: 0% 50% 0% 0%;
+}
+
+.openbutton{
+  width: 50px;
+  height: 40px;
+  margin: 0% 3% 0% 50%;
+}

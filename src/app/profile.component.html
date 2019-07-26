@@ -2,6 +2,9 @@
   <form (submit)="saveProfile(profileForm)" #profileForm="ngForm">
   <div fxLayout="row" fxLayoutAlign="center center" id="title-div">
     <h1>My Profile</h1>
+    <div fxFlex fxLayout fxLayoutAlign="end">
+      <button mat-raised-button color="primary" (click)="onNoClick()">X</button>
+    </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
     <h4 id="usernameh4">{{user.name}}</h4>

@@ -41,14 +41,17 @@ export class UserService {
 
   getUserInfo(username: string) {
     const user = { username };
-    return this.http.post<{name: string, e_mail: string}>('http://localhost:3000/api/user', user).subscribe((responseData) => {
+    return this.http.post<{name: string, e_mail: string, user_id: number}>
+    ('http://localhost:3000/api/user', user).subscribe((responseData) => {
       const user1: any[] = JSON.parse(JSON.stringify(responseData));
       user1.forEach((Object: any[]) => {
         // tslint:disable: no-string-literal
         const curname = Object['name'];
         const curemail = Object['e_mail'];
+        const curid = Object['user_id'];
         sessionStorage.setItem('name', curname);
         sessionStorage.setItem('email', curemail);
+        sessionStorage.setItem('userid', curid);
         this.router.navigate(['/app/project']);
       });
     });

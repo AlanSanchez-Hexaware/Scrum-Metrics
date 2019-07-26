@@ -1,0 +1,18 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="projpanel">
+  <div fxLayout="column" fxLayoutAlign="center center" class="projpanel">
+      <mat-expansion-panel class="exppanel" *ngFor="let project of userprojs; let i = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="pantitle">
+              {{project.projname}}
+            </mat-panel-title>
+            <mat-panel-description class="panid">
+              {{project.project}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <p class="pandesc">{{project.projdesc}}</p>
+            <button mat-raised-button color="primary" class="openbutton">Open</button>
+          </div>
+        </mat-expansion-panel>
+  </div>
+</div>

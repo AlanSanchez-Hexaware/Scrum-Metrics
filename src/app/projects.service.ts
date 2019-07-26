@@ -34,4 +34,14 @@ export class ProjectsService {
     const member = { projid, user, role };
     return this.http.post('http://localhost:3000/api/postmember', member).toPromise();
   }
+
+  getUserProjects(userid: string) {
+    const usid = { userid };
+    return this.http.post('http://localhost:3000/api/userprojs', usid).toPromise();
+  }
+
+  getProjectInfo(projectid: string) {
+    const proj = { projectid };
+    return this.http.post('http://localhost:3000/api/projectinfo', proj).toPromise();
+  }
 }

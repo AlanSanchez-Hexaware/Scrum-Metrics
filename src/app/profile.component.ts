@@ -70,15 +70,19 @@ export class ProfileComponent implements OnInit {
     if (form.invalid || form.value.inMail == '' && form.value.inName == '') {
       return;
     } else {
-      if (form.value.inMail != null && form.value.inName != null) {
+      if (form.value.inMail != null && form.value.inName != null && this.disabledUser == false && this.disabledEmail == false) {
         this.userService.updateAll(this.username, form.value.inName, form.value.inMail);
+        this.dialogRef.close();
       } else {
-        if (form.value.inName != null) {
+        if (form.value.inName != null && this.disabledUser == false) {
           this.userService.updateName(this.username, form.value.inName);
+          this.dialogRef.close();
         } else {
-          if (form.value.inMail != null) {
+          if (form.value.inMail != null && this.disabledEmail == false) {
             this.userService.updateMail(this.username, form.value.inMail);
+            this.dialogRef.close();
           } else {
+            this.dialogRef.close();
             return;
           }
         }

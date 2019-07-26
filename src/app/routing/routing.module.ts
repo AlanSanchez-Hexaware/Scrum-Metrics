@@ -11,6 +11,7 @@ import { MainhomeComponent } from '../mainhome.component';
 import { ApphomeComponent } from '../apphome.component';
 import { ApplandingComponent } from '../applanding/applanding.component';
 import { AuthGuard } from '../auth.guard';
+import { ProjectsComponent } from '../projects/projects.component';
 
 const routes: Routes = [
   { path: 'start', component: MainhomeComponent, children: [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/start/home', pathMatch: 'full' },
   { path: 'app', component: ApphomeComponent, canActivate: [AuthGuard], children: [
     { path: 'project', component: ApplandingComponent },
+    { path: 'projects', component: ProjectsComponent },
     { path: '', redirectTo: '/app/project', pathMatch: 'full' },
     { path: '404', component: NotFoundComponent },
     { path: '**', redirectTo: '/app/404', pathMatch: 'full' }

@@ -46,4 +46,8 @@ export class AppSidenavListComponent implements OnInit {
     this.router.navigate(['/start/login']);
   }
 
+  public openProjs() {
+    this.router.navigate(['/app/projects']);
+  }
+
 }

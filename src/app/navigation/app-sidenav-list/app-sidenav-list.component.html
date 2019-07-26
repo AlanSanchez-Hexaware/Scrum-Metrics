@@ -2,8 +2,8 @@
   <a mat-list-item (click)="onSidenavClose()" (click)="openProfile()">
     <mat-icon>account_circle</mat-icon><span class="nav-caption" matTooltip="Click to see your profile.">My Profile</span>
   </a>
-  <a mat-list-item (click)="onSidenavClose()">
-    <mat-icon>assessment</mat-icon><span class="nav-caption" matTooltip="Projects you've created or are a part of.">My Projects</span>
+  <a mat-list-item (click)="openProjs()" (click)="onSidenavClose()">
+    <mat-icon>assessment</mat-icon><span class="nav-caption" matTooltip="Projects you're part of.">My Projects</span>
   </a>
   <a mat-list-item (click)="onSidenavClose()">
     <mat-icon>settings</mat-icon><span class="nav-caption" matTooltip="Just settings">Settings</span>

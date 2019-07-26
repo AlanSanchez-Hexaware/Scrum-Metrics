@@ -1,0 +1,284 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Scrum-Metrics
+host: localhost:4200
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/postuser:
+    post:
+      description: Create a new user entry in the database
+      summary: Post a user in the database
+      operationId: setUser
+      parameters:
+        - name: name
+          in: query
+          description: The new user's name
+          type: string
+          required: true
+        - name: email
+          in: query
+          description: The new user's e-mail, an email can't nor shouldn't be inserted twice in the database
+          type: string
+          required: true
+        - name: username
+          in: query
+          description: The new user's username, must be unique
+          type: string
+          required: true
+        - name: password
+          in: query
+          description: The new user's password
+          type: string
+          required: true
+      responses:
+        201:
+          description: User created succesfully
+        400:
+          description: Missing data
+        409:
+          description: E-mail or username already in use
+        500:
+          description: Database error
+  /api/login:
+    post:
+      description: Grant user and password to confirm with the database of it's existance, proceeds to log in.
+      summary: Checks user/password to log in
+      operationId: loginUser
+      parameters:
+        - name: username
+          in: query
+          description: An already existing username
+          type: string
+          required: true
+        - name: password
+          in: query
+          description: The password according to that user
+          type: string
+          required: true
+      responses:
+        200:
+          description: User and password are correct, session token created
+        400:
+          description: Password is incorrect
+        404:
+          description: User not found
+        500:
+          description: Database error
+  /api/usersquery:
+    get:
+      description: Get user id and username from every user in the database
+      summary: Get user info from database
+      operationId: getUsersM, getUsersA
+      responses:
+        200:
+          description: Succesfull query
+        500:
+          description: Database error
+  /api/user:
+    post:
+      description: Returns name, email and user id from the database with the given username
+      summary: Queries info from the given user
+      operationId: getUserInfo
+      parameters:
+        - name: username
+          in: query
+          description: Username from which the information is required
+          type: string
+          required: true
+      responses:
+        200:
+          description: Succesfull query
+        404:
+          description: User not found
+        500:
+          description: Database error
+  /api/nameupd:
+    put:
+      description: Updates the given username's name with the new given name
+      summary: Updates user's name
+      operationId: updateName
+      parameters:
+        - name: name
+          in: query
+          description: User's new name
+          type: string
+          required: true
+        - name: username
+          in: query
+          description: The user which is desired to be updated
+          type: string
+          required: true
+      responses:
+        202:
+          description: User succesfully updated
+        500:
+          description: Database error
+  /api/mailupd:
+    put:
+      description: Updates the given username's email with the new given email
+      summary: Updates user's email
+      operationId: updateMail
+      parameters:
+        - name: email
+          in: query
+          description: User's new email
+          type: string
+          required: true
+        - name: username
+          in: query
+          description: The user which is desired to be updates
+          type: string
+          required: true
+      responses:
+        200:
+          description: User succesfully updated
+        500:
+          description: Database error
+  /api/allupd:
+    put:
+      description: Updates the given username's name and email with the new given name and email
+      summary: Updates user's name and email
+      operationId: updateAll
+      parameters:
+        - name: name
+          in: query
+          description: User's new name
+          type: string
+          required: true
+        - name: email
+          in: query
+          description: User's new email
+          type: string
+          required: true
+        - name: username
+          in: query
+          description: The user which is desired to be updated
+          type: string
+          required: true
+      responses:
+        200:
+          description: User updated succesfully
+        500:
+          description: Database error
+  /api/postproject:
+    post:
+      description: Creates a new project on the database with the given information
+      summary: Creates a project in the database
+      operationId: setProject
+      parameters:
+        - name: name
+          in: query
+          description: The new project's name.
+          type: string
+          required: true
+        - name: description
+          in: query
+          description: The new project's description.
+          type: string
+          required: true
+        - name: start_date
+          in: query
+          description: The new project's start date. Format yyyy-mm-dd.
+          type: Date
+          required: true
+        - name: end_date
+          in: query
+          description: The new project's end date, if existing. Format yyyy-mm-dd.
+          type: Date
+          required: false
+        - name: image
+          in: query
+          description: The Project's image, if existing.
+          type: string
+          required: false
+      responses:
+        200:
+          description: Project created succesfully
+        409:
+          description: Project name already in use
+        500:
+          description: Database error
+  /api/lastproject:
+    post:
+      description: Query for returning the project id that had just been created
+      summary: Returns last created project id
+      operationId: getProject
+      parameters:
+        - name: name
+          in: query
+          description: The project's name that was just created
+          type: string
+          required: true
+      responses:
+        200:
+          description: Project found and returned
+        404:
+          description: Project not found
+        500:
+          description: Database error
+  /api/userprojs:
+    post:
+      description: Queries the project ids from the database with the given user id
+      summary: Returns the projects a user is in
+      operationId: getUserProjects
+      parameters:
+        - name: userid
+          in: query
+          description: The user's id to identify it's projects
+          type: number
+          required: true
+      responses:
+        200:
+          description: Succesfull query
+        500:
+          description: Database error
+  /api/projectinfo:
+    post:
+      description: Queries the given project's info as name and description
+      operationId: getProjectInfo
+      parameters:
+        - name: projectid
+          in: query
+          description: The project id of which it is desired its information
+          type: number
+          required: true
+      responses:
+        200:
+          description: Succesfull query
+        500:
+          description: Database error
+  /api/postmember:
+    post:
+      description: Inserts into the database every new member
+      operationId: setMember
+      parameters:
+        - name: projid
+          in: query
+          description: The project id of which the user is a member
+          type: number
+          required: true
+        - name: user
+          in: query
+          description: The user id of who is the new member
+          type: number
+          required: true
+        - name: role
+          in: query
+          description: The user's role in the current project
+          type: string
+          required: true
+      responses:
+        200:
+          description: Member added succesfully
+        500:
+          description: Database error
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
