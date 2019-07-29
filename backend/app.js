@@ -47,10 +47,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/exported-images', express.static('static'));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/scrum-metrics/index.html'));
-});
-app.get('/*', (req,res) => res.sendFile(path.join(__dirname)));
 
 app.post("/api/postuser", (req, res, next) => {
   if( !req.body.name || !req.body.email || !req.body.username || !req.body.password ){
@@ -435,5 +431,10 @@ app.post("/api/postmember", (req, res, next) => {
     }
   });
 });
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/scrum-metrics/index.html'));
+});
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname)));
 
 module.exports = app;

@@ -1309,7 +1309,7 @@ let NewProjectComponent = class NewProjectComponent {
         const fixedDate = firstDate1.getFullYear() + '-' + firstDate1.getMonth() + '-' + firstDate1.getDate();
         let fixedlastDate;
         if (form.value.inDate2 != null) {
-            fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate() || null;
+            fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate();
         }
         else {
             fixedlastDate = null;
@@ -1321,12 +1321,11 @@ let NewProjectComponent = class NewProjectComponent {
             projectids.forEach((Object) => {
                 const currproj = Object.project_id;
                 thisproj = currproj;
+                this.storedusers.forEach((user) => {
+                    this.projectService.setMember(thisproj, this.usersMap.get(user), this.rolesMap.get(user));
+                });
+                this.emptyAll();
             });
-        }).finally(() => {
-            this.storedusers.forEach((user) => {
-                this.projectService.setMember(thisproj, this.usersMap.get(user), this.rolesMap.get(user));
-            });
-            this.emptyAll();
         });
         this.dialogRef.close();
     }

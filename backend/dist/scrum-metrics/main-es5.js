@@ -1345,7 +1345,7 @@ var NewProjectComponent = /** @class */ (function () {
         var fixedDate = firstDate1.getFullYear() + '-' + firstDate1.getMonth() + '-' + firstDate1.getDate();
         var fixedlastDate;
         if (form.value.inDate2 != null) {
-            fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate() || null;
+            fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate();
         }
         else {
             fixedlastDate = null;
@@ -1357,12 +1357,11 @@ var NewProjectComponent = /** @class */ (function () {
             projectids.forEach(function (Object) {
                 var currproj = Object.project_id;
                 thisproj = currproj;
+                _this.storedusers.forEach(function (user) {
+                    _this.projectService.setMember(thisproj, _this.usersMap.get(user), _this.rolesMap.get(user));
+                });
+                _this.emptyAll();
             });
-        }).finally(function () {
-            _this.storedusers.forEach(function (user) {
-                _this.projectService.setMember(thisproj, _this.usersMap.get(user), _this.rolesMap.get(user));
-            });
-            _this.emptyAll();
         });
         this.dialogRef.close();
     };

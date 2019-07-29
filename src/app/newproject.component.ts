@@ -116,7 +116,7 @@ export class NewProjectComponent implements OnInit {
     const fixedDate: string = firstDate1.getFullYear() + '-' + firstDate1.getMonth() + '-' + firstDate1.getDate();
     let fixedlastDate: string;
     if ( form.value.inDate2 != null ) {
-      fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate() || null;
+      fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate();
     } else {
       fixedlastDate = null;
     }
@@ -132,12 +132,11 @@ export class NewProjectComponent implements OnInit {
       projectids.forEach((Object: any) => {
         const currproj = Object.project_id;
         thisproj = currproj;
+        this.storedusers.forEach((user) => {
+          this.projectService.setMember(thisproj, this.usersMap.get(user), this.rolesMap.get(user));
+        });
+        this.emptyAll();
       });
-    }).finally(() => {
-      this.storedusers.forEach((user) => {
-        this.projectService.setMember(thisproj, this.usersMap.get(user), this.rolesMap.get(user));
-      });
-      this.emptyAll();
     });
     this.dialogRef.close();
   }
