@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   version: "1.0.0"
   title: Scrum-Metrics
-host: localhost:4200
+host: localhost:3000
 basePath: /
 schemes:
   - http
@@ -18,22 +18,22 @@ paths:
       operationId: setUser
       parameters:
         - name: name
-          in: query
+          in: body
           description: The new user's name
           type: string
           required: true
         - name: email
-          in: query
+          in: body
           description: The new user's e-mail, an email can't nor shouldn't be inserted twice in the database
           type: string
           required: true
         - name: username
-          in: query
+          in: body
           description: The new user's username, must be unique
           type: string
           required: true
         - name: password
-          in: query
+          in: body
           description: The new user's password
           type: string
           required: true
@@ -53,15 +53,13 @@ paths:
       operationId: loginUser
       parameters:
         - name: username
-          in: query
-          description: An already existing username
-          type: string
-          required: true
+          in: body
+          schema:
+            $ref: "#components/Users/username"
         - name: password
-          in: query
-          description: The password according to that user
-          type: string
-          required: true
+          in: body
+          schema:
+            $ref: "#components/Users/password"
       responses:
         200:
           description: User and password are correct, session token created
@@ -88,7 +86,7 @@ paths:
       operationId: getUserInfo
       parameters:
         - name: username
-          in: query
+          in: body
           description: Username from which the information is required
           type: string
           required: true
@@ -106,12 +104,12 @@ paths:
       operationId: updateName
       parameters:
         - name: name
-          in: query
+          in: body
           description: User's new name
           type: string
           required: true
         - name: username
-          in: query
+          in: body
           description: The user which is desired to be updated
           type: string
           required: true
@@ -127,12 +125,12 @@ paths:
       operationId: updateMail
       parameters:
         - name: email
-          in: query
+          in: body
           description: User's new email
           type: string
           required: true
         - name: username
-          in: query
+          in: body
           description: The user which is desired to be updates
           type: string
           required: true
@@ -148,17 +146,17 @@ paths:
       operationId: updateAll
       parameters:
         - name: name
-          in: query
+          in: body
           description: User's new name
           type: string
           required: true
         - name: email
-          in: query
+          in: body
           description: User's new email
           type: string
           required: true
         - name: username
-          in: query
+          in: body
           description: The user which is desired to be updated
           type: string
           required: true
@@ -174,27 +172,27 @@ paths:
       operationId: setProject
       parameters:
         - name: name
-          in: query
+          in: body
           description: The new project's name.
           type: string
           required: true
         - name: description
-          in: query
+          in: body
           description: The new project's description.
           type: string
           required: true
         - name: start_date
-          in: query
+          in: body
           description: The new project's start date. Format yyyy-mm-dd.
-          type: Date
+          type: string
           required: true
         - name: end_date
-          in: query
+          in: body
           description: The new project's end date, if existing. Format yyyy-mm-dd.
-          type: Date
+          type: string
           required: false
         - name: image
-          in: query
+          in: body
           description: The Project's image, if existing.
           type: string
           required: false
@@ -212,7 +210,7 @@ paths:
       operationId: getProject
       parameters:
         - name: name
-          in: query
+          in: body
           description: The project's name that was just created
           type: string
           required: true
@@ -230,7 +228,7 @@ paths:
       operationId: getUserProjects
       parameters:
         - name: userid
-          in: query
+          in: body
           description: The user's id to identify it's projects
           type: number
           required: true
@@ -245,7 +243,7 @@ paths:
       operationId: getProjectInfo
       parameters:
         - name: projectid
-          in: query
+          in: body
           description: The project id of which it is desired its information
           type: number
           required: true
@@ -260,17 +258,17 @@ paths:
       operationId: setMember
       parameters:
         - name: projid
-          in: query
+          in: body
           description: The project id of which the user is a member
           type: number
           required: true
         - name: user
-          in: query
+          in: body
           description: The user id of who is the new member
           type: number
           required: true
         - name: role
-          in: query
+          in: body
           description: The user's role in the current project
           type: string
           required: true
@@ -282,3 +280,13 @@ paths:
 externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
+components:
+  Users:
+    username:
+      description: An already existing username
+      type: string
+      required: true
+    password:
+      description: The password according to that user
+      type: string
+      required: true

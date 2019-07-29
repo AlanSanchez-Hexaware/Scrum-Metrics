@@ -51,7 +51,6 @@ import { ProfileComponent } from './profile.component';
 import { DateFormat } from './date-format';
 import { AuthGuard } from './auth.guard';
 import { ProjectsComponent } from './projects/projects.component';
-import { SwaggerComponent } from './swagger/swagger.component';
 
 @NgModule({
   declarations: [
@@ -72,8 +71,7 @@ import { SwaggerComponent } from './swagger/swagger.component';
     ApplandingComponent,
     NewProjectComponent,
     ProfileComponent,
-    ProjectsComponent,
-    SwaggerComponent
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,

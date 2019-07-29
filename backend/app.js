@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -36,6 +37,7 @@ let response = {
   code: 200,
   message: ''
 }
+app.use(express.static(__dirname + '/dist/scrum-metrics/'));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -45,6 +47,10 @@ app.use((req, res, next) => {
 });
 
 app.use('/exported-images', express.static('static'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/scrum-metrics/index.html'));
+});
+app.get('/*', (req,res) => res.sendFile(path.join(__dirname)));
 
 app.post("/api/postuser", (req, res, next) => {
   if( !req.body.name || !req.body.email || !req.body.username || !req.body.password ){
@@ -189,8 +195,9 @@ app.get("/api/usersquery", (req,res,next) => {
         code: 500,
         message: err
       };
+      res.status(500).send(response);
     } else {
-      res.status(500).send(result);
+      res.status(200).send(result);
     }
   });
 });
