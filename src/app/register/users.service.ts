@@ -122,4 +122,9 @@ export class UserService {
     });
   }
 
+  getUserName(userid: string) {
+    const user = { userid };
+    return this.http.post('http://192.168.0.108:3000/api/username', user).toPromise();
+  }
+
 }

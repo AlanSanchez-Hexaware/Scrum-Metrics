@@ -5,11 +5,11 @@
         </button>
     </div>
     <div fxHide.xs>
-      <h1 id="project-name" matTooltip="The project you're currently on.">No open project</h1>
+      <h1 id="project-name" matTooltip="The project you're currently on.">{{projname}}</h1>
     </div>
     <div fxFlex fxLayout fxLayoutAlign="end">
       <img src="../../../assets/img/stockprofile.png" alt="user-photo" class="user-photo" matTooltip="Yep. That's you!" (click)="openProfile()">
-      <h1 class="user-name" matTooltip="That should be you. Right?" (click)="openProfile()">{{name.fullname}}</h1>
+      <h1 class="user-name" matTooltip="That should be you. Right?" (click)="openProfile()">{{fullname}}</h1>
       <button mat-icon-button>
           <mat-icon id="settings-icon" matTooltip="Change user settings">settings</mat-icon>
       </button>

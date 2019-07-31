@@ -1,1 +1,50 @@
-<p>currentproj works!</p>
+<div fxLayout="row" fxLayoutAlign="center center" class="allpanel">
+    <div fxLayout="column" fxLayoutAlign="center center" class="projpanel">
+      <div class="innerpanel">
+        <div fxLayout="row" class="firstrow">
+          <div fxLayout="column">
+            <img [src]="url" alt="project-pic" id="project-pic">
+            <div fxLayoutAlign="center center" class="divchangepho">
+                <input type="file" (change)="onFileChanged($event)" accept="image/*" class="img-input" #fileInput>
+                <mat-icon (click)="fileInput.click()">unarchive</mat-icon>
+                <a (click)="fileInput.click()" id="changephoto">Change photo</a>
+            </div>
+          </div>
+          <div fxLayout="column">
+            <h1 class="projcont">{{projname}}</h1>
+            <p class="projcont">{{projdesc}}</p>
+            <div fxLayout="row" fxLayoutAlign="end">
+              <button mat-raised-button class="descbutton">Edit Description</button>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row" class="secondrow">
+          <div fxLayout="column" class="datecol">
+            <h3>Start Date</h3>
+            <p>{{startdate}}</p>
+            <h3>End Date</h3>
+            <p>{{enddate}}</p>
+            <button mat-raised-button class="boardbutton">Go to Board</button>
+          </div>
+          <div fxLayout="column" class="memberscol">
+            <h2>Members</h2>
+            <div class="expan">
+                <mat-expansion-panel class="exppanel" *ngFor="let member of memberids; let i = index">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="pantitle">
+                        {{membernames[i]}}
+                      </mat-panel-title>
+                      <mat-panel-description class="panrole">
+                        {{memberroles[i]}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                  </mat-expansion-panel>
+            </div>
+            <div fxLayoutAlign="end">
+              <button mat-raised-button class="memberbutton" (click)="addUser()">Add Member</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

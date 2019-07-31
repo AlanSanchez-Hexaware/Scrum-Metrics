@@ -390,7 +390,7 @@ app.post("/api/userprojs", (req,res,next) => {
 });
 
 app.post("/api/projectinfo", (req,res,next) => {
-  let projInfo = "SELECT name, description FROM project WHERE project_id = ?";
+  let projInfo = "SELECT name, description, start_date, end_date FROM project WHERE project_id = ?";
   db.query(projInfo,[
     req.body.projectid
   ],(err,result) => {
@@ -428,6 +428,42 @@ app.post("/api/postmember", (req, res, next) => {
         message: 'Member added succesfully.'
       };
       res.status(200).send(response);
+    }
+  });
+});
+
+app.post('/api/projmembers',(req,res,next) => {
+  let membersQuery = 'SELECT * FROM member WHERE project_id = ?';
+  db.query(membersQuery,[
+    req.body.projid
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      }
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.post('/api/username',(req,res,next) => {
+  let userNQuery = 'SELECT name FROM test_users WHERE user_id = ?';
+  db.query(userNQuery,[
+    req.body.userid
+  ],(err,result) => {
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      }
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
     }
   });
 });

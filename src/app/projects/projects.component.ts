@@ -40,9 +40,11 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  openProject(projid: number) {
-    sessionStorage.setItem('currproj', projid.toString());
-    this.router.navigate(['/app/currentproject']);
+  openProject(projname: string, projid: number) {
+    sessionStorage.setItem('currproj', projname);
+    sessionStorage.setItem('currprojid', projid.toString());
+    setTimeout(window.location.href = '/app/currentproject', 1);
+    // this.router.navigate(['/app/currentproject']);
   }
 
 }

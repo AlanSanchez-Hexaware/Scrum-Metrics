@@ -44,4 +44,9 @@ export class ProjectsService {
     const proj = { projectid };
     return this.http.post('http://192.168.0.108:3000/api/projectinfo', proj).toPromise();
   }
+
+  getMembers(projid: string) {
+    const project = { projid };
+    return this.http.post('http://192.168.0.108:3000/api/projmembers', project).toPromise();
+  }
 }

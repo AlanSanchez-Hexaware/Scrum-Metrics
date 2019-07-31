@@ -52,6 +52,7 @@ import { DateFormat } from './date-format';
 import { AuthGuard } from './auth.guard';
 import { ProjectsComponent } from './projects/projects.component';
 import { CurrentprojComponent } from './projects/currentproj/currentproj.component';
+import { AddmemberComponent } from './projects/currentproj/addmember/addmember.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { CurrentprojComponent } from './projects/currentproj/currentproj.compone
     NewProjectComponent,
     ProfileComponent,
     ProjectsComponent,
-    CurrentprojComponent
+    CurrentprojComponent,
+    AddmemberComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,7 @@ import { CurrentprojComponent } from './projects/currentproj/currentproj.compone
     AuthGuard
     ],
   bootstrap: [AppComponent],
-  entryComponents: [NewProjectComponent, ProfileComponent]
+  entryComponents: [NewProjectComponent, ProfileComponent, AddmemberComponent]
 })
 export class AppModule {
   constructor(private dateAdapter: DateAdapter<Date>) {

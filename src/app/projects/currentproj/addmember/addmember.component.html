@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="alldiv">
+  <h1>Add a new member</h1>
+  <div fxLayout="row" fxLayoutAlign="flex-start" class="selectdiv">
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+      <select [formControl]="myControl" matNativeControl>
+        <option value="ScrumMaster">Scrum Master</option>
+        <option value="Product Owner">Product Owner</option>
+        <option value="Team Member">Team Member</option>
+      </select>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center" class="preddiv">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Search by username." [formControl]="myControl" [matAutocomplete]="auto" aria-label="Number">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let username of filteredOptions | async" [value]="username">
+          {{username}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="button" class="addbutton" (click)="onAddMember(myControl.value)">Add</button>
+  </div>
+
+</div>

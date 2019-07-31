@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NgForm, FormControl } from '@angular/forms';
 import { UserService } from './register/users.service';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProjectsService } from './projects.service';
-import * as Q from 'q';
-import { format } from 'url';
 
 @Component({
   selector: 'app-newproject',
