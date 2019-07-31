@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from '../projects.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -12,9 +13,11 @@ export class ProjectsComponent implements OnInit {
   userprojids = [];
   userprojs = [];
 
-  constructor(private projectService: ProjectsService) { }
+  constructor(private projectService: ProjectsService,
+              private router: Router) { }
 
   ngOnInit() {
+    sessionStorage.removeItem('currproj');
     this.projectService.getUserProjects(this.useridd).then((responseData) => {
       const projectids = JSON.parse(JSON.stringify(responseData));
       projectids.forEach((Object: any) => {
@@ -35,6 +38,11 @@ export class ProjectsComponent implements OnInit {
         });
       });
     });
+  }
+
+  openProject(projid: number) {
+    sessionStorage.setItem('currproj', projid.toString());
+    this.router.navigate(['/app/currentproject']);
   }
 
 }
