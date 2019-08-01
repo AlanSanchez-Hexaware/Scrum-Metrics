@@ -3,6 +3,8 @@ import { MatDialogRef } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { UserService } from 'src/app/register/users.service';
+import { ProjectsService } from 'src/app/projects.service';
 
 @Component({
   selector: 'app-addmember',
@@ -12,12 +14,19 @@ import { startWith, map } from 'rxjs/operators';
 export class AddmemberComponent implements OnInit {
 
   myControl = new FormControl();
+  myControl2 = new FormControl();
   filteredOptions: Observable<string[]>;
+  projid = sessionStorage.getItem('currprojid');
   usernames: string[] = [];
+  usersMap = new Map();
 
-  constructor(public dialogRef: MatDialogRef<AddmemberComponent>) { }
+  constructor(private dialogRef: MatDialogRef<AddmemberComponent>,
+              private userService: UserService,
+              private projectsService: ProjectsService) { }
 
   ngOnInit() {
+    this.usernames = this.userService.getUsersA();
+    this.usersMap = this.userService.getUsersM();
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -33,8 +42,12 @@ export class AddmemberComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onAddMember(username: string) {
-
+  onAddMember(username: string, role: string) {
+    this.projectsService.setMember(this.projid, this.usersMap.get(username), role).then((responseData) => {
+      // tslint:disable: no-string-literal
+      alert(responseData['message']);
+    });
+    this.onNoClick();
   }
 
 }

@@ -3,7 +3,7 @@
   <div fxLayout="row" fxLayoutAlign="flex-start" class="selectdiv">
     <mat-form-field>
       <mat-label>Role</mat-label>
-      <select [formControl]="myControl" matNativeControl>
+      <select [formControl]="myControl2" matNativeControl>
         <option value="ScrumMaster">Scrum Master</option>
         <option value="Product Owner">Product Owner</option>
         <option value="Team Member">Team Member</option>
@@ -19,7 +19,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="button" class="addbutton" (click)="onAddMember(myControl.value)">Add</button>
+    <button mat-raised-button color="primary" type="button" class="addbutton" (click)="onAddMember(myControl.value, myControl2.value)">Add</button>
   </div>
 
 </div>

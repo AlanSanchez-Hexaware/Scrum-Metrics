@@ -468,6 +468,79 @@ app.post('/api/username',(req,res,next) => {
   });
 });
 
+app.put('/api/setnewdesc', (req,res,next)=>{
+  let descQuery = 'UPDATE project SET description = ? WHERE project_id = ?';
+  db.query(descQuery,[
+    req.body.description,
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Description updated succesfully'
+      };
+      res.status(200).send(response);
+    }
+  });
+});
+
+app.post('/api/deletemember', (req,res,next)=>{
+  let delMemQ = 'DELETE FROM member WHERE user_id = ? AND project_id = ?';
+  db.query(delMemQ,[
+    req.body.userid,
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Member deleted'
+      };
+      res.status(200).send(response);
+    }
+  });
+});
+
+app.post('/api/updmemrole', (req,res,next) => {
+  let memRoleQ = 'UPDATE member SET user_type = ? WHERE project_id = ? AND user_id = ?';
+  db.query(memRoleQ,[
+    req.body.role,
+    req.body.projid,
+    req.body.userid
+  ], (err,result) => {
+    if (err) {
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Role updated succesfully'
+      };
+      res.status(200).send(response);
+    }
+  });
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/scrum-metrics/index.html'));
 });

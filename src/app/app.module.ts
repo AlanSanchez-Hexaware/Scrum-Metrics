@@ -53,6 +53,8 @@ import { AuthGuard } from './auth.guard';
 import { ProjectsComponent } from './projects/projects.component';
 import { CurrentprojComponent } from './projects/currentproj/currentproj.component';
 import { AddmemberComponent } from './projects/currentproj/addmember/addmember.component';
+import { NewroleComponent } from './projects/currentproj/newrole/newrole.component';
+import { BoardComponent } from './projects/board/board.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { AddmemberComponent } from './projects/currentproj/addmember/addmember.c
     ProfileComponent,
     ProjectsComponent,
     CurrentprojComponent,
-    AddmemberComponent
+    AddmemberComponent,
+    NewroleComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +131,7 @@ import { AddmemberComponent } from './projects/currentproj/addmember/addmember.c
     AuthGuard
     ],
   bootstrap: [AppComponent],
-  entryComponents: [NewProjectComponent, ProfileComponent, AddmemberComponent]
+  entryComponents: [NewProjectComponent, ProfileComponent, AddmemberComponent, NewroleComponent]
 })
 export class AppModule {
   constructor(private dateAdapter: DateAdapter<Date>) {

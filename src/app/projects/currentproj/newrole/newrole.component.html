@@ -1,0 +1,9 @@
+<mat-form-field>
+    <mat-label>Role</mat-label>
+    <select [formControl]="myControl" matNativeControl>
+      <option value="ScrumMaster">Scrum Master</option>
+      <option value="Product Owner">Product Owner</option>
+      <option value="Team Member">Team Member</option>
+    </select>
+</mat-form-field>
+<button mat-raised-button color="primary" class="savebutton" (click)="onSave()">Save</button>

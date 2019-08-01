@@ -30,7 +30,7 @@ export class ProjectsService {
     return this.http.post('http://192.168.0.108:3000/api/lastproject', projname).toPromise();
   }
 
-  setMember(projid: number, user: number, role: string) {
+  setMember(projid: string, user: number, role: string) {
     const member = { projid, user, role };
     return this.http.post('http://192.168.0.108:3000/api/postmember', member).toPromise();
   }
@@ -48,5 +48,20 @@ export class ProjectsService {
   getMembers(projid: string) {
     const project = { projid };
     return this.http.post('http://192.168.0.108:3000/api/projmembers', project).toPromise();
+  }
+
+  setNewDesc(projid: string, description: string) {
+    const project = { projid, description };
+    return this.http.put('http://192.168.0.108:3000/api/setnewdesc', project).toPromise();
+  }
+
+  deleteMember(userid: string, projid: string) {
+    const user = { userid, projid };
+    return this.http.post('http://192.168.0.108:3000/api/deletemember', user).toPromise();
+  }
+
+  updRole(projid: string, userid: string, role: string) {
+    const member = { projid, userid, role };
+    return this.http.post('http://192.168.0.108:3000/api/updmemrole', member).toPromise();
   }
 }

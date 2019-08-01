@@ -4,6 +4,8 @@ import { ProjectsService } from 'src/app/projects.service';
 import { UserService } from 'src/app/register/users.service';
 import { MatDialog } from '@angular/material';
 import { AddmemberComponent } from './addmember/addmember.component';
+import { NgForm } from '@angular/forms';
+import { NewroleComponent } from './newrole/newrole.component';
 
 @Component({
   selector: 'app-currentproj',
@@ -88,6 +90,35 @@ export class CurrentprojComponent implements OnInit {
     const dialogRef = this.dialog.open(AddmemberComponent, {});
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+
+  newRole(userid: string) {
+    sessionStorage.setItem('userupd', userid);
+    const dialogRef = this.dialog.open(NewroleComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      sessionStorage.removeItem('userupd');
+      console.log('The dialog was closed');
+    });
+  }
+
+  setNewDesc(form: NgForm) {
+    this.projectService.setNewDesc(this.projid, form.value.inDesc).then((responseData) => {
+      if (responseData['error']) {
+        alert('Error. Try again.');
+      } else {
+        alert(responseData['message']);
+      }
+    });
+  }
+
+  deleteMember(userid: string) {
+    this.projectService.deleteMember(userid, this.projid).then((responseData) => {
+      if (responseData['error']) {
+        alert('Error. Try again.');
+      } else {
+        alert(responseData['message']);
+      }
     });
   }
 

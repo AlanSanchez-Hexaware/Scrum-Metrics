@@ -10,13 +10,17 @@
                 <a (click)="fileInput.click()" id="changephoto">Change photo</a>
             </div>
           </div>
-          <div fxLayout="column">
-            <h1 class="projcont">{{projname}}</h1>
-            <p class="projcont">{{projdesc}}</p>
-            <div fxLayout="row" fxLayoutAlign="end">
-              <button mat-raised-button class="descbutton">Edit Description</button>
+          <form (submit)="setNewDesc(projectForm)" #projectForm="ngForm" class="projform">
+            <div fxLayout="column" class="projthings">
+              <h1 class="projcont">{{projname}}</h1>
+              <mat-form-field>
+                <textarea matInput class="descarea" name="inDesc" [ngModel]="projdesc" rows="4" maxlength="150"></textarea>
+              </mat-form-field>
+              <div fxLayout="row" fxLayoutAlign="end">
+                <button mat-raised-button class="descbutton" type="submit">Edit Description</button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
         <div fxLayout="row" class="secondrow">
           <div fxLayout="column" class="datecol">
@@ -24,21 +28,45 @@
             <p>{{startdate}}</p>
             <h3>End Date</h3>
             <p>{{enddate}}</p>
-            <button mat-raised-button class="boardbutton">Go to Board</button>
           </div>
           <div fxLayout="column" class="memberscol">
-            <h2>Members</h2>
-            <div class="expan">
+            <div name="">
+              <h2>Sprints</h2>
+              <div class="expan">
+                <mat-expansion-panel class="exppanel">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="pantitle">
+                      Sprint 1
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div fxLayoutAlign="end">
+                    <button mat-raised-button class="expbuttons" [routerLink]="['/app/board']" routerLinkActive="router-link-active" >Go to Board</button>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+              <div fxLayoutAlign="end">
+                <button mat-raised-button class="memberbutton">Add Sprint</button>
+              </div>
+            </div>
+            <div name="membersdiv">
+              <h2>Members</h2>
+              <div class="expan">
                 <mat-expansion-panel class="exppanel" *ngFor="let member of memberids; let i = index">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title class="pantitle">
-                        {{membernames[i]}}
-                      </mat-panel-title>
-                      <mat-panel-description class="panrole">
-                        {{memberroles[i]}}
-                      </mat-panel-description>
-                    </mat-expansion-panel-header>
-                  </mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="pantitle">
+                      {{membernames[i]}}
+                    </mat-panel-title>
+                    <mat-panel-description class="panrole">
+                      {{memberroles[i]}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <div fxLayoutAlign="end">
+                    <button mat-raised-button color="secondary" class="expbuttons">Stats</button>
+                    <button mat-raised-button color="primary" class="expbuttons" (click)="newRole(member)">Edit Role</button>
+                    <button mat-raised-button color="warn" class="expbuttons" (click)="deleteMember(member)">Delete</button>
+                  </div>
+                </mat-expansion-panel>
+              </div>
             </div>
             <div fxLayoutAlign="end">
               <button mat-raised-button class="memberbutton" (click)="addUser()">Add Member</button>
