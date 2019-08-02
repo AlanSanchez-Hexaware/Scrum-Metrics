@@ -40,9 +40,10 @@
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div fxLayoutAlign="end">
-                    <button mat-raised-button class="expbuttons" [routerLink]="['/app/board']" routerLinkActive="router-link-active" >Go to Board</button>
+                    <button mat-raised-button class="expbuttons" (click)="openBoard(sprint)" routerLinkActive="router-link-active" >Go to Board</button>
                   </div>
                 </mat-expansion-panel>
+                <h5 *ngIf="sprints.length <= 0">You don't have any sprints yet</h5>
               </div>
               <div fxLayoutAlign="end">
                 <button mat-raised-button class="memberbutton" (click)="addSprint()">Add Sprint</button>

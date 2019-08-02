@@ -74,4 +74,19 @@ export class ProjectsService {
     const sprint = { name, projid };
     return this.http.post('http://192.168.0.108:3000/api/setsprint', sprint).toPromise();
   }
+
+  getCurSprint(projid: string, name: string) {
+    const cursprint = { projid, name };
+    return this.http.post('http://192.168.0.108:3000/api/currsprint', cursprint).toPromise();
+  }
+
+  getStories(projid: string, sprintid: string) {
+    const story = { projid, sprintid };
+    return this.http.post('http://192.168.0.108:3000/api/getstories', story).toPromise();
+  }
+
+  setStory(description: string, sprintid: string, projid: string) {
+    const story = { description, sprintid, projid };
+    return this.http.post('http://192.168.0.108:3000/api/poststory', story).toPromise();
+  }
 }

@@ -1,0 +1,8 @@
+<form (submit)="onCreate(storyForm)" #storyForm="ngForm" class="projform">
+  <mat-form-field class="storyarea">
+    <textarea matInput class="storyarea" name="inStory" ngModel rows="5" maxlength="300" minlength="20" placeholder="Minimum 20 letters."></textarea>
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <button mat-raised-button class="createbutton" type="submit" color="primary">Create Story</button>
+  </div>
+</form>

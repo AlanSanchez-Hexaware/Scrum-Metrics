@@ -1,1 +1,43 @@
-<h1>Sprint 1</h1>
+<div fxLayout="column" class="boardall">
+  <div cdkDropListGroup class="boards">
+    <div fxLayout="row">
+      <div class="boardCol">
+        <h2>Backlog</h2>
+        <div cdkDropList [cdkDropListData]="backlogA" class="backlist" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of backlogA" cdkDrag>{{story}}</div>
+        </div>
+      </div>
+      <div class="boardCol">
+        <h2>To Do</h2>
+        <div cdkDropList [cdkDropListData]="todoA" class="backlist" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of todoA" cdkDrag>{{story}}</div>
+        </div>
+      </div>
+      <div class="boardCol">
+        <h2>In Progress</h2>
+        <div cdkDropList [cdkDropListData]="progressA" class="backlist" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of progressA" cdkDrag>{{story}}</div>
+        </div>
+      </div>
+      <div class="boardCol">
+        <h2>Test</h2>
+        <div cdkDropList [cdkDropListData]="testA" class="backlist" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of testA" cdkDrag>{{story}}</div>
+        </div>
+      </div>
+      <div class="boardCol">
+        <h2>Review</h2>
+        <div cdkDropList [cdkDropListData]="reviewA" class="backlist" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of reviewA" cdkDrag>{{story}}</div>
+        </div>
+      </div>
+      <div class="boardCol">
+        <h2>Done</h2>
+        <div cdkDropList [cdkDropListData]="doneA" class="backlist" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of doneA" cdkDrag>{{story}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button class="storybutton" color="primary" (click)="onAddStory()">Add Story</button>
+</div>

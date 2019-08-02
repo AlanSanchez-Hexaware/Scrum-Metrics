@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 import {
@@ -56,6 +57,7 @@ import { AddmemberComponent } from './projects/currentproj/addmember/addmember.c
 import { NewroleComponent } from './projects/currentproj/newrole/newrole.component';
 import { BoardComponent } from './projects/board/board.component';
 import { NewsprintComponent } from './projects/currentproj/newsprint/newsprint.component';
+import { NewStoryComponent } from './projects/board/new-story/new-story.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { NewsprintComponent } from './projects/currentproj/newsprint/newsprint.c
     AddmemberComponent,
     NewroleComponent,
     BoardComponent,
-    NewsprintComponent
+    NewsprintComponent,
+    NewStoryComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +113,8 @@ import { NewsprintComponent } from './projects/currentproj/newsprint/newsprint.c
     MatFormFieldModule,
     MatSelectModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ],
   exports: [
     MatTabsModule,
@@ -124,7 +128,8 @@ import { NewsprintComponent } from './projects/currentproj/newsprint/newsprint.c
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DragDropModule
   ],
   providers: [
     MatDatepickerModule,
@@ -133,7 +138,7 @@ import { NewsprintComponent } from './projects/currentproj/newsprint/newsprint.c
     AuthGuard
     ],
   bootstrap: [AppComponent],
-  entryComponents: [NewProjectComponent, ProfileComponent, AddmemberComponent, NewroleComponent, NewsprintComponent]
+  entryComponents: [NewProjectComponent, ProfileComponent, AddmemberComponent, NewroleComponent, NewsprintComponent, NewStoryComponent]
 })
 export class AppModule {
   constructor(private dateAdapter: DateAdapter<Date>) {

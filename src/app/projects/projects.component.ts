@@ -18,6 +18,9 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     sessionStorage.removeItem('currproj');
+    sessionStorage.removeItem('currprojid');
+    sessionStorage.removeItem('sprint');
+    sessionStorage.removeItem('sprintid');
     this.projectService.getUserProjects(this.useridd).then((responseData) => {
       const projectids = JSON.parse(JSON.stringify(responseData));
       projectids.forEach((Object: any) => {
@@ -43,7 +46,7 @@ export class ProjectsComponent implements OnInit {
   openProject(projname: string, projid: number) {
     sessionStorage.setItem('currproj', projname);
     sessionStorage.setItem('currprojid', projid.toString());
-    setTimeout(window.location.href = '/app/currentproject', 1);
+    setTimeout(window.location.href = '/app/currentproject', 0);
     // this.router.navigate(['/app/currentproject']);
   }
 

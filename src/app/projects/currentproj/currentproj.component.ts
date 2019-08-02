@@ -34,6 +34,7 @@ export class CurrentprojComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
+    sessionStorage.removeItem('sprint');
     if (sessionStorage.getItem('currproj') === null) {
       this.router.navigate(['/app/projects']);
     }
@@ -138,6 +139,17 @@ export class CurrentprojComponent implements OnInit {
       } else {
         alert(responseData['message']);
       }
+    });
+  }
+
+  openBoard(sprint: string) {
+    this.projectService.getCurSprint(this.projid, sprint).then((responseData) => {
+      const response = JSON.parse(JSON.stringify(responseData));
+      response.forEach((Object: any) => {
+        sessionStorage.setItem('sprintid', (Object['sprint_id']));
+      });
+      sessionStorage.setItem('sprint', sprint);
+      setTimeout(window.location.href = '/app/board', 0);
     });
   }
 

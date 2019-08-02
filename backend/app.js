@@ -543,7 +543,7 @@ app.post('/api/updmemrole', (req,res,next) => {
 
 app.post('/api/setsprint', (req,res,next)=>{
   let sprintName = 'SELECT * FROM sprint WHERE name = ? AND project_id = ?';
-  let newSprintQuery = 'INSERT INTO sprint (name, project_id) VALUES (?,?)';
+  let newSprintQuery = 'INSERT INTO sprint (name, project_id, done) VALUES (?,?,false)';
   db.query(sprintName,[
     req.body.name,
     req.body.projid
@@ -603,6 +603,69 @@ app.post('/api/getsprints', (req,res,next)=>{
       res.status(500).send(response);
     } else {
       res.status(200).send(result);
+    }
+  });
+});
+
+app.post('/api/currsprint', (req,res,next)=>{
+  let cursprintQ = 'SELECT sprint_id FROM sprint WHERE project_id = ? AND name = ?';
+  db.query(cursprintQ,[
+    req.body.projid,
+    req.body.name
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    }else{
+      res.status(200).send(result);
+    }
+  })
+});
+
+app.post('/api/getstories', (req,res,next)=>{
+  let storiesQ = 'SELECT story_id, description, col_id FROM story WHERE project_id = ? AND sprint_id = ?';
+  db.query(storiesQ,[
+    req.body.projid,
+    req.body.sprintid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.post('/api/poststory', (req,res,next)=>{
+  let storyQ = 'INSERT INTO story (description,sprint_id,project_id,col_id) VALUES (?,?,?,1)';
+  db.query(storyQ,[
+    req.body.description,
+    req.body.sprintid,
+    req.body.projid,
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    }else{
+      response = {
+        error: false,
+        code: 200,
+        message: 'Story created'
+      };
+      res.status(200).send(response);
     }
   });
 });

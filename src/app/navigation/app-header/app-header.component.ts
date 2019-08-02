@@ -12,6 +12,7 @@ export class AppHeaderComponent implements OnInit {
   username = sessionStorage.getItem('username');
   fullname = sessionStorage.getItem('name');
   projname = sessionStorage.getItem('currproj');
+  sprintname = sessionStorage.getItem('sprint');
 
   @Output() public sidenavToggle = new EventEmitter();
 
@@ -39,6 +40,7 @@ export class AppHeaderComponent implements OnInit {
   checkProj() {
     if (sessionStorage.getItem('currproj') === null) {
       this.projname = 'No open project';
+      this.sprintname = '';
     }
   }
 
