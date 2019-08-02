@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { NgForm } from '@angular/forms';
 import { NewroleComponent } from './newrole/newrole.component';
+import { NewsprintComponent } from './newsprint/newsprint.component';
 
 @Component({
   selector: 'app-currentproj',
@@ -25,6 +26,7 @@ export class CurrentprojComponent implements OnInit {
   memberids = [];
   membernames = [];
   memberroles = [];
+  sprints = [];
 
   constructor(private router: Router,
               private projectService: ProjectsService,
@@ -37,6 +39,7 @@ export class CurrentprojComponent implements OnInit {
     }
     this.getProjectInfo();
     this.getProjectMembers();
+    this.getSprints();
   }
 
   onFileChanged(event) {
@@ -86,8 +89,24 @@ export class CurrentprojComponent implements OnInit {
     });
   }
 
+  getSprints() {
+    this.projectService.getSprints(this.projid).then((responseData) => {
+      const response = JSON.parse(JSON.stringify(responseData));
+      response.forEach((Object: any) => {
+        this.sprints.push(Object['name']);
+      });
+    });
+  }
+
   addUser() {
     const dialogRef = this.dialog.open(AddmemberComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  addSprint() {
+    const dialogRef = this.dialog.open(NewsprintComponent, {});
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });

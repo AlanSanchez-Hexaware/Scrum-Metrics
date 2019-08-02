@@ -64,4 +64,14 @@ export class ProjectsService {
     const member = { projid, userid, role };
     return this.http.post('http://192.168.0.108:3000/api/updmemrole', member).toPromise();
   }
+
+  getSprints(projid: string) {
+    const proj = { projid };
+    return this.http.post('http://192.168.0.108:3000/api/getsprints', proj).toPromise();
+  }
+
+  newSprint(name: string, projid: string) {
+    const sprint = { name, projid };
+    return this.http.post('http://192.168.0.108:3000/api/setsprint', sprint).toPromise();
+  }
 }

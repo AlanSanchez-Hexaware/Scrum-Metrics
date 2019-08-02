@@ -33,10 +33,10 @@
             <div name="">
               <h2>Sprints</h2>
               <div class="expan">
-                <mat-expansion-panel class="exppanel">
+                <mat-expansion-panel class="exppanel" *ngFor="let sprint of sprints; let i = index">
                   <mat-expansion-panel-header>
                     <mat-panel-title class="pantitle">
-                      Sprint 1
+                      {{sprint}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div fxLayoutAlign="end">
@@ -45,7 +45,7 @@
                 </mat-expansion-panel>
               </div>
               <div fxLayoutAlign="end">
-                <button mat-raised-button class="memberbutton">Add Sprint</button>
+                <button mat-raised-button class="memberbutton" (click)="addSprint()">Add Sprint</button>
               </div>
             </div>
             <div name="membersdiv">

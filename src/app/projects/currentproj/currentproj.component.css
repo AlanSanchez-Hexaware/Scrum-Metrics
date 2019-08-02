@@ -85,17 +85,18 @@
 }
 
 .expan{
-  min-width: 200px;
+  min-width: 50px;
   max-width: 800px;
 }
 
 .exppanel{
+  min-width: 100px;
   width: 95%;
 }
 
 .pantitle{
-  min-width: 50px;
-  width: 100px;
+  min-width: 40px;
+  width: 10%;
   padding: 0% 10% 0% 3%;
   font-weight: bold;
 }

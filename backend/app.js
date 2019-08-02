@@ -541,6 +541,72 @@ app.post('/api/updmemrole', (req,res,next) => {
   });
 });
 
+app.post('/api/setsprint', (req,res,next)=>{
+  let sprintName = 'SELECT * FROM sprint WHERE name = ? AND project_id = ?';
+  let newSprintQuery = 'INSERT INTO sprint (name, project_id) VALUES (?,?)';
+  db.query(sprintName,[
+    req.body.name,
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      if(result.length>0){
+        response = {
+          error: false,
+          code: 200,
+          message: 'Name already in use'
+        };
+        res.status(200).send(response);
+      } else {
+        db.query(newSprintQuery,[
+          req.body.name,
+          req.body.projid
+        ],(err,result)=>{
+          if(err){
+            response = {
+              error: true,
+              code: 500,
+              message: err
+            };
+            res.status(500).send(response);
+          }else{
+            response = {
+              error: false,
+              code: 201,
+              message: 'Sprint created.'
+            };
+            res.status(201).send(response);
+          }
+        });
+      }
+    }
+  });
+});
+
+app.post('/api/getsprints', (req,res,next)=>{
+  let sprintsQuery = 'SELECT name FROM sprint WHERE project_id = ?';
+  db.query(sprintsQuery,[
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/scrum-metrics/index.html'));
 });
