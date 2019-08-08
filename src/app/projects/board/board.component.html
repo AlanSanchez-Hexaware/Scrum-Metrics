@@ -1,43 +1,44 @@
 <div fxLayout="column" class="boardall">
   <div cdkDropListGroup class="boards">
     <div fxLayout="row">
-      <div class="boardCol">
+      <div class="boardCol" *ngIf="!doneStatus">
         <h2>Backlog</h2>
-        <div cdkDropList [cdkDropListData]="backlogA" class="backlist" (cdkDropListDropped)="drop($event)">
-          <div class="listitem" *ngFor="let story of backlogA" cdkDrag>{{story}}</div>
+        <div cdkDropList [cdkDropListData]="backlogA" class="backlist" id="cdk-drop-list-0" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of backlogA" cdkDrag [class.disabled]="doneStatus" (click)="onEditStory(story)">{{story}}</div>
         </div>
       </div>
-      <div class="boardCol">
+      <div class="boardCol" *ngIf="!doneStatus">
         <h2>To Do</h2>
-        <div cdkDropList [cdkDropListData]="todoA" class="backlist" (cdkDropListDropped)="drop($event)">
-          <div class="listitem" *ngFor="let story of todoA" cdkDrag>{{story}}</div>
+        <div cdkDropList [cdkDropListData]="todoA" class="backlist" id="cdk-drop-list-1" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of todoA" cdkDrag [class.disabled]="doneStatus" (click)="onEditStory(story)">{{story}}</div>
         </div>
       </div>
-      <div class="boardCol">
+      <div class="boardCol" *ngIf="!doneStatus">
         <h2>In Progress</h2>
-        <div cdkDropList [cdkDropListData]="progressA" class="backlist" (cdkDropListDropped)="drop($event)">
-          <div class="listitem" *ngFor="let story of progressA" cdkDrag>{{story}}</div>
+        <div cdkDropList [cdkDropListData]="progressA" class="backlist" id="cdk-drop-list-2" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of progressA" cdkDrag [class.disabled]="doneStatus" (click)="onEditStory(story)">{{story}}</div>
         </div>
       </div>
-      <div class="boardCol">
+      <div class="boardCol" *ngIf="!doneStatus">
         <h2>Test</h2>
-        <div cdkDropList [cdkDropListData]="testA" class="backlist" (cdkDropListDropped)="drop($event)">
-          <div class="listitem" *ngFor="let story of testA" cdkDrag>{{story}}</div>
+        <div cdkDropList [cdkDropListData]="testA" class="backlist" id="cdk-drop-list-3" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of testA" cdkDrag [class.disabled]="doneStatus" (click)="onEditStory(story)">{{story}}</div>
         </div>
       </div>
-      <div class="boardCol">
+      <div class="boardCol" *ngIf="!doneStatus">
         <h2>Review</h2>
-        <div cdkDropList [cdkDropListData]="reviewA" class="backlist" (cdkDropListDropped)="drop($event)">
-          <div class="listitem" *ngFor="let story of reviewA" cdkDrag>{{story}}</div>
+        <div cdkDropList [cdkDropListData]="reviewA" class="backlist" id="cdk-drop-list-4" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of reviewA" cdkDrag [class.disabled]="doneStatus" (click)="onEditStory(story)">{{story}}</div>
         </div>
       </div>
       <div class="boardCol">
         <h2>Done</h2>
-        <div cdkDropList [cdkDropListData]="doneA" class="backlist" (cdkDropListDropped)="drop($event)">
-          <div class="listitem" *ngFor="let story of doneA" cdkDrag>{{story}}</div>
+        <div cdkDropList [cdkDropListData]="doneA" class="backlist" id="cdk-drop-list-5" (cdkDropListDropped)="drop($event)">
+          <div class="listitem" *ngFor="let story of doneA" cdkDrag [class.disabled]="doneStatus">{{story}}</div>
         </div>
       </div>
     </div>
   </div>
-  <button mat-raised-button class="storybutton" color="primary" (click)="onAddStory()">Add Story</button>
+  <button mat-raised-button class="endbutton" color="warn" (click)="onEnd()" [class.disabled]="doneStatus" [disabled]="doneStatus">End Sprint</button>
+  <button mat-raised-button class="storybutton" color="primary" (click)="onAddStory()" [class.disabled]="doneStatus" [disabled]="doneStatus">Add Story</button>
 </div>

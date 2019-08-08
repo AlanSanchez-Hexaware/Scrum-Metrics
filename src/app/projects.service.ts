@@ -9,6 +9,7 @@ export class ProjectsService {
 
   private projectids: any[];
   private currproj: number;
+  private host = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
@@ -16,7 +17,7 @@ export class ProjectsService {
   setProject(name: string, description: string, start_date: any, end_date: any, image: any) {
     const project: Project = { name, description, start_date, end_date, image };
     let nameerror = false;
-    this.http.post<{error: boolean, message: string}>('http://192.168.0.108:3000/api/postproject', project).subscribe((responseData) => {
+    this.http.post<{error: boolean, message: string}>( this.host + '/api/postproject', project).subscribe((responseData) => {
       alert(responseData.message);
       if (responseData.error) {
         nameerror = true;
@@ -27,66 +28,101 @@ export class ProjectsService {
 
   getProject(name: string) {
     const projname = { name };
-    return this.http.post('http://192.168.0.108:3000/api/lastproject', projname).toPromise();
+    return this.http.post( this.host + '/api/lastproject', projname).toPromise();
   }
 
   setMember(projid: string, user: number, role: string) {
     const member = { projid, user, role };
-    return this.http.post('http://192.168.0.108:3000/api/postmember', member).toPromise();
+    return this.http.post( this.host + '/api/postmember', member).toPromise();
   }
 
   getUserProjects(userid: string) {
     const usid = { userid };
-    return this.http.post('http://192.168.0.108:3000/api/userprojs', usid).toPromise();
+    return this.http.post( this.host + '/api/userprojs', usid).toPromise();
   }
 
   getProjectInfo(projectid: string) {
     const proj = { projectid };
-    return this.http.post('http://192.168.0.108:3000/api/projectinfo', proj).toPromise();
+    return this.http.post( this.host + '/api/projectinfo', proj).toPromise();
   }
 
   getMembers(projid: string) {
     const project = { projid };
-    return this.http.post('http://192.168.0.108:3000/api/projmembers', project).toPromise();
+    return this.http.post( this.host + '/api/projmembers', project).toPromise();
   }
 
   setNewDesc(projid: string, description: string) {
     const project = { projid, description };
-    return this.http.put('http://192.168.0.108:3000/api/setnewdesc', project).toPromise();
+    return this.http.put( this.host + '/api/setnewdesc', project).toPromise();
   }
 
   deleteMember(userid: string, projid: string) {
     const user = { userid, projid };
-    return this.http.post('http://192.168.0.108:3000/api/deletemember', user).toPromise();
+    return this.http.post( this.host + '/api/deletemember', user).toPromise();
   }
 
   updRole(projid: string, userid: string, role: string) {
     const member = { projid, userid, role };
-    return this.http.post('http://192.168.0.108:3000/api/updmemrole', member).toPromise();
+    return this.http.put( this.host + '/api/updmemrole', member).toPromise();
   }
 
   getSprints(projid: string) {
     const proj = { projid };
-    return this.http.post('http://192.168.0.108:3000/api/getsprints', proj).toPromise();
+    return this.http.post( this.host + '/api/getsprints', proj).toPromise();
   }
 
   newSprint(name: string, projid: string) {
     const sprint = { name, projid };
-    return this.http.post('http://192.168.0.108:3000/api/setsprint', sprint).toPromise();
+    return this.http.post( this.host + '/api/setsprint', sprint).toPromise();
   }
 
   getCurSprint(projid: string, name: string) {
     const cursprint = { projid, name };
-    return this.http.post('http://192.168.0.108:3000/api/currsprint', cursprint).toPromise();
+    return this.http.post( this.host + '/api/currsprint', cursprint).toPromise();
   }
 
   getStories(projid: string, sprintid: string) {
     const story = { projid, sprintid };
-    return this.http.post('http://192.168.0.108:3000/api/getstories', story).toPromise();
+    return this.http.post( this.host + '/api/getstories', story).toPromise();
   }
 
   setStory(description: string, sprintid: string, projid: string) {
     const story = { description, sprintid, projid };
-    return this.http.post('http://192.168.0.108:3000/api/poststory', story).toPromise();
+    return this.http.post( this.host + '/api/poststory', story).toPromise();
+  }
+
+  updStoryCol(colid: string, storyname: string, sprintid: string, projid: string) {
+    const story = { colid, storyname, sprintid, projid };
+    return this.http.put( this.host + '/api/updstorycol', story).toPromise();
+  }
+
+  checkSprint(sprintid: string, projid: string) {
+    const sprint = { sprintid, projid };
+    return this.http.post( this.host + '/api/sprintstatus', sprint).toPromise();
+  }
+
+  endSprint(sprintid: string, projid: string) {
+    const sprint = { sprintid, projid };
+    return this.http.put(this.host + '/api/endsprint', sprint).toPromise();
+  }
+
+  moveStory(sprintid: string, projid: string, storyid: string) {
+    const story = { sprintid, projid, storyid };
+    return this.http.put(this.host + '/api/movestory', story).toPromise();
+  }
+
+  getUnfinishedStories(sprintid: string, projid: string) {
+    const story = { sprintid, projid };
+    return this.http.post(this.host + '/api/unfinishedstories', story).toPromise();
+  }
+
+  getNextSprint(projid: string) {
+    const sprint = { projid };
+    return this.http.post(this.host + '/api/getnextsprint', sprint).toPromise();
+  }
+
+  editStory(sprintid: string, projid: string, oldstory: string, newstory: string) {
+    const story = { sprintid, projid, oldstory, newstory };
+    return this.http.put(this.host + '/api/editstory', story).toPromise();
   }
 }

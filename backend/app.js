@@ -516,7 +516,7 @@ app.post('/api/deletemember', (req,res,next)=>{
   });
 });
 
-app.post('/api/updmemrole', (req,res,next) => {
+app.put('/api/updmemrole', (req,res,next) => {
   let memRoleQ = 'UPDATE member SET user_type = ? WHERE project_id = ? AND user_id = ?';
   db.query(memRoleQ,[
     req.body.role,
@@ -666,6 +666,163 @@ app.post('/api/poststory', (req,res,next)=>{
         message: 'Story created'
       };
       res.status(200).send(response);
+    }
+  });
+});
+
+app.put('/api/updstorycol', (req,res,next)=>{
+  let colUpd = 'UPDATE story SET col_id = ? WHERE description = ? AND sprint_id = ? AND project_id = ?';
+  db.query(colUpd,[
+    req.body.colid,
+    req.body.storyname,
+    req.body.sprintid,
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Updated'
+      };
+      res.status(200).send(response);
+    }
+  });
+});
+
+app.post('/api/sprintstatus',(req,res,next)=>{
+  let statusQ = 'SELECT done FROM sprint WHERE sprint_id = ? AND project_id = ?';
+  db.query(statusQ,[
+    req.body.sprintid,
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      req.status(500).send(response);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.put('/api/endsprint', (req,res,next) => {
+  let endQ = 'UPDATE sprint SET done = 1 WHERE sprint_id = ? AND project_id = ?';
+  db.query(endQ,[
+    req.body.sprintid,
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Sprint finished succesfully'
+      };
+      res.status(200).send(response);
+    }
+  });
+});
+
+app.post('/api/unfinishedstories',(req,res,next)=>{
+  let notFinQ = 'SELECT story_id FROM story WHERE col_id < 6 AND sprint_id = ? AND project_id = ?';
+  db.query(notFinQ,[
+    req.body.sprintid,
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.put('/api/movestory', (req,res,next) => {
+  let moveQ = 'UPDATE story SET sprint_id = ? , col_id = 1 WHERE project_id = ? AND story_id = ?';
+  db.query(moveQ,[
+    req.body.sprintid,
+    req.body.projid,
+    req.body.storyid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Updated'
+      };
+      res.status(200).send(response);
+    }
+  });
+});
+
+app.put('/api/editstory', (req,res,next)=>{
+  let editStory = 'UPDATE story SET description = ? WHERE sprint_id = ? AND project_id = ? AND description = ?';
+  db.query(editStory,[
+    req.body.newstory,
+    req.body.sprintid,
+    req.body.projid,
+    req.body.oldstory
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      response = {
+        error: false,
+        code: 200,
+        message: 'Updated succesfully'
+      };
+      res.status(200).send(response);
+    }
+  });
+});
+
+app.post('/api/getnextsprint', (req,res,next)=>{
+  let nextQ = 'SELECT sprint_id FROM sprint WHERE project_id = ?';
+  db.query(nextQ,[
+    req.body.projid
+  ],(err,result)=>{
+    if(err){
+      response = {
+        error: true,
+        code: 500,
+        message: err
+      };
+      res.status(500).send(response);
+    } else {
+      res.status(200).send(result);
     }
   });
 });

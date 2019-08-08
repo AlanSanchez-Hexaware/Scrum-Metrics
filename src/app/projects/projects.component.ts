@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from '../projects.service';
 import { Router } from '@angular/router';
+import { AppHeaderComponent } from '../navigation/app-header/app-header.component';
 
 @Component({
   selector: 'app-projects',
@@ -48,6 +49,7 @@ export class ProjectsComponent implements OnInit {
     sessionStorage.setItem('currprojid', projid.toString());
     setTimeout(window.location.href = '/app/currentproject', 0);
     // this.router.navigate(['/app/currentproject']);
+    // this.navBar.ngOnInit();
   }
 
 }

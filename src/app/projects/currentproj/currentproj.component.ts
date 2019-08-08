@@ -38,9 +38,18 @@ export class CurrentprojComponent implements OnInit {
     if (sessionStorage.getItem('currproj') === null) {
       this.router.navigate(['/app/projects']);
     }
+    this.cleanAll();
     this.getProjectInfo();
     this.getProjectMembers();
     this.getSprints();
+  }
+
+  cleanAll() {
+    this.membersMap = new Map();
+    this.memberids = [];
+    this.membernames = [];
+    this.memberroles = [];
+    this.sprints = [];
   }
 
   onFileChanged(event) {
@@ -110,6 +119,7 @@ export class CurrentprojComponent implements OnInit {
     const dialogRef = this.dialog.open(NewsprintComponent, {});
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.ngOnInit();
     });
   }
 

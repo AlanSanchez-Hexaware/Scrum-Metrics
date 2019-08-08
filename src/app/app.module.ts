@@ -58,6 +58,7 @@ import { NewroleComponent } from './projects/currentproj/newrole/newrole.compone
 import { BoardComponent } from './projects/board/board.component';
 import { NewsprintComponent } from './projects/currentproj/newsprint/newsprint.component';
 import { NewStoryComponent } from './projects/board/new-story/new-story.component';
+import { EditstoryComponent } from './projects/board/editstory/editstory.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { NewStoryComponent } from './projects/board/new-story/new-story.componen
     NewroleComponent,
     BoardComponent,
     NewsprintComponent,
-    NewStoryComponent
+    NewStoryComponent,
+    EditstoryComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +140,14 @@ import { NewStoryComponent } from './projects/board/new-story/new-story.componen
     AuthGuard
     ],
   bootstrap: [AppComponent],
-  entryComponents: [NewProjectComponent, ProfileComponent, AddmemberComponent, NewroleComponent, NewsprintComponent, NewStoryComponent]
+  entryComponents: [
+    NewProjectComponent,
+    ProfileComponent,
+    AddmemberComponent,
+    NewroleComponent,
+    NewsprintComponent,
+    NewStoryComponent,
+    EditstoryComponent]
 })
 export class AppModule {
   constructor(private dateAdapter: DateAdapter<Date>) {
