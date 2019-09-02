@@ -9,7 +9,7 @@ export class ProjectsService {
 
   private projectids: any[];
   private currproj: number;
-  private host = 'http://localhost:3000';
+  private host = 'http://192.168.0.108:3000';
 
   constructor(private http: HttpClient) { }
 

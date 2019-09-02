@@ -9,7 +9,7 @@ export class UserService {
   private users: any[];
   private usernames: any[] = [];
   private usersMap = new Map();
-  private host = 'http://localhost:3000';
+  private host = 'http://192.168.0.108:3000';
 
   constructor(private http: HttpClient,
               private router: Router) {}
