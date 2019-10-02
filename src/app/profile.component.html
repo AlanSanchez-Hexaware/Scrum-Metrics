@@ -7,7 +7,7 @@
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
-    <h4 id="usernameh4">{{user.name}}</h4>
+    <h4 id="usernameh4">{{username}}</h4>
   </div>
   <div mat-dialog-content>
     <div fxLayout="row">
@@ -22,22 +22,25 @@
       <div fxLayout="column">
         <h3>Name</h3>
         <mat-form-field>
-          <input matInput type="text" placeholder={{thisname.name}} #name="ngModel" name="inName" ngModel [disabled]="disabledUser" required>
-          <mat-error *ngIf="name.invalid">You can't leave this blank</mat-error>
+          <input matInput pattern="([A-z0-9À-ž\s]){0,256}" type="text" [ngModel]=curname #name="ngModel" name="inName" [disabled]="disabledUser" required>
+          <mat-error *ngIf="name.invalid">Use the  correct format.</mat-error>
         </mat-form-field>
         <button mat-raised-button type="button" color="lightgray" (click)="changeCheck($event)" matTooltip="Click to change your name">Unlock/lock name</button>
         <h3>E-mail</h3>
         <mat-form-field>
-          <input matInput type="text" placeholder={{thisemail.name}} ngModel #email="ngModel" name="inMail" ngModel [disabled]="disabledEmail" required>
-          <mat-error *ngIf="email.invalid">You can't leave this blank</mat-error>
+          <input matInput pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text" [ngModel]=curemail #email="ngModel" name="inMail" [disabled]="disabledEmail" required>
+          <mat-error *ngIf="email.invalid">Use the  correct format</mat-error>
         </mat-form-field>
         <button mat-raised-button type="button" color="lightgray" (click)="changeCheck2($event)" matTooltip="Click to change your e-mail">Unlock/lock e-mail</button>
-        <a><h4>Change password</h4></a>
+        <a (click)="changePass()"><h4>Change password</h4></a>
       </div>
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-raised-button type="submit" color="primary">Save</button>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button type="button" color="warn" id="deletebtn" (click)="deleteAccount()">Delete account</button>
   </div>
   </form>
 </div>

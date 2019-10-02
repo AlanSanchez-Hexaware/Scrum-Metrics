@@ -14,7 +14,7 @@
             <div fxLayout="column" class="projthings">
               <h1 class="projcont">{{projname}}</h1>
               <mat-form-field>
-                <textarea matInput class="descarea" name="inDesc" [ngModel]="projdesc" rows="4" maxlength="150"></textarea>
+                <textarea matInput class="descarea" name="inDesc" [ngModel]="projdesc" rows="4" minlength="1" maxlength="1024"></textarea>
               </mat-form-field>
               <div fxLayout="row" fxLayoutAlign="end">
                 <button mat-raised-button class="descbutton" type="submit">Edit Description</button>

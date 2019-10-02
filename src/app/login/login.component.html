@@ -7,7 +7,7 @@
         <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
           <h3>Username:</h3>
           <mat-form-field>
-              <input matInput type="text" name="inUser" ngModel #user="ngModel" placeholder="Username" required>
+              <input matInput pattern="[A-Za-z0-9_-]{6,40}" type="text" name="inUser" ngModel #user="ngModel" placeholder="Username" required>
               <mat-error>You need to enter a valid username</mat-error>
           </mat-form-field>
           <div fxLayout="row" fxLayoutAlign="center center">
@@ -15,7 +15,7 @@
           </div>
           <h3>Password</h3>
           <mat-form-field>
-              <input matInput name="inPass" ngModel #pass="ngModel" placeholder="Password" required type="password">
+              <input matInput pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,12}" name="inPass" ngModel #pass="ngModel" placeholder="Password" required type="password">
               <mat-error *ngIf="pass.invalid">You need to enter a valid password</mat-error>
           </mat-form-field>
           <div fxLayout="row" fxLayoutAlign="center center">

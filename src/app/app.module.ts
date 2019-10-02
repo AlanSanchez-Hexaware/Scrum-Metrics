@@ -59,6 +59,8 @@ import { BoardComponent } from './projects/board/board.component';
 import { NewsprintComponent } from './projects/currentproj/newsprint/newsprint.component';
 import { NewStoryComponent } from './projects/board/new-story/new-story.component';
 import { EditstoryComponent } from './projects/board/editstory/editstory.component';
+import { ProfilenewpassComponent } from './profilenewpass/profilenewpass.component';
+import { DeleteuserComponent } from './deleteuser/deleteuser.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { EditstoryComponent } from './projects/board/editstory/editstory.compone
     BoardComponent,
     NewsprintComponent,
     NewStoryComponent,
-    EditstoryComponent
+    EditstoryComponent,
+    ProfilenewpassComponent,
+    DeleteuserComponent
   ],
   imports: [
     BrowserModule,
@@ -143,6 +147,8 @@ import { EditstoryComponent } from './projects/board/editstory/editstory.compone
   entryComponents: [
     NewProjectComponent,
     ProfileComponent,
+    ProfilenewpassComponent,
+    DeleteuserComponent,
     AddmemberComponent,
     NewroleComponent,
     NewsprintComponent,

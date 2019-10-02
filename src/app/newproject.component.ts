@@ -26,6 +26,7 @@ export class NewProjectComponent implements OnInit {
   firstDate: string = null;
   usersMap = new Map();
   rolesMap = new Map();
+  baseImg;
 
   constructor(
     public dialogRef: MatDialogRef<NewProjectComponent>,
@@ -74,7 +75,7 @@ export class NewProjectComponent implements OnInit {
             this.myControl.reset();
             this.myControl2.reset();
           } else {
-            alert('Pleas enter a role');
+            alert('Please enter a role');
             this.myControl2.reset();
           }
         } else {
@@ -106,35 +107,30 @@ export class NewProjectComponent implements OnInit {
     }
     const projectname: string = form.value.inName;
     const projDesc: string = form.value.inDesc;
-    const imgName: string = form.value.inName + '.jpg';
-    // const file: File = new File(this.selectedFile, imgName, {type: 'image/jpeg'});
-    // this.savenewimg.saveImg(this.selectedFile, imgName);
-    const firstDate1: Date = form.value.inDate1;
+    const firstDate: Date = form.value.inDate1;
     const lastDate: Date = form.value.inDate2;
-    const fixedDate: string = firstDate1.getFullYear() + '-' + firstDate1.getMonth() + '-' + firstDate1.getDate();
+    const fixedDate: string = firstDate.getFullYear() + '-' + (firstDate.getMonth() + 1) + '-' + firstDate.getDate();
     let fixedlastDate: string;
     if ( form.value.inDate2 != null ) {
-      fixedlastDate = lastDate.getFullYear() + '-' + lastDate.getMonth() + '-' + lastDate.getDate();
+      fixedlastDate = lastDate.getFullYear() + '-' + (lastDate.getMonth() + 1) + '-' + lastDate.getDate();
     } else {
       fixedlastDate = null;
     }
-    this.projectService.setProject(
-      projectname,
-      projDesc,
-      fixedDate,
-      fixedlastDate,
-      imgName);
-    let thisproj;
-    this.projectService.getProject(form.value.inName).then(result => {
-      const projectids = JSON.parse(JSON.stringify(result));
-      projectids.forEach((Object: any) => {
-        const currproj = Object.project_id;
-        thisproj = currproj;
+    if (lastDate < firstDate) {
+      alert('You can\'t have the end date before the start date.');
+      return;
+    }
+    this.projectService.setProject(projectname, projDesc, fixedDate, fixedlastDate, this.baseImg).then(result => {
+      const responseDat = JSON.parse(JSON.stringify(result));
+      if (responseDat.error) {
+        alert(responseDat.message);
+      } else {
         this.storedusers.forEach((user) => {
-          this.projectService.setMember(thisproj, this.usersMap.get(user), this.rolesMap.get(user));
+          this.projectService.setMember(responseDat[0].project_id, this.usersMap.get(user), this.rolesMap.get(user));
         });
+        alert('Project created');
         this.emptyAll();
-      });
+      }
     });
     this.dialogRef.close();
   }
@@ -147,6 +143,7 @@ export class NewProjectComponent implements OnInit {
       reader.onload = (event1) => {
         this.url = event1.currentTarget;
         this.url = this.url.result;
+        this.baseImg = reader.result.toString().split(',')[1];
       };
     }
     this.selectedFile = event.target.files[0];

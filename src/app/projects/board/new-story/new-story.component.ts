@@ -27,7 +27,7 @@ export class NewStoryComponent implements OnInit {
     this.projectService.setStory(form.value.inStory, this.sprintid, this.projid).then((responseData) => {
       // tslint:disable: no-string-literal
       if (responseData['error']) {
-        alert('Error, try again.');
+        alert(responseData['message']);
       } else {
         alert(responseData['message']);
       }

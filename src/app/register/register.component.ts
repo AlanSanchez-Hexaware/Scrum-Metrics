@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeCheck(event){
+  changeCheck(event) {
     this.disabledAgreement = !event.checked;
   }
 

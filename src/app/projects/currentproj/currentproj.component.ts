@@ -42,7 +42,39 @@ export class CurrentprojComponent implements OnInit {
     this.getProjectInfo();
     this.getProjectMembers();
     this.getSprints();
+    this.getProjectPic();
   }
+
+  getProjectPic() {
+    this.projectService.getProjImg(this.projid).then((responseData) => {
+      // tslint:disable: no-string-literal
+      const newimg = responseData[0].image;
+      sessionStorage.setItem('image', newimg);
+      this.convertImage(newimg);
+    });
+  }
+
+  convertImage(newimg) {
+    const imageBlob = this.dataURItoBlob(newimg);
+    const imageFile = new File([imageBlob], 'profilePic', {type: 'image/jpeg'});
+    const reader = new FileReader();
+    reader.readAsDataURL(imageFile);
+    reader.onload = (event1) => {
+        this.url = event1.currentTarget;
+        this.url = this.url.result;
+    };
+  }
+
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/jpeg' });
+    return blob;
+ }
 
   cleanAll() {
     this.membersMap = new Map();
@@ -60,6 +92,10 @@ export class CurrentprojComponent implements OnInit {
       reader.onload = (event1) => {
         this.url = event1.currentTarget;
         this.url = this.url.result;
+        this.projectService.setNewProjImg(this.projid, reader.result.toString().split(',')[1]).then((responseData) => {
+          // tslint:disable: no-string-literal
+          alert(responseData['message']);
+        });
       };
     }
     this.selectedFile = event.target.files[0];

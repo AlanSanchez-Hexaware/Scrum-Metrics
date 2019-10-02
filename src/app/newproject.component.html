@@ -19,12 +19,12 @@
     <div fxLayout="column">
       <h3>Name</h3>
       <mat-form-field>
-        <input matInput type="text" name="inName" #name="ngModel" ngModel placeholder="The name of your project." required minlength="3" maxlength="15">
+        <input matInput pattern="[A-Za-z0-9._%+-\s]{8,60}" type="text" name="inName" #name="ngModel" ngModel placeholder="The name of your project." required>
         <mat-error *ngIf="name.invalid">You need to enter a name.</mat-error>
       </mat-form-field>
       <h3>Description</h3>
       <mat-form-field>
-        <textarea matInput rows="6" name="inDesc" #desc="ngModel" ngModel placeholder="Insert a short description of your project here." required minlength="5" maxlength="150"></textarea>
+        <textarea matInput pattern="[A-Za-z0-9._%+-!@#$^&*()\s]{20,1024}" rows="6" name="inDesc" #desc="ngModel" ngModel placeholder="Insert a short description of your project here." required></textarea>
         <mat-error *ngIf="desc.invalid">You need to enter a description.</mat-error>
       </mat-form-field>
       <h3>Add Members</h3>

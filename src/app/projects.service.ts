@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Project } from './project.model';
 
 @Injectable({
@@ -9,21 +9,14 @@ export class ProjectsService {
 
   private projectids: any[];
   private currproj: number;
-  private host = 'http://192.168.0.108:3000';
+  private host = 'http://192.168.0.116:3000';
 
   constructor(private http: HttpClient) { }
 
   // tslint:disable-next-line: variable-name
   setProject(name: string, description: string, start_date: any, end_date: any, image: any) {
     const project: Project = { name, description, start_date, end_date, image };
-    let nameerror = false;
-    this.http.post<{error: boolean, message: string}>( this.host + '/api/postproject', project).subscribe((responseData) => {
-      alert(responseData.message);
-      if (responseData.error) {
-        nameerror = true;
-      }
-    });
-    return nameerror;
+    return this.http.post( this.host + '/api/postproject', project ).toPromise();
   }
 
   getProject(name: string) {
@@ -44,6 +37,16 @@ export class ProjectsService {
   getProjectInfo(projectid: string) {
     const proj = { projectid };
     return this.http.post( this.host + '/api/projectinfo', proj).toPromise();
+  }
+
+  setNewProjImg(projid: string, newimage: string) {
+    const proj = { projid, newimage };
+    return this.http.put(this.host + '/api/setnewprojimg', proj).toPromise();
+  }
+
+  getProjImg(projid: string) {
+    const proj = { projid };
+    return this.http.post(this.host + '/api/getprojectimage', proj).toPromise();
   }
 
   getMembers(projid: string) {

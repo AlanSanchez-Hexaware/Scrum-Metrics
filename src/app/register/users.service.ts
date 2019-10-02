@@ -9,7 +9,7 @@ export class UserService {
   private users: any[];
   private usernames: any[] = [];
   private usersMap = new Map();
-  private host = 'http://192.168.0.108:3000';
+  private host = 'http://192.168.0.116:3000';
 
   constructor(private http: HttpClient,
               private router: Router) {}
@@ -50,12 +50,19 @@ export class UserService {
         const curname = Object['name'];
         const curemail = Object['e_mail'];
         const curid = Object['user_id'];
+        const curimg = Object['image'];
         sessionStorage.setItem('name', curname);
         sessionStorage.setItem('email', curemail);
         sessionStorage.setItem('userid', curid);
+        sessionStorage.setItem('image', curimg);
         this.router.navigate(['/app/project']);
       });
     });
+  }
+
+  getUserImg(username: string) {
+    const user = { username };
+    return this.http.post(this.host + '/api/getprofileimage', user).toPromise();
   }
 
   loggedIn() {
@@ -110,15 +117,44 @@ export class UserService {
     });
   }
 
-  updateAll(username: string, name: string, email: string) {
-    const userupd = { username, name, email };
-    this.http.put<{error: boolean}>(this.host + '/api/allupd', userupd).subscribe((responseData) => {
+  updatePass(username: string, newpass: string) {
+    const passupd = { username, newpass };
+    this.http.put<{error: boolean}>(this.host + '/api/passupd', passupd).subscribe((responseData) => {
       if (responseData.error) {
         alert('Error, refresh and try again');
+      } else {
+        alert('Password updated succesfully');
+      }
+    });
+  }
+
+  updateImage(username: string, newimage: string) {
+    const imgupd = { username, newimage };
+    return this.http.put(this.host + '/api/picupd', imgupd).toPromise();
+  }
+
+  updateAll(username: string, name: string, email: string) {
+    const userupd = { username, name, email };
+    this.http.put<{error: boolean, message: string}>(this.host + '/api/allupd', userupd).subscribe((responseData) => {
+      if (responseData.error) {
+        alert(responseData.message);
       } else {
         alert('Success, reload page');
         sessionStorage.setItem('name', name);
         sessionStorage.setItem('email', email);
+      }
+    });
+  }
+
+  deleteAccount(userid: string, password: string) {
+    const deluser = { userid, password };
+    this.http.post<{error: boolean, message: string}>(this.host + '/api/deluser', deluser).subscribe((responseData) => {
+      if (responseData.error) {
+        alert(responseData.message);
+      } else {
+        alert(responseData.message);
+        sessionStorage.clear();
+        window.location.reload();
       }
     });
   }
