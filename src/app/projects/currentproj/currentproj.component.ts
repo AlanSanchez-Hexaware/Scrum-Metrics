@@ -49,8 +49,12 @@ export class CurrentprojComponent implements OnInit {
     this.projectService.getProjImg(this.projid).then((responseData) => {
       // tslint:disable: no-string-literal
       const newimg = responseData[0].image;
-      sessionStorage.setItem('image', newimg);
-      this.convertImage(newimg);
+      if (newimg.length < 5000) {
+        this.url = '../assets/img/scrum.png';
+      } else {
+        sessionStorage.setItem('image', newimg);
+        this.convertImage(newimg);
+      }
     });
   }
 

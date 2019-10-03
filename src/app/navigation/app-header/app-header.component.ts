@@ -52,8 +52,12 @@ export class AppHeaderComponent implements OnInit {
     this.userService.getUserImg(this.username).then((responseData) => {
       // tslint:disable: no-string-literal
       const newimg = responseData[0].image;
-      sessionStorage.setItem('image', newimg);
-      this.convertImage(newimg);
+      if (newimg.length < 5000) {
+        this.url = '../assets/img/stockprofile.png';
+      } else {
+        sessionStorage.setItem('image', newimg);
+        this.convertImage(newimg);
+      }
     });
   }
 

@@ -1225,8 +1225,13 @@ var AppHeaderComponent = /** @class */ (function () {
         this.userService.getUserImg(this.username).then(function (responseData) {
             // tslint:disable: no-string-literal
             var newimg = responseData[0].image;
-            sessionStorage.setItem('image', newimg);
-            _this.convertImage(newimg);
+            if (newimg.length < 5000) {
+                _this.url = '../assets/img/stockprofile.png';
+            }
+            else {
+                sessionStorage.setItem('image', newimg);
+                _this.convertImage(newimg);
+            }
         });
     };
     AppHeaderComponent.prototype.convertImage = function (newimg) {
@@ -1710,8 +1715,13 @@ var ProfileComponent = /** @class */ (function () {
         this.userService.getUserImg(this.username).then(function (responseData) {
             // tslint:disable: no-string-literal
             var newimg = responseData[0].image;
-            sessionStorage.setItem('image', newimg);
-            _this.convertImage(newimg);
+            if (newimg.length < 5000) {
+                _this.url = '../assets/img/stockprofile.png';
+            }
+            else {
+                sessionStorage.setItem('image', newimg);
+                _this.convertImage(newimg);
+            }
         });
     };
     ProfileComponent.prototype.convertImage = function (newimg) {
@@ -2532,8 +2542,13 @@ var CurrentprojComponent = /** @class */ (function () {
         this.projectService.getProjImg(this.projid).then(function (responseData) {
             // tslint:disable: no-string-literal
             var newimg = responseData[0].image;
-            sessionStorage.setItem('image', newimg);
-            _this.convertImage(newimg);
+            if (newimg.length < 5000) {
+                _this.url = '../assets/img/scrum.png';
+            }
+            else {
+                sessionStorage.setItem('image', newimg);
+                _this.convertImage(newimg);
+            }
         });
     };
     CurrentprojComponent.prototype.convertImage = function (newimg) {
