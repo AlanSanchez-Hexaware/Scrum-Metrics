@@ -130,9 +130,9 @@ export class NewProjectComponent implements OnInit {
         });
         alert('Project created');
         this.emptyAll();
+        this.dialogRef.close();
       }
     });
-    this.dialogRef.close();
   }
 
   onFileChanged(event) {
