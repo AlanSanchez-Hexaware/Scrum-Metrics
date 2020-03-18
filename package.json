@@ -41,7 +41,8 @@
     "swagger-ui": "^3.21.0",
     "tslib": "^1.9.0",
     "uuid": "^3.3.2",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "express": "4.17.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.801.1",
