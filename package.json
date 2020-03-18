@@ -11,6 +11,10 @@
     "start:server": "nodemon server.js",
     "dev": "lite-server"
   },
+  "engines": {
+    "node": "11.5.0",
+    "npm": "6.5.0"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.0.1",
