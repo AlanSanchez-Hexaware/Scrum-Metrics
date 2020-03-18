@@ -15,7 +15,7 @@ export class UserService {
 
   setUser(name: string, email: string, username: string, password: string) {
     const user: User = { name, email, username, password };
-    this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/postuser', user).subscribe((responseData) => {
+    this.http.post<{error: boolean, message: string}>('localhost:3000/api/postuser', user).subscribe((responseData) => {
       alert(responseData.message);
       if (responseData.error) {
         return;
@@ -27,7 +27,7 @@ export class UserService {
 
   loginUser(username: string, password: string) {
     const userLog = { username, password };
-    this.http.post<{error: boolean, message: string}>('http://localhost:3000/api/login', userLog).subscribe((responseData) => {
+    this.http.post<{error: boolean, message: string}>('localhost:3000/api/login', userLog).subscribe((responseData) => {
     if (responseData.error) {
         alert(responseData.message);
         return;
@@ -42,7 +42,7 @@ export class UserService {
   getUserInfo(username: string) {
     const user = { username };
     return this.http.post<{name: string, e_mail: string, user_id: number}>
-    ('http://localhost:3000/api/user', user).subscribe((responseData) => {
+    ('localhost:3000/api/user', user).subscribe((responseData) => {
       const user1: any[] = JSON.parse(JSON.stringify(responseData));
       user1.forEach((Object: any[]) => {
         // tslint:disable: no-string-literal
@@ -62,7 +62,7 @@ export class UserService {
   }
 
   getUsersM() {
-    this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
+    this.http.get('localhost:3000/api/usersquery').subscribe((responseData) => {
       this.users = JSON.parse(JSON.stringify(responseData));
       this.users.forEach((Object: any[]) => {
         // tslint:disable: no-string-literal
@@ -75,7 +75,7 @@ export class UserService {
   }
 
   getUsersA() {
-    this.http.get('http://localhost:3000/api/usersquery').subscribe((responseData) => {
+    this.http.get('localhost:3000/api/usersquery').subscribe((responseData) => {
       this.users = JSON.parse(JSON.stringify(responseData));
       this.users.forEach((Object: any[]) => {
         const currentuser = Object['username'];
@@ -87,7 +87,7 @@ export class UserService {
 
   updateName(username: string, name: string) {
     const userupd = { username, name };
-    this.http.put<{error: boolean}>('http://localhost:3000/api/nameupd', userupd).subscribe((responseData) => {
+    this.http.put<{error: boolean}>('localhost:3000/api/nameupd', userupd).subscribe((responseData) => {
       if (responseData.error) {
         alert('Error, refresh and try again');
       } else {
@@ -99,7 +99,7 @@ export class UserService {
 
   updateMail(username: string, email: string) {
     const userupd = { username, email };
-    this.http.put<{error: boolean}>('http://localhost:3000/api/mailupd', userupd).subscribe((responseData) => {
+    this.http.put<{error: boolean}>('localhost:3000/api/mailupd', userupd).subscribe((responseData) => {
       if (responseData.error) {
         alert('Error, refresh and try again');
       } else {
@@ -111,7 +111,7 @@ export class UserService {
 
   updateAll(username: string, name: string, email: string) {
     const userupd = { username, name, email };
-    this.http.put<{error: boolean}>('http://localhost:3000/api/allupd', userupd).subscribe((responseData) => {
+    this.http.put<{error: boolean}>('localhost:3000/api/allupd', userupd).subscribe((responseData) => {
       if (responseData.error) {
         alert('Error, refresh and try again');
       } else {
