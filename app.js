@@ -9,9 +9,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'lenny',
-  password: 'toor',
+  host: 'https://www.db4free.net',
+  user: 'lennyesquivel',
+  password: 'toortoor',
   database: 'userstest',
   insecureAuth: true
 });
