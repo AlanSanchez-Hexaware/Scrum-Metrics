@@ -9,7 +9,7 @@ export class ProjectsService {
 
   private projectids: any[];
   private currproj: number;
-  private host = 'http://192.168.0.116:3000';
+  private host = 'https://scrum-metrics.herokuapp.com';
 
   constructor(private http: HttpClient) { }
 

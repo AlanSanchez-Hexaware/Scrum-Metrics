@@ -9,7 +9,7 @@ export class UserService {
   private users: any[];
   private usernames: any[] = [];
   private usersMap = new Map();
-  private host = 'http://192.168.0.116:3000';
+  private host = 'https://scrum-metrics.herokuapp.com';
 
   constructor(private http: HttpClient,
               private router: Router) {}
