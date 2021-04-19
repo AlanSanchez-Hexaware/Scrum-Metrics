@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 
 const db = mysql.createConnection({
   host: 'db4free.net',
-  user: 'lennyesquivel',
+  user: 'atptraining',
   password: 'toortoor',
-  database: 'userstest',
+  database: 'atpdatabase',
   insecureAuth: true
 });
 
